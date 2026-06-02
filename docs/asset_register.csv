@@ -6,3 +6,6 @@ future-font-ui,TBD CJK-capable UI font,font,TBD,TBD,TBD,TBD,TBD,TBD,Default cand
 future-tileset-ruins,TBD ruin tileset,visual,TBD,TBD,TBD,TBD,TBD,TBD,Needs platforms brittle floors doors spikes moving platforms and shop pieces.
 future-enemy-pack,TBD enemy sprites,visual,TBD,TBD,TBD,TBD,TBD,TBD,Needs patrol flyer shield crawler and boss animations.
 generated-audio-tones,Temporary generated UI/SFX tones,audio,local procedural,Project-owned,,yes,no,no,Runtime AudioStreamGenerator tones; replace before final Steam polish if desired.
+future-1-0-tilesets,TBD 1.0 four-region tilesets,visual,TBD,TBD,TBD,TBD,TBD,TBD,Required before claiming final art for ruins waterworks clocktower and core regions.
+future-1-0-music,TBD 1.0 music pack,audio,TBD,TBD,TBD,TBD,TBD,TBD,Required loops for home ruins waterworks clocktower core and boss encounters.
+future-1-0-ui-icons,TBD 1.0 UI icon pack,visual,TBD,TBD,TBD,TBD,TBD,TBD,Required icons for expanded shop equipment four skills HUD settings and prompts.

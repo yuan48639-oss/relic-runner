@@ -1,109 +1,4979 @@
 [
   {
-    "name_en": "1. Tutorial Ruins",
-    "name_zh": "1. 教学遗迹",
-    "hint_en": "Move, double jump, dash, and strike the training drone.",
-    "hint_zh": "移动、二段跳、冲刺，并攻击训练巡逻体。",
-    "start": [64, 500],
-    "platforms": [[0, 500, 960, 40], [138, 440, 120, 18], [320, 392, 130, 18], [520, 440, 118, 18], [720, 382, 150, 18]],
-    "hazards": [[468, 492, 126, 16]],
-    "checkpoints": [[472, 392]],
-    "enemies": [{"pos": [585, 440], "patrol": 45, "type": "patrol"}],
-    "goal": [846, 382]
+    "region": 1,
+    "music": "ruins",
+    "par_time": 130,
+    "name_en": "1. Tutorial Ruins 1",
+    "name_zh": "1. ???? 1",
+    "hint_en": "Read the ruins, then chain jump, dash, and sword strikes.",
+    "hint_zh": "????????????????",
+    "start": [
+      64,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        190,
+        40
+      ],
+      [
+        250,
+        456,
+        120,
+        18
+      ],
+      [
+        420,
+        410,
+        120,
+        18
+      ],
+      [
+        600,
+        456,
+        120,
+        18
+      ],
+      [
+        800,
+        500,
+        160,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        190,
+        492,
+        60,
+        18
+      ],
+      [
+        370,
+        492,
+        50,
+        18
+      ],
+      [
+        540,
+        492,
+        60,
+        18
+      ],
+      [
+        740,
+        492,
+        60,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        420,
+        410
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          310,
+          456
+        ],
+        "patrol": 44,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ]
   },
   {
-    "name_en": "2. Spike Gallery",
-    "name_zh": "2. 尖刺长廊",
-    "hint_en": "Keep momentum and use the second jump late.",
-    "hint_zh": "保持速度，把第二段跳留到最后。",
-    "start": [58, 500],
-    "platforms": [[0, 500, 230, 40], [306, 460, 116, 18], [500, 414, 116, 18], [688, 368, 134, 18], [840, 500, 120, 40]],
-    "hazards": [[230, 492, 76, 18], [422, 492, 78, 18], [616, 492, 72, 18], [822, 492, 18, 18]],
-    "checkpoints": [[520, 414]],
-    "enemies": [{"pos": [548, 414], "patrol": 46, "type": "patrol"}, {"pos": [746, 368], "patrol": 42, "type": "patrol"}],
-    "goal": [900, 500]
+    "region": 1,
+    "music": "ruins",
+    "par_time": 138,
+    "name_en": "2. Tutorial Ruins 2",
+    "name_zh": "2. ???? 2",
+    "hint_en": "Read the ruins, then chain jump, dash, and sword strikes.",
+    "hint_zh": "????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        220,
+        40
+      ],
+      [
+        300,
+        452,
+        116,
+        18
+      ],
+      [
+        500,
+        404,
+        116,
+        18
+      ],
+      [
+        700,
+        356,
+        130,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        220,
+        492,
+        80,
+        18
+      ],
+      [
+        416,
+        492,
+        84,
+        18
+      ],
+      [
+        616,
+        492,
+        84,
+        18
+      ],
+      [
+        830,
+        492,
+        20,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        500,
+        404
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          360,
+          452
+        ],
+        "patrol": 42,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          750,
+          356
+        ],
+        "patrol": 42,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ]
   },
   {
-    "name_en": "3. Gate of Dawn",
-    "name_zh": "3. 黎明之门",
-    "hint_en": "Visit the shop, then cross the broken bridge.",
-    "hint_zh": "拜访商店，然后穿过断桥。",
-    "start": [54, 500],
-    "platforms": [[0, 500, 160, 40], [224, 452, 116, 18], [384, 408, 116, 18], [548, 364, 116, 18], [724, 416, 110, 18], [848, 500, 112, 40]],
-    "hazards": [[160, 492, 64, 18], [340, 492, 44, 18], [500, 492, 48, 18], [664, 492, 60, 18], [834, 492, 14, 18]],
-    "checkpoints": [[548, 364]],
-    "enemies": [{"pos": [278, 452], "patrol": 42, "type": "patrol"}, {"pos": [606, 364], "patrol": 48, "type": "patrol"}, {"pos": [778, 416], "patrol": 32, "type": "patrol"}],
-    "goal": [910, 500],
-    "shop": [108, 500]
+    "region": 1,
+    "music": "ruins",
+    "par_time": 146,
+    "name_en": "3. Tutorial Ruins 3",
+    "name_zh": "3. ???? 3",
+    "hint_en": "Read the ruins, then chain jump, dash, and sword strikes.",
+    "hint_zh": "????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        170,
+        40
+      ],
+      [
+        235,
+        450,
+        104,
+        18
+      ],
+      [
+        390,
+        398,
+        104,
+        18
+      ],
+      [
+        560,
+        346,
+        104,
+        18
+      ],
+      [
+        730,
+        420,
+        104,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        170,
+        492,
+        65,
+        18
+      ],
+      [
+        339,
+        492,
+        51,
+        18
+      ],
+      [
+        494,
+        492,
+        66,
+        18
+      ],
+      [
+        664,
+        492,
+        66,
+        18
+      ],
+      [
+        834,
+        492,
+        16,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        560,
+        346
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          450,
+          398
+        ],
+        "patrol": 46,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          760,
+          390
+        ],
+        "patrol": 48,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ],
+    "shop": [
+      96,
+      500
+    ]
   },
   {
-    "name_en": "4. Waterworks Lift",
-    "name_zh": "4. 水道升降台",
-    "hint_en": "Ride the blue lift and dash off at the peak.",
-    "hint_zh": "乘上蓝色升降台，在最高点冲刺离开。",
-    "start": [58, 500],
-    "platforms": [[0, 500, 180, 40], [760, 500, 200, 40], [420, 356, 126, 18]],
-    "moving_platforms": [{"rect": [260, 456, 112, 18], "from": [260, 456], "to": [260, 338], "speed": 66}, {"rect": [590, 390, 112, 18], "from": [590, 390], "to": [710, 390], "speed": 72}],
-    "hazards": [[180, 492, 80, 18], [372, 492, 218, 18], [702, 492, 58, 18]],
-    "checkpoints": [[432, 356]],
-    "enemies": [{"pos": [486, 356], "patrol": 40, "type": "patrol"}],
-    "goal": [900, 500]
+    "region": 1,
+    "music": "ruins",
+    "par_time": 154,
+    "name_en": "4. Tutorial Ruins 4",
+    "name_zh": "4. ???? 4",
+    "hint_en": "Read the ruins, then chain jump, dash, and sword strikes.",
+    "hint_zh": "????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        180,
+        40
+      ],
+      [
+        760,
+        500,
+        200,
+        40
+      ],
+      [
+        430,
+        356,
+        126,
+        18
+      ]
+    ],
+    "hazards": [
+      [
+        180,
+        492,
+        80,
+        18
+      ],
+      [
+        372,
+        492,
+        218,
+        18
+      ],
+      [
+        702,
+        492,
+        58,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        430,
+        356
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          490,
+          356
+        ],
+        "patrol": 44,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          650,
+          340
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          260,
+          456,
+          112,
+          18
+        ],
+        "from": [
+          260,
+          456
+        ],
+        "to": [
+          260,
+          338
+        ],
+        "speed": 66
+      },
+      {
+        "rect": [
+          590,
+          390,
+          112,
+          18
+        ],
+        "from": [
+          590,
+          390
+        ],
+        "to": [
+          710,
+          390
+        ],
+        "speed": 72
+      }
+    ]
   },
   {
-    "name_en": "5. Bronze Key Hall",
-    "name_zh": "5. 青铜钥匙厅",
-    "hint_en": "Take the key, open the bronze door, and keep your lives.",
-    "hint_zh": "拾取钥匙，打开青铜门，并保住生命。",
-    "start": [58, 500],
-    "platforms": [[0, 500, 220, 40], [282, 450, 124, 18], [470, 400, 124, 18], [660, 450, 110, 18], [820, 500, 140, 40]],
-    "hazards": [[220, 492, 62, 18], [406, 492, 64, 18], [594, 492, 66, 18], [770, 492, 50, 18]],
-    "keys": [{"id": "bronze", "pos": [520, 400]}],
-    "doors": [{"id": "bronze", "rect": [796, 420, 32, 80]}],
-    "checkpoints": [[470, 400]],
-    "enemies": [{"pos": [342, 450], "patrol": 38, "type": "shield", "hp": 2}, {"pos": [704, 450], "patrol": 32, "type": "patrol"}],
-    "goal": [900, 500]
+    "region": 1,
+    "music": "ruins",
+    "par_time": 162,
+    "name_en": "5. Tutorial Ruins 5",
+    "name_zh": "5. ???? 5",
+    "hint_en": "Read the ruins, then chain jump, dash, and sword strikes.",
+    "hint_zh": "????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        220,
+        40
+      ],
+      [
+        282,
+        450,
+        124,
+        18
+      ],
+      [
+        470,
+        400,
+        124,
+        18
+      ],
+      [
+        660,
+        450,
+        110,
+        18
+      ],
+      [
+        820,
+        500,
+        140,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        220,
+        492,
+        62,
+        18
+      ],
+      [
+        406,
+        492,
+        64,
+        18
+      ],
+      [
+        594,
+        492,
+        66,
+        18
+      ],
+      [
+        770,
+        492,
+        50,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        470,
+        400
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          342,
+          450
+        ],
+        "patrol": 38,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          704,
+          450
+        ],
+        "patrol": 36,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ],
+    "keys": [
+      {
+        "id": "gate",
+        "pos": [
+          520,
+          400
+        ]
+      }
+    ],
+    "doors": [
+      {
+        "id": "gate",
+        "rect": [
+          796,
+          420,
+          32,
+          80
+        ]
+      }
+    ]
   },
   {
-    "name_en": "6. Flying Eye Nest",
-    "name_zh": "6. 飞眼巢穴",
-    "hint_en": "Flying eyes drift through the air; strike or dodge them.",
-    "hint_zh": "飞眼会在空中游荡；攻击或避开它们。",
-    "start": [58, 500],
-    "platforms": [[0, 500, 180, 40], [230, 452, 110, 18], [390, 406, 110, 18], [552, 360, 110, 18], [718, 430, 110, 18], [848, 500, 112, 40]],
-    "hazards": [[180, 492, 50, 18], [340, 492, 50, 18], [500, 492, 52, 18], [662, 492, 56, 18], [828, 492, 20, 18]],
-    "checkpoints": [[552, 360]],
-    "enemies": [{"pos": [300, 392], "patrol": 70, "type": "flyer"}, {"pos": [610, 316], "patrol": 76, "type": "flyer"}, {"pos": [760, 390], "patrol": 44, "type": "crawler"}],
-    "goal": [910, 500]
+    "region": 1,
+    "music": "ruins",
+    "par_time": 170,
+    "name_en": "6. Tutorial Ruins 6",
+    "name_zh": "6. ???? 6",
+    "hint_en": "Read the ruins, then chain jump, dash, and sword strikes.",
+    "hint_zh": "????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        180,
+        40
+      ],
+      [
+        230,
+        452,
+        110,
+        18
+      ],
+      [
+        390,
+        406,
+        110,
+        18
+      ],
+      [
+        552,
+        360,
+        110,
+        18
+      ],
+      [
+        718,
+        430,
+        110,
+        18
+      ],
+      [
+        848,
+        500,
+        112,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        180,
+        492,
+        50,
+        18
+      ],
+      [
+        340,
+        492,
+        50,
+        18
+      ],
+      [
+        500,
+        492,
+        52,
+        18
+      ],
+      [
+        662,
+        492,
+        56,
+        18
+      ],
+      [
+        828,
+        492,
+        20,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        552,
+        360
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          300,
+          392
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          610,
+          316
+        ],
+        "patrol": 76,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          760,
+          390
+        ],
+        "patrol": 44,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ]
   },
   {
-    "name_en": "7. Merchant Bridge",
-    "name_zh": "7. 商旅断桥",
-    "hint_en": "Spend carefully before the final chamber.",
-    "hint_zh": "进入最终大厅前，谨慎花费金币。",
-    "start": [58, 500],
-    "platforms": [[0, 500, 170, 40], [236, 456, 100, 18], [418, 412, 100, 18], [600, 456, 100, 18], [790, 500, 170, 40]],
-    "moving_platforms": [{"rect": [330, 364, 96, 18], "from": [330, 364], "to": [510, 364], "speed": 82}],
-    "brittle_platforms": [[236, 456, 100, 18], [600, 456, 100, 18]],
-    "hazards": [[170, 492, 66, 18], [336, 492, 82, 18], [518, 492, 82, 18], [700, 492, 90, 18]],
-    "checkpoints": [[418, 412]],
-    "enemies": [{"pos": [280, 456], "patrol": 34, "type": "patrol"}, {"pos": [640, 456], "patrol": 34, "type": "patrol"}, {"pos": [514, 322], "patrol": 70, "type": "flyer"}],
-    "goal": [908, 500],
-    "shop": [96, 500]
+    "region": 1,
+    "music": "ruins",
+    "par_time": 178,
+    "name_en": "7. Tutorial Ruins 7",
+    "name_zh": "7. ???? 7",
+    "hint_en": "Read the ruins, then chain jump, dash, and sword strikes.",
+    "hint_zh": "????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        170,
+        40
+      ],
+      [
+        236,
+        456,
+        100,
+        18
+      ],
+      [
+        418,
+        412,
+        100,
+        18
+      ],
+      [
+        600,
+        456,
+        100,
+        18
+      ],
+      [
+        790,
+        500,
+        170,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        170,
+        492,
+        66,
+        18
+      ],
+      [
+        336,
+        492,
+        82,
+        18
+      ],
+      [
+        518,
+        492,
+        82,
+        18
+      ],
+      [
+        700,
+        492,
+        90,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        418,
+        412
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          280,
+          456
+        ],
+        "patrol": 34,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          640,
+          456
+        ],
+        "patrol": 34,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          514,
+          322
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      }
+    ],
+    "goal": [
+      908,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          330,
+          364,
+          96,
+          18
+        ],
+        "from": [
+          330,
+          364
+        ],
+        "to": [
+          510,
+          364
+        ],
+        "speed": 82
+      }
+    ],
+    "brittle_platforms": [
+      [
+        236,
+        456,
+        100,
+        18
+      ],
+      [
+        600,
+        456,
+        100,
+        18
+      ]
+    ],
+    "shop": [
+      96,
+      500
+    ]
   },
   {
-    "name_en": "8. Dawn Core Antechamber",
-    "name_zh": "8. 晨辉核心前厅",
-    "hint_en": "Use every tool: dash, stomp, key, shop upgrade, and patience.",
-    "hint_zh": "用上所有技巧：冲刺、踩怪、钥匙、商店升级和耐心。",
-    "start": [54, 500],
-    "platforms": [[0, 500, 150, 40], [210, 454, 100, 18], [360, 408, 100, 18], [510, 362, 100, 18], [670, 416, 100, 18], [830, 500, 130, 40]],
-    "moving_platforms": [{"rect": [150, 356, 94, 18], "from": [150, 356], "to": [280, 356], "speed": 78}, {"rect": [620, 326, 94, 18], "from": [620, 326], "to": [760, 326], "speed": 72}],
-    "hazards": [[150, 492, 60, 18], [310, 492, 50, 18], [460, 492, 50, 18], [610, 492, 60, 18], [770, 492, 60, 18]],
-    "keys": [{"id": "dawn", "pos": [560, 362]}],
-    "doors": [{"id": "dawn", "rect": [800, 420, 32, 80]}],
-    "checkpoints": [[510, 362]],
-    "brittle_platforms": [[360, 408, 100, 18], [670, 416, 100, 18]],
-    "enemies": [{"pos": [250, 418], "patrol": 34, "type": "shield", "hp": 2}, {"pos": [548, 316], "patrol": 70, "type": "flyer"}, {"pos": [716, 382], "patrol": 46, "type": "boss", "hp": 4}],
-    "goal": [914, 500]
+    "region": 1,
+    "music": "ruins",
+    "par_time": 186,
+    "name_en": "8. Tutorial Ruins 8",
+    "name_zh": "8. ???? 8",
+    "hint_en": "Read the ruins, then chain jump, dash, and sword strikes.",
+    "hint_zh": "????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        150,
+        40
+      ],
+      [
+        210,
+        454,
+        100,
+        18
+      ],
+      [
+        360,
+        408,
+        100,
+        18
+      ],
+      [
+        510,
+        362,
+        100,
+        18
+      ],
+      [
+        670,
+        416,
+        100,
+        18
+      ],
+      [
+        830,
+        500,
+        130,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        150,
+        492,
+        60,
+        18
+      ],
+      [
+        310,
+        492,
+        50,
+        18
+      ],
+      [
+        460,
+        492,
+        50,
+        18
+      ],
+      [
+        610,
+        492,
+        60,
+        18
+      ],
+      [
+        770,
+        492,
+        60,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        510,
+        362
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          250,
+          418
+        ],
+        "patrol": 34,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          548,
+          316
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          716,
+          382
+        ],
+        "patrol": 46,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      914,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          150,
+          356,
+          94,
+          18
+        ],
+        "from": [
+          150,
+          356
+        ],
+        "to": [
+          280,
+          356
+        ],
+        "speed": 78
+      },
+      {
+        "rect": [
+          620,
+          326,
+          94,
+          18
+        ],
+        "from": [
+          620,
+          326
+        ],
+        "to": [
+          760,
+          326
+        ],
+        "speed": 72
+      }
+    ],
+    "brittle_platforms": [
+      [
+        360,
+        408,
+        100,
+        18
+      ],
+      [
+        670,
+        416,
+        100,
+        18
+      ]
+    ]
+  },
+  {
+    "region": 1,
+    "music": "ruins",
+    "par_time": 194,
+    "name_en": "9. Tutorial Ruins 9",
+    "name_zh": "9. ???? 9",
+    "hint_en": "Read the ruins, then chain jump, dash, and sword strikes.",
+    "hint_zh": "????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        210,
+        40
+      ],
+      [
+        270,
+        440,
+        110,
+        18
+      ],
+      [
+        430,
+        384,
+        110,
+        18
+      ],
+      [
+        590,
+        330,
+        110,
+        18
+      ],
+      [
+        750,
+        420,
+        100,
+        18
+      ],
+      [
+        860,
+        500,
+        100,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        210,
+        492,
+        60,
+        18
+      ],
+      [
+        380,
+        492,
+        50,
+        18
+      ],
+      [
+        540,
+        492,
+        50,
+        18
+      ],
+      [
+        700,
+        492,
+        50,
+        18
+      ],
+      [
+        850,
+        492,
+        10,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        590,
+        330
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          310,
+          456
+        ],
+        "patrol": 44,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      915,
+      500
+    ]
+  },
+  {
+    "region": 1,
+    "music": "boss",
+    "par_time": 202,
+    "name_en": "10. Dawn Gate Warden",
+    "name_zh": "10. ????",
+    "hint_en": "Defeat the guardian to unlock the next expedition tool.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        230,
+        40
+      ],
+      [
+        320,
+        430,
+        120,
+        18
+      ],
+      [
+        510,
+        370,
+        120,
+        18
+      ],
+      [
+        700,
+        430,
+        120,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        230,
+        492,
+        90,
+        18
+      ],
+      [
+        440,
+        492,
+        70,
+        18
+      ],
+      [
+        630,
+        492,
+        70,
+        18
+      ],
+      [
+        820,
+        492,
+        30,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        510,
+        370
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          360,
+          430
+        ],
+        "patrol": 40,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          620,
+          330
+        ],
+        "patrol": 82,
+        "type": "flyer",
+        "hp": 1
+      },
+      {
+        "pos": [
+          740,
+          396
+        ],
+        "patrol": 54,
+        "type": "boss",
+        "hp": 5
+      }
+    ],
+    "goal": [
+      914,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          390,
+          330,
+          96,
+          18
+        ],
+        "from": [
+          390,
+          330
+        ],
+        "to": [
+          590,
+          330
+        ],
+        "speed": 74
+      }
+    ],
+    "brittle_platforms": [],
+    "keys": [],
+    "doors": [],
+    "boss": {
+      "id": "pyroblast",
+      "hp": 5
+    },
+    "reward": {
+      "skill": "pyroblast",
+      "coins": 30
+    },
+    "unlock": {
+      "region": 2,
+      "skill": "pyroblast"
+    }
+  },
+  {
+    "region": 2,
+    "music": "waterworks",
+    "par_time": 155,
+    "name_en": "11. Underground Waterworks 1",
+    "name_zh": "11. ???? 1",
+    "hint_en": "Ride moving platforms and keep space from waterway enemies.",
+    "hint_zh": "?????????????????",
+    "start": [
+      64,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        220,
+        40
+      ],
+      [
+        300,
+        452,
+        116,
+        18
+      ],
+      [
+        500,
+        404,
+        116,
+        18
+      ],
+      [
+        700,
+        356,
+        130,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        220,
+        492,
+        80,
+        18
+      ],
+      [
+        416,
+        492,
+        84,
+        18
+      ],
+      [
+        616,
+        492,
+        84,
+        18
+      ],
+      [
+        830,
+        492,
+        20,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        500,
+        404
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          360,
+          452
+        ],
+        "patrol": 42,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          750,
+          356
+        ],
+        "patrol": 42,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ],
+    "required_skill": "pyroblast"
+  },
+  {
+    "region": 2,
+    "music": "waterworks",
+    "par_time": 163,
+    "name_en": "12. Underground Waterworks 2",
+    "name_zh": "12. ???? 2",
+    "hint_en": "Ride moving platforms and keep space from waterway enemies.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        170,
+        40
+      ],
+      [
+        235,
+        450,
+        104,
+        18
+      ],
+      [
+        390,
+        398,
+        104,
+        18
+      ],
+      [
+        560,
+        346,
+        104,
+        18
+      ],
+      [
+        730,
+        420,
+        104,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        170,
+        492,
+        65,
+        18
+      ],
+      [
+        339,
+        492,
+        51,
+        18
+      ],
+      [
+        494,
+        492,
+        66,
+        18
+      ],
+      [
+        664,
+        492,
+        66,
+        18
+      ],
+      [
+        834,
+        492,
+        16,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        560,
+        346
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          450,
+          398
+        ],
+        "patrol": 46,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          760,
+          390
+        ],
+        "patrol": 48,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ],
+    "required_skill": "pyroblast"
+  },
+  {
+    "region": 2,
+    "music": "waterworks",
+    "par_time": 171,
+    "name_en": "13. Underground Waterworks 3",
+    "name_zh": "13. ???? 3",
+    "hint_en": "Ride moving platforms and keep space from waterway enemies.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        180,
+        40
+      ],
+      [
+        760,
+        500,
+        200,
+        40
+      ],
+      [
+        430,
+        356,
+        126,
+        18
+      ]
+    ],
+    "hazards": [
+      [
+        180,
+        492,
+        80,
+        18
+      ],
+      [
+        372,
+        492,
+        218,
+        18
+      ],
+      [
+        702,
+        492,
+        58,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        430,
+        356
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          490,
+          356
+        ],
+        "patrol": 44,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          650,
+          340
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          260,
+          456,
+          112,
+          18
+        ],
+        "from": [
+          260,
+          456
+        ],
+        "to": [
+          260,
+          338
+        ],
+        "speed": 66
+      },
+      {
+        "rect": [
+          590,
+          390,
+          112,
+          18
+        ],
+        "from": [
+          590,
+          390
+        ],
+        "to": [
+          710,
+          390
+        ],
+        "speed": 72
+      }
+    ],
+    "shop": [
+      96,
+      500
+    ],
+    "required_skill": "pyroblast"
+  },
+  {
+    "region": 2,
+    "music": "waterworks",
+    "par_time": 179,
+    "name_en": "14. Underground Waterworks 4",
+    "name_zh": "14. ???? 4",
+    "hint_en": "Ride moving platforms and keep space from waterway enemies.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        220,
+        40
+      ],
+      [
+        282,
+        450,
+        124,
+        18
+      ],
+      [
+        470,
+        400,
+        124,
+        18
+      ],
+      [
+        660,
+        450,
+        110,
+        18
+      ],
+      [
+        820,
+        500,
+        140,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        220,
+        492,
+        62,
+        18
+      ],
+      [
+        406,
+        492,
+        64,
+        18
+      ],
+      [
+        594,
+        492,
+        66,
+        18
+      ],
+      [
+        770,
+        492,
+        50,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        470,
+        400
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          342,
+          450
+        ],
+        "patrol": 38,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          704,
+          450
+        ],
+        "patrol": 36,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ],
+    "keys": [
+      {
+        "id": "gate",
+        "pos": [
+          520,
+          400
+        ]
+      }
+    ],
+    "doors": [
+      {
+        "id": "gate",
+        "rect": [
+          796,
+          420,
+          32,
+          80
+        ]
+      }
+    ],
+    "required_skill": "pyroblast"
+  },
+  {
+    "region": 2,
+    "music": "waterworks",
+    "par_time": 187,
+    "name_en": "15. Underground Waterworks 5",
+    "name_zh": "15. ???? 5",
+    "hint_en": "Ride moving platforms and keep space from waterway enemies.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        180,
+        40
+      ],
+      [
+        230,
+        452,
+        110,
+        18
+      ],
+      [
+        390,
+        406,
+        110,
+        18
+      ],
+      [
+        552,
+        360,
+        110,
+        18
+      ],
+      [
+        718,
+        430,
+        110,
+        18
+      ],
+      [
+        848,
+        500,
+        112,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        180,
+        492,
+        50,
+        18
+      ],
+      [
+        340,
+        492,
+        50,
+        18
+      ],
+      [
+        500,
+        492,
+        52,
+        18
+      ],
+      [
+        662,
+        492,
+        56,
+        18
+      ],
+      [
+        828,
+        492,
+        20,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        552,
+        360
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          300,
+          392
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          610,
+          316
+        ],
+        "patrol": 76,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          760,
+          390
+        ],
+        "patrol": 44,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ],
+    "required_skill": "pyroblast"
+  },
+  {
+    "region": 2,
+    "music": "waterworks",
+    "par_time": 195,
+    "name_en": "16. Underground Waterworks 6",
+    "name_zh": "16. ???? 6",
+    "hint_en": "Ride moving platforms and keep space from waterway enemies.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        170,
+        40
+      ],
+      [
+        236,
+        456,
+        100,
+        18
+      ],
+      [
+        418,
+        412,
+        100,
+        18
+      ],
+      [
+        600,
+        456,
+        100,
+        18
+      ],
+      [
+        790,
+        500,
+        170,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        170,
+        492,
+        66,
+        18
+      ],
+      [
+        336,
+        492,
+        82,
+        18
+      ],
+      [
+        518,
+        492,
+        82,
+        18
+      ],
+      [
+        700,
+        492,
+        90,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        418,
+        412
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          280,
+          456
+        ],
+        "patrol": 34,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          640,
+          456
+        ],
+        "patrol": 34,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          514,
+          322
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      }
+    ],
+    "goal": [
+      908,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          330,
+          364,
+          96,
+          18
+        ],
+        "from": [
+          330,
+          364
+        ],
+        "to": [
+          510,
+          364
+        ],
+        "speed": 82
+      }
+    ],
+    "brittle_platforms": [
+      [
+        236,
+        456,
+        100,
+        18
+      ],
+      [
+        600,
+        456,
+        100,
+        18
+      ]
+    ],
+    "required_skill": "pyroblast"
+  },
+  {
+    "region": 2,
+    "music": "waterworks",
+    "par_time": 203,
+    "name_en": "17. Underground Waterworks 7",
+    "name_zh": "17. ???? 7",
+    "hint_en": "Ride moving platforms and keep space from waterway enemies.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        150,
+        40
+      ],
+      [
+        210,
+        454,
+        100,
+        18
+      ],
+      [
+        360,
+        408,
+        100,
+        18
+      ],
+      [
+        510,
+        362,
+        100,
+        18
+      ],
+      [
+        670,
+        416,
+        100,
+        18
+      ],
+      [
+        830,
+        500,
+        130,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        150,
+        492,
+        60,
+        18
+      ],
+      [
+        310,
+        492,
+        50,
+        18
+      ],
+      [
+        460,
+        492,
+        50,
+        18
+      ],
+      [
+        610,
+        492,
+        60,
+        18
+      ],
+      [
+        770,
+        492,
+        60,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        510,
+        362
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          250,
+          418
+        ],
+        "patrol": 34,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          548,
+          316
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          716,
+          382
+        ],
+        "patrol": 46,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      914,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          150,
+          356,
+          94,
+          18
+        ],
+        "from": [
+          150,
+          356
+        ],
+        "to": [
+          280,
+          356
+        ],
+        "speed": 78
+      },
+      {
+        "rect": [
+          620,
+          326,
+          94,
+          18
+        ],
+        "from": [
+          620,
+          326
+        ],
+        "to": [
+          760,
+          326
+        ],
+        "speed": 72
+      }
+    ],
+    "brittle_platforms": [
+      [
+        360,
+        408,
+        100,
+        18
+      ],
+      [
+        670,
+        416,
+        100,
+        18
+      ]
+    ],
+    "shop": [
+      96,
+      500
+    ],
+    "required_skill": "pyroblast"
+  },
+  {
+    "region": 2,
+    "music": "waterworks",
+    "par_time": 211,
+    "name_en": "18. Underground Waterworks 8",
+    "name_zh": "18. ???? 8",
+    "hint_en": "Ride moving platforms and keep space from waterway enemies.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        210,
+        40
+      ],
+      [
+        270,
+        440,
+        110,
+        18
+      ],
+      [
+        430,
+        384,
+        110,
+        18
+      ],
+      [
+        590,
+        330,
+        110,
+        18
+      ],
+      [
+        750,
+        420,
+        100,
+        18
+      ],
+      [
+        860,
+        500,
+        100,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        210,
+        492,
+        60,
+        18
+      ],
+      [
+        380,
+        492,
+        50,
+        18
+      ],
+      [
+        540,
+        492,
+        50,
+        18
+      ],
+      [
+        700,
+        492,
+        50,
+        18
+      ],
+      [
+        850,
+        492,
+        10,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        590,
+        330
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          310,
+          456
+        ],
+        "patrol": 44,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      915,
+      500
+    ],
+    "required_skill": "pyroblast"
+  },
+  {
+    "region": 2,
+    "music": "waterworks",
+    "par_time": 219,
+    "name_en": "19. Underground Waterworks 9",
+    "name_zh": "19. ???? 9",
+    "hint_en": "Ride moving platforms and keep space from waterway enemies.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        190,
+        40
+      ],
+      [
+        250,
+        456,
+        120,
+        18
+      ],
+      [
+        420,
+        410,
+        120,
+        18
+      ],
+      [
+        600,
+        456,
+        120,
+        18
+      ],
+      [
+        800,
+        500,
+        160,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        190,
+        492,
+        60,
+        18
+      ],
+      [
+        370,
+        492,
+        50,
+        18
+      ],
+      [
+        540,
+        492,
+        60,
+        18
+      ],
+      [
+        740,
+        492,
+        60,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        420,
+        410
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          360,
+          452
+        ],
+        "patrol": 42,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          750,
+          356
+        ],
+        "patrol": 42,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ],
+    "required_skill": "pyroblast"
+  },
+  {
+    "region": 2,
+    "music": "boss",
+    "par_time": 227,
+    "name_en": "20. Cistern Maw",
+    "name_zh": "20. ?????",
+    "hint_en": "Defeat the guardian to unlock the next expedition tool.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        230,
+        40
+      ],
+      [
+        320,
+        430,
+        120,
+        18
+      ],
+      [
+        510,
+        370,
+        120,
+        18
+      ],
+      [
+        700,
+        430,
+        120,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        230,
+        492,
+        90,
+        18
+      ],
+      [
+        440,
+        492,
+        70,
+        18
+      ],
+      [
+        630,
+        492,
+        70,
+        18
+      ],
+      [
+        820,
+        492,
+        30,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        510,
+        370
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          360,
+          430
+        ],
+        "patrol": 40,
+        "type": "shield",
+        "hp": 3
+      },
+      {
+        "pos": [
+          620,
+          330
+        ],
+        "patrol": 82,
+        "type": "flyer",
+        "hp": 1
+      },
+      {
+        "pos": [
+          740,
+          396
+        ],
+        "patrol": 54,
+        "type": "boss",
+        "hp": 8
+      }
+    ],
+    "goal": [
+      914,
+      500
+    ],
+    "required_skill": "pyroblast",
+    "moving_platforms": [
+      {
+        "rect": [
+          390,
+          330,
+          96,
+          18
+        ],
+        "from": [
+          390,
+          330
+        ],
+        "to": [
+          590,
+          330
+        ],
+        "speed": 82
+      }
+    ],
+    "brittle_platforms": [],
+    "keys": [],
+    "doors": [],
+    "boss": {
+      "id": "tidal_wave",
+      "hp": 8
+    },
+    "reward": {
+      "skill": "tidal_wave",
+      "coins": 55
+    },
+    "unlock": {
+      "region": 3,
+      "skill": "tidal_wave"
+    }
+  },
+  {
+    "region": 3,
+    "music": "clocktower",
+    "par_time": 180,
+    "name_en": "21. Fractured Clocktower 1",
+    "name_zh": "21. ???? 1",
+    "hint_en": "Time jumps late and watch every brittle floor.",
+    "hint_zh": "?????????????????",
+    "start": [
+      64,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        170,
+        40
+      ],
+      [
+        235,
+        450,
+        104,
+        18
+      ],
+      [
+        390,
+        398,
+        104,
+        18
+      ],
+      [
+        560,
+        346,
+        104,
+        18
+      ],
+      [
+        730,
+        420,
+        104,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        170,
+        492,
+        65,
+        18
+      ],
+      [
+        339,
+        492,
+        51,
+        18
+      ],
+      [
+        494,
+        492,
+        66,
+        18
+      ],
+      [
+        664,
+        492,
+        66,
+        18
+      ],
+      [
+        834,
+        492,
+        16,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        560,
+        346
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          450,
+          398
+        ],
+        "patrol": 46,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          760,
+          390
+        ],
+        "patrol": 48,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ],
+    "required_skill": "tidal_wave"
+  },
+  {
+    "region": 3,
+    "music": "clocktower",
+    "par_time": 188,
+    "name_en": "22. Fractured Clocktower 2",
+    "name_zh": "22. ???? 2",
+    "hint_en": "Time jumps late and watch every brittle floor.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        180,
+        40
+      ],
+      [
+        760,
+        500,
+        200,
+        40
+      ],
+      [
+        430,
+        356,
+        126,
+        18
+      ]
+    ],
+    "hazards": [
+      [
+        180,
+        492,
+        80,
+        18
+      ],
+      [
+        372,
+        492,
+        218,
+        18
+      ],
+      [
+        702,
+        492,
+        58,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        430,
+        356
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          490,
+          356
+        ],
+        "patrol": 44,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          650,
+          340
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          260,
+          456,
+          112,
+          18
+        ],
+        "from": [
+          260,
+          456
+        ],
+        "to": [
+          260,
+          338
+        ],
+        "speed": 66
+      },
+      {
+        "rect": [
+          590,
+          390,
+          112,
+          18
+        ],
+        "from": [
+          590,
+          390
+        ],
+        "to": [
+          710,
+          390
+        ],
+        "speed": 72
+      }
+    ],
+    "required_skill": "tidal_wave"
+  },
+  {
+    "region": 3,
+    "music": "clocktower",
+    "par_time": 196,
+    "name_en": "23. Fractured Clocktower 3",
+    "name_zh": "23. ???? 3",
+    "hint_en": "Time jumps late and watch every brittle floor.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        220,
+        40
+      ],
+      [
+        282,
+        450,
+        124,
+        18
+      ],
+      [
+        470,
+        400,
+        124,
+        18
+      ],
+      [
+        660,
+        450,
+        110,
+        18
+      ],
+      [
+        820,
+        500,
+        140,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        220,
+        492,
+        62,
+        18
+      ],
+      [
+        406,
+        492,
+        64,
+        18
+      ],
+      [
+        594,
+        492,
+        66,
+        18
+      ],
+      [
+        770,
+        492,
+        50,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        470,
+        400
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          342,
+          450
+        ],
+        "patrol": 38,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          704,
+          450
+        ],
+        "patrol": 36,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ],
+    "keys": [
+      {
+        "id": "gate",
+        "pos": [
+          520,
+          400
+        ]
+      }
+    ],
+    "doors": [
+      {
+        "id": "gate",
+        "rect": [
+          796,
+          420,
+          32,
+          80
+        ]
+      }
+    ],
+    "shop": [
+      96,
+      500
+    ],
+    "required_skill": "tidal_wave"
+  },
+  {
+    "region": 3,
+    "music": "clocktower",
+    "par_time": 204,
+    "name_en": "24. Fractured Clocktower 4",
+    "name_zh": "24. ???? 4",
+    "hint_en": "Time jumps late and watch every brittle floor.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        180,
+        40
+      ],
+      [
+        230,
+        452,
+        110,
+        18
+      ],
+      [
+        390,
+        406,
+        110,
+        18
+      ],
+      [
+        552,
+        360,
+        110,
+        18
+      ],
+      [
+        718,
+        430,
+        110,
+        18
+      ],
+      [
+        848,
+        500,
+        112,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        180,
+        492,
+        50,
+        18
+      ],
+      [
+        340,
+        492,
+        50,
+        18
+      ],
+      [
+        500,
+        492,
+        52,
+        18
+      ],
+      [
+        662,
+        492,
+        56,
+        18
+      ],
+      [
+        828,
+        492,
+        20,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        552,
+        360
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          300,
+          392
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          610,
+          316
+        ],
+        "patrol": 76,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          760,
+          390
+        ],
+        "patrol": 44,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ],
+    "required_skill": "tidal_wave"
+  },
+  {
+    "region": 3,
+    "music": "clocktower",
+    "par_time": 212,
+    "name_en": "25. Fractured Clocktower 5",
+    "name_zh": "25. ???? 5",
+    "hint_en": "Time jumps late and watch every brittle floor.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        170,
+        40
+      ],
+      [
+        236,
+        456,
+        100,
+        18
+      ],
+      [
+        418,
+        412,
+        100,
+        18
+      ],
+      [
+        600,
+        456,
+        100,
+        18
+      ],
+      [
+        790,
+        500,
+        170,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        170,
+        492,
+        66,
+        18
+      ],
+      [
+        336,
+        492,
+        82,
+        18
+      ],
+      [
+        518,
+        492,
+        82,
+        18
+      ],
+      [
+        700,
+        492,
+        90,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        418,
+        412
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          280,
+          456
+        ],
+        "patrol": 34,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          640,
+          456
+        ],
+        "patrol": 34,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          514,
+          322
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      }
+    ],
+    "goal": [
+      908,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          330,
+          364,
+          96,
+          18
+        ],
+        "from": [
+          330,
+          364
+        ],
+        "to": [
+          510,
+          364
+        ],
+        "speed": 82
+      }
+    ],
+    "brittle_platforms": [
+      [
+        236,
+        456,
+        100,
+        18
+      ],
+      [
+        600,
+        456,
+        100,
+        18
+      ]
+    ],
+    "required_skill": "tidal_wave"
+  },
+  {
+    "region": 3,
+    "music": "clocktower",
+    "par_time": 220,
+    "name_en": "26. Fractured Clocktower 6",
+    "name_zh": "26. ???? 6",
+    "hint_en": "Time jumps late and watch every brittle floor.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        150,
+        40
+      ],
+      [
+        210,
+        454,
+        100,
+        18
+      ],
+      [
+        360,
+        408,
+        100,
+        18
+      ],
+      [
+        510,
+        362,
+        100,
+        18
+      ],
+      [
+        670,
+        416,
+        100,
+        18
+      ],
+      [
+        830,
+        500,
+        130,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        150,
+        492,
+        60,
+        18
+      ],
+      [
+        310,
+        492,
+        50,
+        18
+      ],
+      [
+        460,
+        492,
+        50,
+        18
+      ],
+      [
+        610,
+        492,
+        60,
+        18
+      ],
+      [
+        770,
+        492,
+        60,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        510,
+        362
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          250,
+          418
+        ],
+        "patrol": 34,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          548,
+          316
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          716,
+          382
+        ],
+        "patrol": 46,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      914,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          150,
+          356,
+          94,
+          18
+        ],
+        "from": [
+          150,
+          356
+        ],
+        "to": [
+          280,
+          356
+        ],
+        "speed": 78
+      },
+      {
+        "rect": [
+          620,
+          326,
+          94,
+          18
+        ],
+        "from": [
+          620,
+          326
+        ],
+        "to": [
+          760,
+          326
+        ],
+        "speed": 72
+      }
+    ],
+    "brittle_platforms": [
+      [
+        360,
+        408,
+        100,
+        18
+      ],
+      [
+        670,
+        416,
+        100,
+        18
+      ]
+    ],
+    "required_skill": "tidal_wave"
+  },
+  {
+    "region": 3,
+    "music": "clocktower",
+    "par_time": 228,
+    "name_en": "27. Fractured Clocktower 7",
+    "name_zh": "27. ???? 7",
+    "hint_en": "Time jumps late and watch every brittle floor.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        210,
+        40
+      ],
+      [
+        270,
+        440,
+        110,
+        18
+      ],
+      [
+        430,
+        384,
+        110,
+        18
+      ],
+      [
+        590,
+        330,
+        110,
+        18
+      ],
+      [
+        750,
+        420,
+        100,
+        18
+      ],
+      [
+        860,
+        500,
+        100,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        210,
+        492,
+        60,
+        18
+      ],
+      [
+        380,
+        492,
+        50,
+        18
+      ],
+      [
+        540,
+        492,
+        50,
+        18
+      ],
+      [
+        700,
+        492,
+        50,
+        18
+      ],
+      [
+        850,
+        492,
+        10,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        590,
+        330
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          310,
+          456
+        ],
+        "patrol": 44,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      915,
+      500
+    ],
+    "shop": [
+      96,
+      500
+    ],
+    "required_skill": "tidal_wave"
+  },
+  {
+    "region": 3,
+    "music": "clocktower",
+    "par_time": 236,
+    "name_en": "28. Fractured Clocktower 8",
+    "name_zh": "28. ???? 8",
+    "hint_en": "Time jumps late and watch every brittle floor.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        190,
+        40
+      ],
+      [
+        250,
+        456,
+        120,
+        18
+      ],
+      [
+        420,
+        410,
+        120,
+        18
+      ],
+      [
+        600,
+        456,
+        120,
+        18
+      ],
+      [
+        800,
+        500,
+        160,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        190,
+        492,
+        60,
+        18
+      ],
+      [
+        370,
+        492,
+        50,
+        18
+      ],
+      [
+        540,
+        492,
+        60,
+        18
+      ],
+      [
+        740,
+        492,
+        60,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        420,
+        410
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          360,
+          452
+        ],
+        "patrol": 42,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          750,
+          356
+        ],
+        "patrol": 42,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ],
+    "required_skill": "tidal_wave"
+  },
+  {
+    "region": 3,
+    "music": "clocktower",
+    "par_time": 244,
+    "name_en": "29. Fractured Clocktower 9",
+    "name_zh": "29. ???? 9",
+    "hint_en": "Time jumps late and watch every brittle floor.",
+    "hint_zh": "?????????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        220,
+        40
+      ],
+      [
+        300,
+        452,
+        116,
+        18
+      ],
+      [
+        500,
+        404,
+        116,
+        18
+      ],
+      [
+        700,
+        356,
+        130,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        220,
+        492,
+        80,
+        18
+      ],
+      [
+        416,
+        492,
+        84,
+        18
+      ],
+      [
+        616,
+        492,
+        84,
+        18
+      ],
+      [
+        830,
+        492,
+        20,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        500,
+        404
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          450,
+          398
+        ],
+        "patrol": 46,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          760,
+          390
+        ],
+        "patrol": 48,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ],
+    "required_skill": "tidal_wave"
+  },
+  {
+    "region": 3,
+    "music": "boss",
+    "par_time": 252,
+    "name_en": "30. Broken Hour Sentinel",
+    "name_zh": "30. ????",
+    "hint_en": "Defeat the guardian to unlock the next expedition tool.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        230,
+        40
+      ],
+      [
+        320,
+        430,
+        120,
+        18
+      ],
+      [
+        510,
+        370,
+        120,
+        18
+      ],
+      [
+        700,
+        430,
+        120,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        230,
+        492,
+        90,
+        18
+      ],
+      [
+        440,
+        492,
+        70,
+        18
+      ],
+      [
+        630,
+        492,
+        70,
+        18
+      ],
+      [
+        820,
+        492,
+        30,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        510,
+        370
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          360,
+          430
+        ],
+        "patrol": 40,
+        "type": "shield",
+        "hp": 4
+      },
+      {
+        "pos": [
+          620,
+          330
+        ],
+        "patrol": 82,
+        "type": "flyer",
+        "hp": 2
+      },
+      {
+        "pos": [
+          740,
+          396
+        ],
+        "patrol": 54,
+        "type": "boss",
+        "hp": 11
+      }
+    ],
+    "goal": [
+      914,
+      500
+    ],
+    "required_skill": "tidal_wave",
+    "moving_platforms": [
+      {
+        "rect": [
+          390,
+          330,
+          96,
+          18
+        ],
+        "from": [
+          390,
+          330
+        ],
+        "to": [
+          590,
+          330
+        ],
+        "speed": 90
+      }
+    ],
+    "brittle_platforms": [
+      [
+        320,
+        430,
+        120,
+        18
+      ],
+      [
+        700,
+        430,
+        120,
+        18
+      ]
+    ],
+    "keys": [],
+    "doors": [],
+    "boss": {
+      "id": "clock_snare",
+      "hp": 11
+    },
+    "reward": {
+      "skill": "clock_snare",
+      "coins": 80
+    },
+    "unlock": {
+      "region": 4,
+      "skill": "clock_snare"
+    }
+  },
+  {
+    "region": 4,
+    "music": "core",
+    "par_time": 205,
+    "name_en": "31. Dawn Core Depths 1",
+    "name_zh": "31. ?????? 1",
+    "hint_en": "Use every skill and finish the final descent.",
+    "hint_zh": "???????????????",
+    "start": [
+      64,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        180,
+        40
+      ],
+      [
+        760,
+        500,
+        200,
+        40
+      ],
+      [
+        430,
+        356,
+        126,
+        18
+      ]
+    ],
+    "hazards": [
+      [
+        180,
+        492,
+        80,
+        18
+      ],
+      [
+        372,
+        492,
+        218,
+        18
+      ],
+      [
+        702,
+        492,
+        58,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        430,
+        356
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          490,
+          356
+        ],
+        "patrol": 44,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          650,
+          340
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          260,
+          456,
+          112,
+          18
+        ],
+        "from": [
+          260,
+          456
+        ],
+        "to": [
+          260,
+          338
+        ],
+        "speed": 66
+      },
+      {
+        "rect": [
+          590,
+          390,
+          112,
+          18
+        ],
+        "from": [
+          590,
+          390
+        ],
+        "to": [
+          710,
+          390
+        ],
+        "speed": 72
+      }
+    ],
+    "required_skill": "clock_snare"
+  },
+  {
+    "region": 4,
+    "music": "core",
+    "par_time": 213,
+    "name_en": "32. Dawn Core Depths 2",
+    "name_zh": "32. ?????? 2",
+    "hint_en": "Use every skill and finish the final descent.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        220,
+        40
+      ],
+      [
+        282,
+        450,
+        124,
+        18
+      ],
+      [
+        470,
+        400,
+        124,
+        18
+      ],
+      [
+        660,
+        450,
+        110,
+        18
+      ],
+      [
+        820,
+        500,
+        140,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        220,
+        492,
+        62,
+        18
+      ],
+      [
+        406,
+        492,
+        64,
+        18
+      ],
+      [
+        594,
+        492,
+        66,
+        18
+      ],
+      [
+        770,
+        492,
+        50,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        470,
+        400
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          342,
+          450
+        ],
+        "patrol": 38,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          704,
+          450
+        ],
+        "patrol": 36,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ],
+    "keys": [
+      {
+        "id": "gate",
+        "pos": [
+          520,
+          400
+        ]
+      }
+    ],
+    "doors": [
+      {
+        "id": "gate",
+        "rect": [
+          796,
+          420,
+          32,
+          80
+        ]
+      }
+    ],
+    "required_skill": "clock_snare"
+  },
+  {
+    "region": 4,
+    "music": "core",
+    "par_time": 221,
+    "name_en": "33. Dawn Core Depths 3",
+    "name_zh": "33. ?????? 3",
+    "hint_en": "Use every skill and finish the final descent.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        180,
+        40
+      ],
+      [
+        230,
+        452,
+        110,
+        18
+      ],
+      [
+        390,
+        406,
+        110,
+        18
+      ],
+      [
+        552,
+        360,
+        110,
+        18
+      ],
+      [
+        718,
+        430,
+        110,
+        18
+      ],
+      [
+        848,
+        500,
+        112,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        180,
+        492,
+        50,
+        18
+      ],
+      [
+        340,
+        492,
+        50,
+        18
+      ],
+      [
+        500,
+        492,
+        52,
+        18
+      ],
+      [
+        662,
+        492,
+        56,
+        18
+      ],
+      [
+        828,
+        492,
+        20,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        552,
+        360
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          300,
+          392
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          610,
+          316
+        ],
+        "patrol": 76,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          760,
+          390
+        ],
+        "patrol": 44,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ],
+    "shop": [
+      96,
+      500
+    ],
+    "required_skill": "clock_snare"
+  },
+  {
+    "region": 4,
+    "music": "core",
+    "par_time": 229,
+    "name_en": "34. Dawn Core Depths 4",
+    "name_zh": "34. ?????? 4",
+    "hint_en": "Use every skill and finish the final descent.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        170,
+        40
+      ],
+      [
+        236,
+        456,
+        100,
+        18
+      ],
+      [
+        418,
+        412,
+        100,
+        18
+      ],
+      [
+        600,
+        456,
+        100,
+        18
+      ],
+      [
+        790,
+        500,
+        170,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        170,
+        492,
+        66,
+        18
+      ],
+      [
+        336,
+        492,
+        82,
+        18
+      ],
+      [
+        518,
+        492,
+        82,
+        18
+      ],
+      [
+        700,
+        492,
+        90,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        418,
+        412
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          280,
+          456
+        ],
+        "patrol": 34,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          640,
+          456
+        ],
+        "patrol": 34,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          514,
+          322
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      }
+    ],
+    "goal": [
+      908,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          330,
+          364,
+          96,
+          18
+        ],
+        "from": [
+          330,
+          364
+        ],
+        "to": [
+          510,
+          364
+        ],
+        "speed": 82
+      }
+    ],
+    "brittle_platforms": [
+      [
+        236,
+        456,
+        100,
+        18
+      ],
+      [
+        600,
+        456,
+        100,
+        18
+      ]
+    ],
+    "required_skill": "clock_snare"
+  },
+  {
+    "region": 4,
+    "music": "core",
+    "par_time": 237,
+    "name_en": "35. Dawn Core Depths 5",
+    "name_zh": "35. ?????? 5",
+    "hint_en": "Use every skill and finish the final descent.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        150,
+        40
+      ],
+      [
+        210,
+        454,
+        100,
+        18
+      ],
+      [
+        360,
+        408,
+        100,
+        18
+      ],
+      [
+        510,
+        362,
+        100,
+        18
+      ],
+      [
+        670,
+        416,
+        100,
+        18
+      ],
+      [
+        830,
+        500,
+        130,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        150,
+        492,
+        60,
+        18
+      ],
+      [
+        310,
+        492,
+        50,
+        18
+      ],
+      [
+        460,
+        492,
+        50,
+        18
+      ],
+      [
+        610,
+        492,
+        60,
+        18
+      ],
+      [
+        770,
+        492,
+        60,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        510,
+        362
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          250,
+          418
+        ],
+        "patrol": 34,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          548,
+          316
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      },
+      {
+        "pos": [
+          716,
+          382
+        ],
+        "patrol": 46,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      914,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          150,
+          356,
+          94,
+          18
+        ],
+        "from": [
+          150,
+          356
+        ],
+        "to": [
+          280,
+          356
+        ],
+        "speed": 78
+      },
+      {
+        "rect": [
+          620,
+          326,
+          94,
+          18
+        ],
+        "from": [
+          620,
+          326
+        ],
+        "to": [
+          760,
+          326
+        ],
+        "speed": 72
+      }
+    ],
+    "brittle_platforms": [
+      [
+        360,
+        408,
+        100,
+        18
+      ],
+      [
+        670,
+        416,
+        100,
+        18
+      ]
+    ],
+    "required_skill": "clock_snare"
+  },
+  {
+    "region": 4,
+    "music": "core",
+    "par_time": 245,
+    "name_en": "36. Dawn Core Depths 6",
+    "name_zh": "36. ?????? 6",
+    "hint_en": "Use every skill and finish the final descent.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        210,
+        40
+      ],
+      [
+        270,
+        440,
+        110,
+        18
+      ],
+      [
+        430,
+        384,
+        110,
+        18
+      ],
+      [
+        590,
+        330,
+        110,
+        18
+      ],
+      [
+        750,
+        420,
+        100,
+        18
+      ],
+      [
+        860,
+        500,
+        100,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        210,
+        492,
+        60,
+        18
+      ],
+      [
+        380,
+        492,
+        50,
+        18
+      ],
+      [
+        540,
+        492,
+        50,
+        18
+      ],
+      [
+        700,
+        492,
+        50,
+        18
+      ],
+      [
+        850,
+        492,
+        10,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        590,
+        330
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          310,
+          456
+        ],
+        "patrol": 44,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      915,
+      500
+    ],
+    "required_skill": "clock_snare"
+  },
+  {
+    "region": 4,
+    "music": "core",
+    "par_time": 253,
+    "name_en": "37. Dawn Core Depths 7",
+    "name_zh": "37. ?????? 7",
+    "hint_en": "Use every skill and finish the final descent.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        190,
+        40
+      ],
+      [
+        250,
+        456,
+        120,
+        18
+      ],
+      [
+        420,
+        410,
+        120,
+        18
+      ],
+      [
+        600,
+        456,
+        120,
+        18
+      ],
+      [
+        800,
+        500,
+        160,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        190,
+        492,
+        60,
+        18
+      ],
+      [
+        370,
+        492,
+        50,
+        18
+      ],
+      [
+        540,
+        492,
+        60,
+        18
+      ],
+      [
+        740,
+        492,
+        60,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        420,
+        410
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          360,
+          452
+        ],
+        "patrol": 42,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          750,
+          356
+        ],
+        "patrol": 42,
+        "type": "patrol"
+      }
+    ],
+    "goal": [
+      900,
+      500
+    ],
+    "shop": [
+      96,
+      500
+    ],
+    "required_skill": "clock_snare"
+  },
+  {
+    "region": 4,
+    "music": "core",
+    "par_time": 261,
+    "name_en": "38. Dawn Core Depths 8",
+    "name_zh": "38. ?????? 8",
+    "hint_en": "Use every skill and finish the final descent.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        220,
+        40
+      ],
+      [
+        300,
+        452,
+        116,
+        18
+      ],
+      [
+        500,
+        404,
+        116,
+        18
+      ],
+      [
+        700,
+        356,
+        130,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        220,
+        492,
+        80,
+        18
+      ],
+      [
+        416,
+        492,
+        84,
+        18
+      ],
+      [
+        616,
+        492,
+        84,
+        18
+      ],
+      [
+        830,
+        492,
+        20,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        500,
+        404
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          450,
+          398
+        ],
+        "patrol": 46,
+        "type": "shield",
+        "hp": 2
+      },
+      {
+        "pos": [
+          760,
+          390
+        ],
+        "patrol": 48,
+        "type": "crawler"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ],
+    "required_skill": "clock_snare"
+  },
+  {
+    "region": 4,
+    "music": "core",
+    "par_time": 269,
+    "name_en": "39. Dawn Core Depths 9",
+    "name_zh": "39. ?????? 9",
+    "hint_en": "Use every skill and finish the final descent.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        170,
+        40
+      ],
+      [
+        235,
+        450,
+        104,
+        18
+      ],
+      [
+        390,
+        398,
+        104,
+        18
+      ],
+      [
+        560,
+        346,
+        104,
+        18
+      ],
+      [
+        730,
+        420,
+        104,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        170,
+        492,
+        65,
+        18
+      ],
+      [
+        339,
+        492,
+        51,
+        18
+      ],
+      [
+        494,
+        492,
+        66,
+        18
+      ],
+      [
+        664,
+        492,
+        66,
+        18
+      ],
+      [
+        834,
+        492,
+        16,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        560,
+        346
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          490,
+          356
+        ],
+        "patrol": 44,
+        "type": "patrol"
+      },
+      {
+        "pos": [
+          650,
+          340
+        ],
+        "patrol": 70,
+        "type": "flyer"
+      }
+    ],
+    "goal": [
+      910,
+      500
+    ],
+    "required_skill": "clock_snare"
+  },
+  {
+    "region": 4,
+    "music": "boss",
+    "par_time": 277,
+    "name_en": "40. Dawn Core Heart",
+    "name_zh": "40. ??????",
+    "hint_en": "Defeat the guardian to unlock the next expedition tool.",
+    "hint_zh": "???????????????",
+    "start": [
+      58,
+      500
+    ],
+    "platforms": [
+      [
+        0,
+        500,
+        230,
+        40
+      ],
+      [
+        320,
+        430,
+        120,
+        18
+      ],
+      [
+        510,
+        370,
+        120,
+        18
+      ],
+      [
+        700,
+        430,
+        120,
+        18
+      ],
+      [
+        850,
+        500,
+        110,
+        40
+      ]
+    ],
+    "hazards": [
+      [
+        230,
+        492,
+        90,
+        18
+      ],
+      [
+        440,
+        492,
+        70,
+        18
+      ],
+      [
+        630,
+        492,
+        70,
+        18
+      ],
+      [
+        820,
+        492,
+        30,
+        18
+      ]
+    ],
+    "checkpoints": [
+      [
+        510,
+        370
+      ]
+    ],
+    "enemies": [
+      {
+        "pos": [
+          360,
+          430
+        ],
+        "patrol": 40,
+        "type": "shield",
+        "hp": 5
+      },
+      {
+        "pos": [
+          620,
+          330
+        ],
+        "patrol": 82,
+        "type": "flyer",
+        "hp": 2
+      },
+      {
+        "pos": [
+          740,
+          396
+        ],
+        "patrol": 54,
+        "type": "boss",
+        "hp": 14
+      }
+    ],
+    "goal": [
+      914,
+      500
+    ],
+    "moving_platforms": [
+      {
+        "rect": [
+          390,
+          330,
+          96,
+          18
+        ],
+        "from": [
+          390,
+          330
+        ],
+        "to": [
+          590,
+          330
+        ],
+        "speed": 98
+      }
+    ],
+    "required_skill": "clock_snare",
+    "brittle_platforms": [
+      [
+        320,
+        430,
+        120,
+        18
+      ],
+      [
+        700,
+        430,
+        120,
+        18
+      ]
+    ],
+    "keys": [],
+    "doors": [],
+    "boss": {
+      "id": "dawn_barrier",
+      "hp": 14
+    },
+    "reward": {
+      "skill": "dawn_barrier",
+      "coins": 105
+    },
+    "unlock": {
+      "region": 4,
+      "skill": "dawn_barrier"
+    }
   }
 ]

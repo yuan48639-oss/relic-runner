@@ -5,7 +5,7 @@
 预期本地导出路径：
 
 ```text
-build/windows/RelicRunnerDemo.exe
+build/windows/RelicRunner.exe
 ```
 
 典型流程：

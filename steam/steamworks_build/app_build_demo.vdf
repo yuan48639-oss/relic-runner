@@ -1,7 +1,7 @@
 "appbuild"
 {
 	"appid" "<DEMO_APP_ID>"
-	"desc" "Relic Runner Demo Windows build"
+	"desc" "Relic Runner 1.0 Windows build"
 	"buildoutput" "..\\..\\build\\steampipe_output"
 	"contentroot" "..\\..\\build\\windows"
 	"setlive" ""
@@ -12,4 +12,3 @@
 		"<WINDOWS_DEPOT_ID>" "depot_build_windows.vdf"
 	}
 }
-

@@ -1,28 +1,28 @@
-# Steam Demo 上线清单
+# Steam 1.0 上线清单
 
 ## Steamworks 设置
 
 - [ ] 通过 Steam Direct 创建付费正式游戏 App。
-- [ ] 从正式游戏的 Steamworks 页面创建关联 Demo App。
+- [ ] 创建正式游戏 App，确认不使用 Demo App ID 发布 1.0。
 - [ ] 给团队成员配置最小必要权限。
 - [ ] 填写税务、银行、身份、内容调查和 AI 内容披露表。
 - [ ] 确认游戏名、胶囊图品牌、支持系统、手柄支持和语言支持。
-- [ ] 确认 Demo 是独立 App ID，但挂在正式游戏页面下。
+- [ ] 确认 1.0 构建、商店页和 SteamPipe App ID / Depot ID 一致。
 
 ## 商店页
 
-- [ ] 短描述说明：2D 动作闯关、遗迹主题、Demo 时长、核心机制。
-- [ ] 长描述说明：移动、战斗、危险、家园成长、当前 Demo 包含内容和完整版可能扩展方向。
+- [ ] 短描述说明：2D 动作闯关、遗迹主题、约 2 小时主线、核心机制。
+- [ ] 长描述说明：移动、战斗、危险、家园成长、40 关、4 区域、4 Boss、装备和技能。
 - [ ] 截图只使用真实构建画面，不使用概念图冒充玩法。
 - [ ] 制作 20-40 秒真实 gameplay 视频或短 trailer。
 - [ ] 按 Steam 要求尺寸导出胶囊图、头图和库资产。
-- [ ] 正式游戏 Coming Soon 页面应在 Demo 发布前或同时公开。
+- [ ] Coming Soon 页面应在正式发布前公开。
 - [ ] 商店页承诺的功能必须已经在构建中存在，不承诺未完成的局域网联机。
 
 ## 构建
 
 - [ ] 安装 Godot 4 export templates。
-- [ ] 导出 `Windows` 构建到 `build/windows/RelicRunnerDemo.exe`。
+- [ ] 导出 `Windows` 构建到 `build/windows/RelicRunner.exe` 或最终产品名路径。
 - [ ] 在 Godot 编辑器外单独启动导出包。
 - [ ] 验证键盘和手柄都能完成完整流程。
 - [ ] 使用 `steam/steamworks_build/` 中的 VDF 模板通过 SteamPipe 上传。

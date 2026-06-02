@@ -1,6 +1,6 @@
 extends Node
 
-const SAVE_VERSION = 1
+const SAVE_VERSION = 2
 const SAVE_PATH = "user://savegame.json"
 const SETTINGS_PATH = "user://settings.json"
 

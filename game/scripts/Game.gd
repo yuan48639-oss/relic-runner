@@ -31,26 +31,45 @@ const HOME_COIN_CHARM_COST = 40
 const HOME_MEDIC_CHARM_COST = 52
 const HOME_WING_BOOTS_COST = 68
 const HOME_DAWN_BLADE_COST = 82
+const HOME_STORM_SWORD_COST = 130
+const HOME_ANCHOR_BOOTS_COST = 110
+const HOME_GLASS_ARMOR_COST = 145
+const HOME_DAWN_CHARM_COST = 165
 const HOME_MAX_LIFE_CAP = 6
 const CORE_LIFE_BASE_COST = 50
 const CORE_LIFE_STEP_COST = 35
 const REVIVE_COST = 100
-const TEST_STARTING_COINS = 99999
+const STARTING_COINS = 0
 const PYROBLAST_RANGE = 150.0
 const PYROBLAST_DAMAGE = 3
 const PYROBLAST_COOLDOWN = 3.5
+const TIDAL_WAVE_RANGE = 185.0
+const TIDAL_WAVE_DAMAGE = 2
+const TIDAL_WAVE_COOLDOWN = 4.0
+const CLOCK_SNARE_RANGE = 170.0
+const CLOCK_SNARE_DAMAGE = 2
+const CLOCK_SNARE_COOLDOWN = 4.8
+const DAWN_BARRIER_RANGE = 118.0
+const DAWN_BARRIER_DAMAGE = 1
+const DAWN_BARRIER_COOLDOWN = 6.0
 const SHORT_SWORD_REACH = 44.0
 const LONG_SWORD_REACH = 72.0
+const STORM_SWORD_REACH = 84.0
 const DAWN_BLADE_REACH = 92.0
-const HOME_SHOP_ORDER = ["potion", "long_sword", "swift_boots", "bronze_armor", "coin_charm", "medic_charm", "wing_boots", "dawn_blade"]
+const SKILL_IDS = ["pyroblast", "tidal_wave", "clock_snare", "dawn_barrier"]
+const HOME_SHOP_ORDER = ["potion", "long_sword", "swift_boots", "bronze_armor", "coin_charm", "medic_charm", "wing_boots", "dawn_blade", "storm_sword", "anchor_boots", "glass_armor", "dawn_charm"]
 const EQUIPMENT_ITEMS = {
 	"long_sword": {"slot": "weapon", "value": "long_sword", "cost": HOME_LONG_SWORD_COST},
 	"dawn_blade": {"slot": "weapon", "value": "dawn_blade", "cost": HOME_DAWN_BLADE_COST},
+	"storm_sword": {"slot": "weapon", "value": "storm_sword", "cost": HOME_STORM_SWORD_COST},
 	"swift_boots": {"slot": "boots", "value": "swift_boots", "cost": HOME_SWIFT_BOOTS_COST},
 	"wing_boots": {"slot": "boots", "value": "wing_boots", "cost": HOME_WING_BOOTS_COST},
+	"anchor_boots": {"slot": "boots", "value": "anchor_boots", "cost": HOME_ANCHOR_BOOTS_COST},
 	"bronze_armor": {"slot": "armor", "value": "bronze_armor", "cost": HOME_BRONZE_ARMOR_COST},
+	"glass_armor": {"slot": "armor", "value": "glass_armor", "cost": HOME_GLASS_ARMOR_COST},
 	"coin_charm": {"slot": "charm", "value": "coin_charm", "cost": HOME_COIN_CHARM_COST},
-	"medic_charm": {"slot": "charm", "value": "medic_charm", "cost": HOME_MEDIC_CHARM_COST}
+	"medic_charm": {"slot": "charm", "value": "medic_charm", "cost": HOME_MEDIC_CHARM_COST},
+	"dawn_charm": {"slot": "charm", "value": "dawn_charm", "cost": HOME_DAWN_CHARM_COST}
 }
 
 const LEVELS = [
@@ -120,8 +139,8 @@ const TEXT = {
 		"revive_no_money": "Not enough coins to revive.",
 		"revived": "Revived at the checkpoint.",
 		"retry": "Retry Level",
-		"complete": "DEMO COMPLETE",
-		"complete_note": "Wishlist page copy, screenshots, and SteamPipe templates are in docs/ and steam/.",
+		"complete": "DAWN CORE RESTORED",
+		"complete_note": "The full 1.0 route is complete. Review screenshots, credits, and SteamPipe templates before release.",
 		"play_again": "Play Again",
 		"lives": "Lives",
 		"coins": "Coins",
@@ -135,7 +154,7 @@ const TEXT = {
 		"interact_prompt": "J / Left Click",
 		"home_death": "You returned home after falling in the ruins.",
 		"home_clear": "Level cleared. Spend coins before the next expedition.",
-		"home_complete": "Demo route cleared. The Dawn Core still waits.",
+		"home_complete": "The Dawn Core is restored. The town survives the sunrise.",
 		"buy_home_potion": "Buy Potion - 6 coins",
 		"buy_home_sword": "Permanent Long Sword - 18 coins",
 		"buy_home_boots": "Swift Boots - 28 coins",
@@ -144,6 +163,10 @@ const TEXT = {
 		"buy_home_medic": "Medic Charm - 52 coins",
 		"buy_home_wing_boots": "Wing Boots - 68 coins",
 		"buy_home_dawn_blade": "Dawn Blade - 82 coins",
+		"buy_home_storm_sword": "Storm Sword - 130 coins",
+		"buy_home_anchor_boots": "Anchor Boots - 110 coins",
+		"buy_home_glass_armor": "Glass Armor - 145 coins",
+		"buy_home_dawn_charm": "Dawn Charm - 165 coins",
 		"core_upgrade": "Upgrade Max Life",
 		"core_cost": "Cost: %s coins",
 		"core_maxed": "Core life upgrades maxed.",
@@ -153,6 +176,9 @@ const TEXT = {
 		"skills_title": "SKILLS",
 		"skill_summary": "K: %s    L: %s",
 		"skill_pyroblast": "Pyroblast",
+		"skill_tidal_wave": "Tidal Wave",
+		"skill_clock_snare": "Clock Snare",
+		"skill_dawn_barrier": "Dawn Barrier",
 		"skill_locked": "Locked",
 		"equip_k": "Equip to K",
 		"equip_l": "Equip to L",
@@ -167,14 +193,18 @@ const TEXT = {
 		"item_short_sword": "Short Sword",
 		"item_long_sword": "Long Sword",
 		"item_dawn_blade": "Dawn Blade",
+		"item_storm_sword": "Storm Sword",
 		"item_worn_boots": "Worn Boots",
 		"item_swift_boots": "Swift Boots",
 		"item_wing_boots": "Wing Boots",
+		"item_anchor_boots": "Anchor Boots",
 		"item_cloth": "Cloth Tunic",
 		"item_bronze_armor": "Bronze Armor",
+		"item_glass_armor": "Glass Armor",
 		"item_none": "None",
 		"item_coin_charm": "Coin Charm",
 		"item_medic_charm": "Medic Charm",
+		"item_dawn_charm": "Dawn Charm",
 		"slot_weapon": "Weapon",
 		"slot_boots": "Boots",
 		"slot_armor": "Armor",
@@ -182,11 +212,15 @@ const TEXT = {
 		"effect_potion": "Stored in backpack. Use during a run.",
 		"effect_long_sword": "Longer attack reach.",
 		"effect_dawn_blade": "Longest reach and higher attack damage.",
+		"effect_storm_sword": "Long reach and stronger skill damage.",
 		"effect_swift_boots": "Shorter dash cooldown.",
 		"effect_wing_boots": "Triple jump and shorter dash cooldown.",
+		"effect_anchor_boots": "Stable dash timing for late ruins.",
 		"effect_bronze_armor": "Blocks the first hit of each expedition.",
+		"effect_glass_armor": "Blocks two hits of each expedition.",
 		"effect_coin_charm": "+1 coin from each defeated enemy.",
 		"effect_medic_charm": "Potions heal more and sword kills drop more potions.",
+		"effect_dawn_charm": "Skills cool down faster.",
 		"equip": "Equip",
 		"blocked_hit": "Armor blocked the hit.",
 		"shop_title": "RUIN SHOP",
@@ -236,8 +270,8 @@ const TEXT = {
 		"revive_no_money": "金币不足，无法复活。",
 		"revived": "已在检查点复活。",
 		"retry": "重试关卡",
-		"complete": "Demo 完成",
-		"complete_note": "愿望单文案、截图清单和 SteamPipe 模板在 docs/ 与 steam/ 中。",
+		"complete": "晨辉核心已复苏",
+		"complete_note": "1.0 主线已完成。发布前请复核截图、署名和 SteamPipe 模板。",
 		"play_again": "再玩一次",
 		"lives": "生命",
 		"coins": "金币",
@@ -251,7 +285,7 @@ const TEXT = {
 		"interact_prompt": "J / 左键",
 		"home_death": "你从遗迹中撤回了家园。",
 		"home_clear": "关卡已完成。出发前可以在家园消费金币。",
-		"home_complete": "Demo 路线已通关。晨辉核心仍在等待。",
+		"home_complete": "晨辉核心已复苏。城镇撑过了日出。",
 		"buy_home_potion": "购买药水 - 6 金币",
 		"buy_home_sword": "永久长剑 - 18 金币",
 		"buy_home_boots": "迅捷靴 - 28 金币",
@@ -260,6 +294,10 @@ const TEXT = {
 		"buy_home_medic": "医者护符 - 52 金币",
 		"buy_home_wing_boots": "羽翼靴 - 68 金币",
 		"buy_home_dawn_blade": "晨辉刃 - 82 金币",
+		"buy_home_storm_sword": "风暴剑 - 130 金币",
+		"buy_home_anchor_boots": "锚定靴 - 110 金币",
+		"buy_home_glass_armor": "琉璃甲 - 145 金币",
+		"buy_home_dawn_charm": "晨辉护符 - 165 金币",
 		"core_upgrade": "提升生命上限",
 		"core_cost": "价格：%s 金币",
 		"core_maxed": "核心生命升级已满。",
@@ -269,6 +307,9 @@ const TEXT = {
 		"skills_title": "技能列表",
 		"skill_summary": "K：%s    L：%s",
 		"skill_pyroblast": "炎爆术",
+		"skill_tidal_wave": "潮汐波",
+		"skill_clock_snare": "钟摆束缚",
+		"skill_dawn_barrier": "晨辉屏障",
 		"skill_locked": "未解锁",
 		"equip_k": "装备到 K",
 		"equip_l": "装备到 L",
@@ -283,14 +324,18 @@ const TEXT = {
 		"item_short_sword": "短剑",
 		"item_long_sword": "长剑",
 		"item_dawn_blade": "晨辉刃",
+		"item_storm_sword": "风暴剑",
 		"item_worn_boots": "旧靴",
 		"item_swift_boots": "迅捷靴",
 		"item_wing_boots": "羽翼靴",
+		"item_anchor_boots": "锚定靴",
 		"item_cloth": "布衣",
 		"item_bronze_armor": "青铜护甲",
+		"item_glass_armor": "琉璃甲",
 		"item_none": "无",
 		"item_coin_charm": "金币护符",
 		"item_medic_charm": "医者护符",
+		"item_dawn_charm": "晨辉护符",
 		"slot_weapon": "武器",
 		"slot_boots": "靴子",
 		"slot_armor": "护甲",
@@ -298,11 +343,15 @@ const TEXT = {
 		"effect_potion": "放入背包，出征时使用。",
 		"effect_long_sword": "提升攻击距离。",
 		"effect_dawn_blade": "最长攻击距离，并提高剑击伤害。",
+		"effect_storm_sword": "较长攻击距离，并提高技能伤害。",
 		"effect_swift_boots": "缩短冲刺冷却。",
 		"effect_wing_boots": "三段跳，并缩短冲刺冷却。",
+		"effect_anchor_boots": "让后期遗迹中的冲刺节奏更稳定。",
 		"effect_bronze_armor": "每次出征抵挡第一次受伤。",
+		"effect_glass_armor": "每次出征抵挡两次受伤。",
 		"effect_coin_charm": "每个被击败的怪物额外 +1 金币。",
 		"effect_medic_charm": "药水治疗更多，剑杀更容易掉药。",
+		"effect_dawn_charm": "缩短技能冷却时间。",
 		"equip": "装备",
 		"blocked_hit": "护甲抵挡了这次伤害。",
 		"shop_title": "遗迹商店",
@@ -342,7 +391,7 @@ var master_volume := 0.8
 var language := "en"
 var player_lives := MAX_LIVES
 var max_lives := MAX_LIVES
-var coins := TEST_STARTING_COINS
+var coins := STARTING_COINS
 var has_long_sword := false
 var unlocked_level := 0
 var home_message := ""
@@ -360,7 +409,12 @@ var equipment := {
 }
 var unlocked_skills := {}
 var equipped_skills := {"K": "", "L": ""}
-var skill_cooldowns := {"pyroblast": 0.0}
+var skill_cooldowns := {
+	"pyroblast": 0.0,
+	"tidal_wave": 0.0,
+	"clock_snare": 0.0,
+	"dawn_barrier": 0.0
+}
 var armor_charges := 0
 var shop_available := false
 var shop_position := Vector2.ZERO
@@ -486,6 +540,12 @@ func level_text(data: Dictionary, key: String) -> String:
 	var localized_key := "%s_%s" % [key, language]
 	return data.get(localized_key, data.get("%s_en" % key, key))
 
+func current_region_id() -> int:
+	if levels.is_empty():
+		return 1
+	var index := clampi(current_level, 0, levels.size() - 1)
+	return int(levels[index].get("region", (index / 10) + 1))
+
 func language_button_text() -> String:
 	if language == "en":
 		return "Language / 语言: English -> 中文"
@@ -568,7 +628,7 @@ func load_home_state() -> void:
 	unlocked_level = clampi(int(data.get("unlocked_level", current_level)), 0, max(levels.size() - 1, 0))
 	max_lives = clampi(int(data.get("max_lives", MAX_LIVES)), MAX_LIVES, HOME_MAX_LIFE_CAP)
 	player_lives = clampi(int(data.get("player_lives", max_lives)), 1, max_lives)
-	coins = max(TEST_STARTING_COINS, int(data.get("coins", TEST_STARTING_COINS)))
+	coins = max(STARTING_COINS, int(data.get("coins", STARTING_COINS)))
 	has_long_sword = bool(data.get("has_long_sword", false))
 	var loaded_backpack: Dictionary = data.get("backpack", {})
 	backpack = {"potion": int(loaded_backpack.get("potion", 0))}
@@ -580,7 +640,7 @@ func load_home_state() -> void:
 		"armor": str(loaded_equipment.get("armor", "cloth")),
 		"charm": str(loaded_equipment.get("charm", "none"))
 	}
-	unlocked_skills = data.get("unlocked_skills", {})
+	unlocked_skills = data.get("unlocked_skills", data.get("skills_unlocked", {}))
 	var loaded_skills: Dictionary = data.get("equipped_skills", {})
 	equipped_skills = {
 		"K": str(loaded_skills.get("K", "")),
@@ -886,7 +946,7 @@ func reset_home_state() -> void:
 	unlocked_level = 0
 	max_lives = MAX_LIVES
 	player_lives = max_lives
-	coins = TEST_STARTING_COINS
+	coins = STARTING_COINS
 	has_long_sword = false
 	backpack = {"potion": 0}
 	purchased_items = {}
@@ -898,7 +958,12 @@ func reset_home_state() -> void:
 	}
 	unlocked_skills = {}
 	equipped_skills = {"K": "", "L": ""}
-	skill_cooldowns = {"pyroblast": 0.0}
+	skill_cooldowns = {
+		"pyroblast": 0.0,
+		"tidal_wave": 0.0,
+		"clock_snare": 0.0,
+		"dawn_barrier": 0.0
+	}
 	armor_charges = 0
 	has_home_resume_position = false
 	home_resume_position = Vector2.ZERO
@@ -914,9 +979,9 @@ func show_home_shop(message: String = "") -> void:
 
 	for i in range(HOME_SHOP_ORDER.size()):
 		var item_id: String = HOME_SHOP_ORDER[i]
-		var col := i % 2
-		var row := i / 2
-		add_home_shop_button(item_id, Vector2(90 + col * 410, 146 + row * 68))
+		var col := i % 3
+		var row := i / 3
+		add_home_shop_button(item_id, Vector2(36 + col * 306, 132 + row * 76))
 
 	if message != "":
 		var label := make_label(message, 16, Vector2(0, 432), Vector2(VIEWPORT_SIZE.x, 30), HORIZONTAL_ALIGNMENT_CENTER)
@@ -944,21 +1009,27 @@ func add_item_icon_ui(item_id: String, pos: Vector2) -> void:
 			add_ui_rect(pos + Vector2(18, 12), Vector2(12, 24), Color(0.32, 0.95, 0.58))
 			add_ui_rect(pos + Vector2(20, 7), Vector2(8, 6), Color(0.94, 0.82, 0.54))
 			add_ui_rect(pos + Vector2(21, 16), Vector2(3, 12), Color(0.82, 1.0, 0.84, 0.8))
-		"long_sword", "dawn_blade":
+		"long_sword", "dawn_blade", "storm_sword":
 			add_ui_rect(pos + Vector2(22, 8), Vector2(5, 26), accent)
 			add_ui_rect(pos + Vector2(17, 31), Vector2(15, 4), Color(0.78, 0.52, 0.22))
 			add_ui_rect(pos + Vector2(20, 35), Vector2(9, 7), Color(0.36, 0.22, 0.12))
-		"swift_boots", "wing_boots":
+			if item_id == "storm_sword":
+				add_ui_rect(pos + Vector2(14, 12), Vector2(4, 18), Color(0.44, 0.78, 1.0, 0.8))
+		"swift_boots", "wing_boots", "anchor_boots":
 			add_ui_rect(pos + Vector2(11, 24), Vector2(12, 13), accent)
 			add_ui_rect(pos + Vector2(25, 20), Vector2(12, 17), accent.lightened(0.1))
 			add_ui_rect(pos + Vector2(9, 36), Vector2(31, 5), Color(0.12, 0.2, 0.22))
 			if item_id == "wing_boots":
 				add_ui_rect(pos + Vector2(31, 12), Vector2(10, 5), Color(0.9, 0.96, 1.0))
-		"bronze_armor":
+			if item_id == "anchor_boots":
+				add_ui_rect(pos + Vector2(14, 16), Vector2(22, 4), Color(0.92, 0.82, 0.44))
+		"bronze_armor", "glass_armor":
 			add_ui_rect(pos + Vector2(14, 12), Vector2(20, 26), accent)
 			add_ui_rect(pos + Vector2(10, 15), Vector2(7, 10), accent.darkened(0.18))
 			add_ui_rect(pos + Vector2(31, 15), Vector2(7, 10), accent.darkened(0.18))
-		"coin_charm", "medic_charm":
+			if item_id == "glass_armor":
+				add_ui_rect(pos + Vector2(17, 15), Vector2(14, 20), Color(0.86, 1.0, 1.0, 0.45))
+		"coin_charm", "medic_charm", "dawn_charm":
 			add_ui_rect(pos + Vector2(19, 10), Vector2(10, 8), Color(0.72, 0.58, 0.24))
 			add_ui_rect(pos + Vector2(15, 18), Vector2(18, 18), accent)
 			add_ui_rect(pos + Vector2(20, 23), Vector2(8, 8), Color(1.0, 0.96, 0.72, 0.75))
@@ -971,15 +1042,15 @@ func add_item_icon_ui_small(item_id: String, pos: Vector2) -> void:
 		"potion":
 			add_ui_rect(pos + Vector2(12, 8), Vector2(7, 16), Color(0.32, 0.95, 0.58))
 			add_ui_rect(pos + Vector2(13, 5), Vector2(5, 4), Color(0.94, 0.82, 0.54))
-		"long_sword", "dawn_blade":
+		"long_sword", "dawn_blade", "storm_sword":
 			add_ui_rect(pos + Vector2(14, 5), Vector2(4, 18), accent)
 			add_ui_rect(pos + Vector2(10, 21), Vector2(12, 3), Color(0.78, 0.52, 0.22))
-		"swift_boots", "wing_boots":
+		"swift_boots", "wing_boots", "anchor_boots":
 			add_ui_rect(pos + Vector2(7, 16), Vector2(8, 9), accent)
 			add_ui_rect(pos + Vector2(16, 13), Vector2(8, 12), accent.lightened(0.1))
-		"bronze_armor":
+		"bronze_armor", "glass_armor":
 			add_ui_rect(pos + Vector2(9, 7), Vector2(13, 18), accent)
-		"coin_charm", "medic_charm":
+		"coin_charm", "medic_charm", "dawn_charm":
 			add_ui_rect(pos + Vector2(10, 10), Vector2(12, 12), accent)
 
 func add_ui_rect(pos: Vector2, size: Vector2, color: Color) -> void:
@@ -997,16 +1068,24 @@ func item_ui_color(item_id: String) -> Color:
 			return Color(0.84, 0.88, 0.9)
 		"dawn_blade":
 			return Color(0.72, 0.96, 1.0)
+		"storm_sword":
+			return Color(0.48, 0.72, 1.0)
 		"swift_boots":
 			return Color(0.34, 0.78, 0.92)
 		"wing_boots":
 			return Color(0.78, 0.9, 1.0)
+		"anchor_boots":
+			return Color(0.46, 0.58, 0.72)
 		"bronze_armor":
 			return Color(0.76, 0.46, 0.22)
+		"glass_armor":
+			return Color(0.62, 0.92, 1.0)
 		"coin_charm":
 			return Color(0.95, 0.78, 0.24)
 		"medic_charm":
 			return Color(0.86, 0.28, 0.42)
+		"dawn_charm":
+			return Color(1.0, 0.86, 0.38)
 	return Color(0.72, 0.72, 0.72)
 
 func add_home_shop_button(item_id: String, pos: Vector2) -> void:
@@ -1017,15 +1096,15 @@ func add_home_shop_button(item_id: String, pos: Vector2) -> void:
 			button_text = "%s (%s)" % [item_display_name(item_id), t("owned")]
 		else:
 			button_text = "%s - %s %s" % [item_display_name(item_id), cost, t("coins")]
-	add_ui_rect(pos + Vector2(-8, -6), Vector2(376, 62), Color(0.07, 0.085, 0.075, 0.86))
+	add_ui_rect(pos + Vector2(-8, -6), Vector2(286, 62), Color(0.07, 0.085, 0.075, 0.86))
 	add_item_icon_ui(item_id, pos + Vector2(0, 0))
-	var button := make_button(button_text, pos + Vector2(58, 0), Vector2(302, 32))
+	var button := make_button(button_text, pos + Vector2(58, 0), Vector2(212, 32))
 	button.disabled = item_id != "potion" and purchased_items.has(item_id)
 	button.pressed.connect(func() -> void: buy_home_item(item_id))
 	ui_root.add_child(button)
 
 	var effect_key := "effect_%s" % item_id
-	var effect := make_label(t(effect_key), 12, pos + Vector2(60, 32), Vector2(298, 24), HORIZONTAL_ALIGNMENT_CENTER)
+	var effect := make_label(t(effect_key), 11, pos + Vector2(58, 32), Vector2(214, 24), HORIZONTAL_ALIGNMENT_CENTER)
 	effect.add_theme_color_override("font_color", Color(0.76, 0.8, 0.7))
 	ui_root.add_child(effect)
 
@@ -1072,6 +1151,14 @@ func home_shop_label_for(item_id: String) -> String:
 			return t("buy_home_wing_boots")
 		"dawn_blade":
 			return t("buy_home_dawn_blade")
+		"storm_sword":
+			return t("buy_home_storm_sword")
+		"anchor_boots":
+			return t("buy_home_anchor_boots")
+		"glass_armor":
+			return t("buy_home_glass_armor")
+		"dawn_charm":
+			return t("buy_home_dawn_charm")
 	return item_display_name(item_id)
 
 func item_display_name(item_id: String) -> String:
@@ -1086,7 +1173,8 @@ func equip_item(item_id: String) -> void:
 	var data: Dictionary = EQUIPMENT_ITEMS[item_id]
 	var slot := str(data.get("slot", ""))
 	equipment[slot] = str(data.get("value", item_id))
-	has_long_sword = equipment.get("weapon", "short_sword") == "long_sword" or equipment.get("weapon", "short_sword") == "dawn_blade"
+	var weapon := str(equipment.get("weapon", "short_sword"))
+	has_long_sword = weapon == "long_sword" or weapon == "storm_sword" or weapon == "dawn_blade"
 
 func is_item_equipped(item_id: String) -> bool:
 	if not EQUIPMENT_ITEMS.has(item_id):
@@ -1207,12 +1295,13 @@ func show_skills(message: String = "") -> void:
 	ui_root.add_child(make_label(t("skills_title"), 34, Vector2(0, 54), Vector2(VIEWPORT_SIZE.x, 50), HORIZONTAL_ALIGNMENT_CENTER))
 	var summary := t("skill_summary") % [skill_display_name(str(equipped_skills.get("K", ""))), skill_display_name(str(equipped_skills.get("L", "")))]
 	ui_root.add_child(make_label(summary, 18, Vector2(0, 112), Vector2(VIEWPORT_SIZE.x, 34), HORIZONTAL_ALIGNMENT_CENTER))
-	add_skill_row("pyroblast", Vector2(250, 184))
+	for i in range(SKILL_IDS.size()):
+		add_skill_row(SKILL_IDS[i], Vector2(250, 162 + i * 82))
 	if message != "":
-		var label := make_label(message, 16, Vector2(0, 360), Vector2(VIEWPORT_SIZE.x, 30), HORIZONTAL_ALIGNMENT_CENTER)
+		var label := make_label(message, 16, Vector2(0, 474), Vector2(VIEWPORT_SIZE.x, 24), HORIZONTAL_ALIGNMENT_CENTER)
 		label.add_theme_color_override("font_color", Color(0.94, 0.84, 0.58))
 		ui_root.add_child(label)
-	var back := make_button(t("back"), Vector2(360, 428), Vector2(240, 42))
+	var back := make_button(t("back"), Vector2(360, 502), Vector2(240, 32))
 	back.pressed.connect(func() -> void: close_skills())
 	ui_root.add_child(back)
 
@@ -1239,6 +1328,17 @@ func add_skill_icon_ui(skill_id: String, pos: Vector2) -> void:
 		add_ui_rect(pos + Vector2(20, 8), Vector2(18, 42), Color(0.95, 0.24, 0.08))
 		add_ui_rect(pos + Vector2(25, 18), Vector2(8, 26), Color(1.0, 0.82, 0.22))
 		add_ui_rect(pos + Vector2(14, 28), Vector2(30, 14), Color(0.75, 0.08, 0.04, 0.8))
+	elif skill_id == "tidal_wave":
+		add_ui_rect(pos + Vector2(8, 24), Vector2(44, 10), Color(0.18, 0.66, 0.95))
+		add_ui_rect(pos + Vector2(16, 16), Vector2(28, 8), Color(0.48, 0.88, 1.0, 0.75))
+		add_ui_rect(pos + Vector2(24, 34), Vector2(18, 6), Color(0.82, 1.0, 1.0, 0.72))
+	elif skill_id == "clock_snare":
+		add_ui_rect(pos + Vector2(17, 10), Vector2(24, 34), Color(0.78, 0.68, 0.36))
+		add_ui_rect(pos + Vector2(27, 14), Vector2(4, 22), Color(0.16, 0.11, 0.07))
+		add_ui_rect(pos + Vector2(20, 36), Vector2(18, 5), Color(0.9, 0.78, 0.42))
+	elif skill_id == "dawn_barrier":
+		add_ui_rect(pos + Vector2(12, 12), Vector2(34, 36), Color(1.0, 0.78, 0.24, 0.36))
+		add_ui_rect(pos + Vector2(18, 20), Vector2(22, 20), Color(1.0, 0.94, 0.62, 0.55))
 
 func skill_display_name(skill_id: String) -> String:
 	if skill_id == "":
@@ -1253,6 +1353,12 @@ func equip_skill_to_slot(skill_id: String, slot: String) -> void:
 	play_sfx("ui")
 	save_run()
 	show_skills(t("equipped"))
+
+func first_unlocked_skill() -> String:
+	for skill_id in SKILL_IDS:
+		if unlocked_skills.has(skill_id):
+			return skill_id
+	return ""
 
 func close_skills() -> void:
 	if skill_return_state == "playing" or skill_return_state == "paused" or skill_return_state == "shop":
@@ -1359,7 +1465,7 @@ func show_network_menu() -> void:
 func start_game() -> void:
 	current_level = 0
 	player_lives = max_lives
-	armor_charges = 1 if equipment.get("armor", "cloth") == "bronze_armor" else 0
+	armor_charges = starting_armor_charges()
 	has_home_resume_position = false
 	shop_message = ""
 	save_run()
@@ -1377,8 +1483,10 @@ func save_run() -> void:
 	if not save_manager:
 		return
 	save_manager.save_game({
+		"version": 2,
 		"current_level": current_level,
 		"unlocked_level": unlocked_level,
+		"current_region": current_region_id(),
 		"player_lives": player_lives,
 		"max_lives": max_lives,
 		"coins": coins,
@@ -1387,7 +1495,9 @@ func save_run() -> void:
 		"purchased_items": purchased_items,
 		"equipment": equipment,
 		"unlocked_skills": unlocked_skills,
+		"skills_unlocked": unlocked_skills,
 		"equipped_skills": equipped_skills,
+		"skill_slots": equipped_skills,
 		"language": language,
 		"master_volume": master_volume,
 		"best_times": {}
@@ -1488,8 +1598,18 @@ func apply_player_equipment() -> void:
 		player.dash_cooldown_time = 0.28
 	elif boots == "swift_boots":
 		player.dash_cooldown_time = 0.32
+	elif boots == "anchor_boots":
+		player.dash_cooldown_time = 0.36
 	else:
 		player.dash_cooldown_time = 0.45
+
+func starting_armor_charges() -> int:
+	var armor := str(equipment.get("armor", "cloth"))
+	if armor == "glass_armor":
+		return 2
+	if armor == "bronze_armor":
+		return 1
+	return 0
 
 func clear_level() -> void:
 	if level_root and is_instance_valid(level_root):
@@ -2068,7 +2188,8 @@ func damage_player_from(from_x: float) -> void:
 func should_block_hit(_from_x: float) -> bool:
 	if armor_charges <= 0:
 		return false
-	if equipment.get("armor", "cloth") != "bronze_armor":
+	var armor := str(equipment.get("armor", "cloth"))
+	if armor != "bronze_armor" and armor != "glass_armor":
 		return false
 	armor_charges -= 1
 	update_hud()
@@ -2080,9 +2201,17 @@ func get_attack_reach() -> float:
 	var weapon := str(equipment.get("weapon", "short_sword"))
 	if weapon == "dawn_blade":
 		return DAWN_BLADE_REACH
+	if weapon == "storm_sword":
+		return STORM_SWORD_REACH
 	if weapon == "long_sword" or has_long_sword:
 		return LONG_SWORD_REACH
 	return SHORT_SWORD_REACH
+
+func skill_damage_bonus() -> int:
+	return 1 if equipment.get("weapon", "short_sword") == "storm_sword" else 0
+
+func skill_cooldown_multiplier() -> float:
+	return 0.78 if equipment.get("charm", "none") == "dawn_charm" else 1.0
 
 func get_equipped_visual(slot: String) -> String:
 	return str(equipment.get(slot, "none"))
@@ -2106,7 +2235,8 @@ func reward_enemy_defeat(enemy, method: String) -> void:
 		return
 	var defeated_at: Vector2 = enemy.global_position
 	var defeated_type := str(enemy.get("enemy_type"))
-	var damage := 2 if method == "stomp" or equipment.get("weapon", "short_sword") == "dawn_blade" else 1
+	var weapon := str(equipment.get("weapon", "short_sword"))
+	var damage := 2 if method == "stomp" or weapon == "dawn_blade" or weapon == "storm_sword" else 1
 	if method != "skill" and enemy.has_method("take_damage") and not enemy.take_damage(damage):
 		play_sfx("martial_hit")
 		return
@@ -2121,8 +2251,21 @@ func reward_enemy_defeat(enemy, method: String) -> void:
 		if randf() < potion_chance:
 			create_potion_drop(defeated_at)
 	if defeated_type == "boss":
-		create_skill_drop(defeated_at, "pyroblast")
+		create_skill_drop(defeated_at, boss_skill_reward())
 	update_hud()
+
+func boss_skill_reward() -> String:
+	if levels.is_empty():
+		return "pyroblast"
+	var data: Dictionary = levels[clampi(current_level, 0, levels.size() - 1)]
+	var reward = data.get("reward", {})
+	if typeof(reward) == TYPE_DICTIONARY and reward.has("skill"):
+		return str(reward["skill"])
+	var unlock = data.get("unlock", {})
+	if typeof(unlock) == TYPE_DICTIONARY and unlock.has("skill"):
+		return str(unlock["skill"])
+	var region := int(data.get("region", current_region_id()))
+	return SKILL_IDS[clampi(region - 1, 0, SKILL_IDS.size() - 1)]
 
 func get_player_rect() -> Rect2:
 	return Rect2(player.global_position + Vector2(-PLAYER_HALF_WIDTH, -PLAYER_HEIGHT), Vector2(PLAYER_HALF_WIDTH * 2.0, PLAYER_HEIGHT))
@@ -2196,8 +2339,15 @@ func cast_skill_slot(slot: String) -> void:
 	var skill_id := str(equipped_skills.get(slot, ""))
 	if skill_id == "":
 		return
-	if skill_id == "pyroblast":
-		cast_pyroblast()
+	match skill_id:
+		"pyroblast":
+			cast_pyroblast()
+		"tidal_wave":
+			cast_tidal_wave()
+		"clock_snare":
+			cast_clock_snare()
+		"dawn_barrier":
+			cast_dawn_barrier()
 
 func cast_pyroblast() -> void:
 	if not unlocked_skills.has("pyroblast"):
@@ -2208,39 +2358,85 @@ func cast_pyroblast() -> void:
 	if not player or not is_instance_valid(player):
 		return
 	var center: Vector2 = player.global_position + Vector2(player.facing * 24.0, -22.0)
-	skill_cooldowns["pyroblast"] = PYROBLAST_COOLDOWN
-	create_pyroblast_visual(center)
+	skill_cooldowns["pyroblast"] = PYROBLAST_COOLDOWN * skill_cooldown_multiplier()
+	cast_area_damage(center, PYROBLAST_RANGE, PYROBLAST_DAMAGE + skill_damage_bonus(), Color(0.95, 0.22, 0.06), Color(1.0, 0.92, 0.36))
+
+func cast_tidal_wave() -> void:
+	if not unlocked_skills.has("tidal_wave"):
+		return
+	if float(skill_cooldowns.get("tidal_wave", 0.0)) > 0.0:
+		play_sfx("ui")
+		return
+	if not player or not is_instance_valid(player):
+		return
+	var center: Vector2 = player.global_position + Vector2(player.facing * 36.0, -18.0)
+	skill_cooldowns["tidal_wave"] = TIDAL_WAVE_COOLDOWN * skill_cooldown_multiplier()
+	cast_area_damage(center, TIDAL_WAVE_RANGE, TIDAL_WAVE_DAMAGE + skill_damage_bonus(), Color(0.12, 0.58, 0.95), Color(0.72, 0.96, 1.0))
+
+func cast_clock_snare() -> void:
+	if not unlocked_skills.has("clock_snare"):
+		return
+	if float(skill_cooldowns.get("clock_snare", 0.0)) > 0.0:
+		play_sfx("ui")
+		return
+	if not player or not is_instance_valid(player):
+		return
+	var center: Vector2 = player.global_position + Vector2(0.0, -24.0)
+	skill_cooldowns["clock_snare"] = CLOCK_SNARE_COOLDOWN * skill_cooldown_multiplier()
+	cast_area_damage(center, CLOCK_SNARE_RANGE, CLOCK_SNARE_DAMAGE + skill_damage_bonus(), Color(0.74, 0.58, 0.22), Color(1.0, 0.86, 0.42), true)
+
+func cast_dawn_barrier() -> void:
+	if not unlocked_skills.has("dawn_barrier"):
+		return
+	if float(skill_cooldowns.get("dawn_barrier", 0.0)) > 0.0:
+		play_sfx("ui")
+		return
+	if not player or not is_instance_valid(player):
+		return
+	armor_charges = max(armor_charges, 1)
+	update_hud()
+	var center: Vector2 = player.global_position + Vector2(0.0, -24.0)
+	skill_cooldowns["dawn_barrier"] = DAWN_BARRIER_COOLDOWN * skill_cooldown_multiplier()
+	cast_area_damage(center, DAWN_BARRIER_RANGE, DAWN_BARRIER_DAMAGE + skill_damage_bonus(), Color(1.0, 0.76, 0.18), Color(1.0, 0.96, 0.66))
+
+func cast_area_damage(center: Vector2, radius: float, damage: int, outer_color: Color, core_color: Color, reverse_enemy: bool = false) -> void:
+	create_skill_burst_visual(center, radius, outer_color, core_color)
 	play_sfx("fire")
 	for enemy in enemies.duplicate():
 		if not is_instance_valid(enemy) or not enemy.active:
 			continue
-		if enemy.global_position.distance_to(center) <= PYROBLAST_RANGE:
-			if enemy.has_method("take_damage") and enemy.take_damage(PYROBLAST_DAMAGE):
+		if enemy.global_position.distance_to(center) <= radius:
+			if reverse_enemy:
+				enemy.set("direction", -float(enemy.get("direction")))
+			if enemy.has_method("take_damage") and enemy.take_damage(damage):
 				reward_enemy_defeat(enemy, "skill")
 			else:
 				play_sfx("martial_hit")
 
 func create_pyroblast_visual(center: Vector2) -> void:
+	create_skill_burst_visual(center, PYROBLAST_RANGE, Color(0.95, 0.22, 0.06), Color(1.0, 0.92, 0.36))
+
+func create_skill_burst_visual(center: Vector2, radius: float, outer_color: Color, core_color: Color) -> void:
 	if not level_root:
 		return
 	var burst := Node2D.new()
-	burst.name = "Pyroblast"
+	burst.name = "SkillBurst"
 	burst.global_position = center
 	level_root.add_child(burst)
 	var outer := ColorRect.new()
-	outer.position = Vector2(-PYROBLAST_RANGE, -PYROBLAST_RANGE)
-	outer.size = Vector2(PYROBLAST_RANGE * 2.0, PYROBLAST_RANGE * 2.0)
-	outer.color = Color(0.95, 0.22, 0.06, 0.20)
+	outer.position = Vector2(-radius, -radius)
+	outer.size = Vector2(radius * 2.0, radius * 2.0)
+	outer.color = Color(outer_color.r, outer_color.g, outer_color.b, 0.20)
 	burst.add_child(outer)
 	var mid := ColorRect.new()
-	mid.position = Vector2(-72, -72)
-	mid.size = Vector2(144, 144)
-	mid.color = Color(1.0, 0.58, 0.12, 0.36)
+	mid.position = Vector2(-radius * 0.48, -radius * 0.48)
+	mid.size = Vector2(radius * 0.96, radius * 0.96)
+	mid.color = Color(outer_color.lightened(0.2).r, outer_color.lightened(0.2).g, outer_color.lightened(0.2).b, 0.36)
 	burst.add_child(mid)
 	var core := ColorRect.new()
 	core.position = Vector2(-32, -32)
 	core.size = Vector2(64, 64)
-	core.color = Color(1.0, 0.92, 0.36, 0.58)
+	core.color = Color(core_color.r, core_color.g, core_color.b, 0.58)
 	burst.add_child(core)
 	await get_tree().create_timer(0.18).timeout
 	if is_instance_valid(burst):
@@ -2322,12 +2518,16 @@ func _unhandled_input(event: InputEvent) -> void:
 			show_skills()
 	elif event.is_action_pressed("skill_k"):
 		if state == "skills":
-			equip_skill_to_slot("pyroblast", "K")
+			var skill_k_id := first_unlocked_skill()
+			if skill_k_id != "":
+				equip_skill_to_slot(skill_k_id, "K")
 		else:
 			cast_skill_slot("K")
 	elif event.is_action_pressed("skill_l"):
 		if state == "skills":
-			equip_skill_to_slot("pyroblast", "L")
+			var skill_l_id := first_unlocked_skill()
+			if skill_l_id != "":
+				equip_skill_to_slot(skill_l_id, "L")
 		else:
 			cast_skill_slot("L")
 	elif event.is_action_pressed("pause"):

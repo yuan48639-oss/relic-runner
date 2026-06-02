@@ -5,6 +5,26 @@ const EnemyScript = preload("res://scripts/Enemy.gd")
 const SaveManagerScript = preload("res://scripts/SaveManager.gd")
 const AudioManagerScript = preload("res://scripts/AudioManager.gd")
 const NetworkManagerScript = preload("res://scripts/NetworkManager.gd")
+const TEX_BG_RUINS = preload("res://assets/kenney/platformer/bg_ruins.png")
+const TEX_BG_WATERWORKS = preload("res://assets/kenney/platformer/bg_waterworks.png")
+const TEX_BG_CLOCKTOWER = preload("res://assets/kenney/platformer/bg_clocktower.png")
+const TEX_BG_CORE = preload("res://assets/kenney/platformer/bg_core.png")
+const TEX_TILE_BROWN = preload("res://assets/kenney/platformer/tile_brown.png")
+const TEX_TILE_GREY = preload("res://assets/kenney/platformer/tile_grey.png")
+const TEX_TILE_GREEN = preload("res://assets/kenney/platformer/tile_green.png")
+const TEX_TILE_RED = preload("res://assets/kenney/platformer/tile_red.png")
+const TEX_TILE_BRITTLE = preload("res://assets/kenney/platformer/tile_brittle.png")
+const TEX_SPIKES = preload("res://assets/kenney/platformer/spikes.png")
+const TEX_DOOR = preload("res://assets/kenney/platformer/door.png")
+const TEX_FLAG = preload("res://assets/kenney/platformer/flag.png")
+const TEX_KEY = preload("res://assets/kenney/platformer/key.png")
+const TEX_POTION = preload("res://assets/kenney/platformer/potion.png")
+const TEX_COIN = preload("res://assets/kenney/platformer/coin.png")
+const TEX_SKILL_PYROBLAST = preload("res://assets/kenney/platformer/skill_pyroblast.png")
+const TEX_SKILL_TIDAL_WAVE = preload("res://assets/kenney/platformer/skill_tidal_wave.png")
+const TEX_SKILL_CLOCK_SNARE = preload("res://assets/kenney/platformer/skill_clock_snare.png")
+const TEX_SKILL_DAWN_BARRIER = preload("res://assets/kenney/platformer/skill_dawn_barrier.png")
+const FONT_UI = preload("res://assets/fonts/NotoSansCJKsc-Regular.otf")
 
 const LEVELS_PATH = "res://data/levels.json"
 const VIEWPORT_SIZE = Vector2(960, 540)
@@ -75,9 +95,9 @@ const EQUIPMENT_ITEMS = {
 const LEVELS = [
 	{
 		"name_en": "1. Tutorial Ruins",
-		"name_zh": "1. 教学遗迹",
+		"name_zh": "1. Tutorial Ruins",
 		"hint_en": "Move, double jump, and strike the training drone.",
-		"hint_zh": "移动、二段跳，并攻击训练巡逻体。",
+		"hint_zh": "Move, jump, and attack through the first ruin.",
 		"start": [64, 500],
 		"platforms": [[0, 500, 960, 40], [138, 440, 120, 18], [320, 392, 130, 18], [520, 440, 118, 18], [720, 382, 150, 18]],
 		"hazards": [[468, 492, 126, 16]],
@@ -86,9 +106,9 @@ const LEVELS = [
 	},
 	{
 		"name_en": "2. Spike Gallery",
-		"name_zh": "2. 尖刺长廊",
+		"name_zh": "2. Spike Gallery",
 		"hint_en": "Keep momentum and use the second jump late.",
-		"hint_zh": "保持速度，把第二段跳留到最后。",
+		"hint_zh": "Keep momentum and save the second jump for the spikes.",
 		"start": [58, 500],
 		"platforms": [[0, 500, 230, 40], [306, 460, 116, 18], [500, 414, 116, 18], [688, 368, 134, 18], [840, 500, 120, 40]],
 		"hazards": [[230, 492, 76, 18], [422, 492, 78, 18], [616, 492, 72, 18], [822, 492, 18, 18]],
@@ -97,9 +117,9 @@ const LEVELS = [
 	},
 	{
 		"name_en": "3. Gate of Dawn",
-		"name_zh": "3. 黎明之门",
+		"name_zh": "3. Gate of Dawn",
 		"hint_en": "Chain attacks and jumps to cross the broken bridge.",
-		"hint_zh": "衔接攻击与跳跃，穿过断桥。",
+		"hint_zh": "Chain attacks and jumps across the broken bridge.",
 		"start": [54, 500],
 		"platforms": [[0, 500, 160, 40], [224, 452, 116, 18], [384, 408, 116, 18], [548, 364, 116, 18], [724, 416, 110, 18], [848, 500, 112, 40]],
 		"hazards": [[160, 492, 64, 18], [340, 492, 44, 18], [500, 492, 48, 18], [664, 492, 60, 18], [834, 492, 14, 18]],
@@ -108,7 +128,6 @@ const LEVELS = [
 		"shop": [108, 500]
 	}
 ]
-
 const TEXT = {
 	"en": {
 		"title": "RELIC RUNNER",
@@ -123,7 +142,7 @@ const TEXT = {
 		"delete_save": "Delete Save",
 		"quit": "Quit",
 		"back": "Back",
-		"controls": "Move: A/D or Left Stick   Jump: Space/A   Dash: Shift/B   Attack/Interact: J/X   Potion: Q/Y   Backpack: I   Skills: O, K/L   Restart: R   Pause: Esc/Start",
+		"controls": "Move: A/D or Left Stick   Jump: Space/A   Dash: Shift/B   Attack/Interact: J/X   Potion: Q/U/Y   Backpack: I   Skills: O, K/L   Restart: R   Pause: Esc/Start",
 		"settings_title": "SETTINGS",
 		"master_volume": "Master Volume",
 		"music_volume": "Music Volume",
@@ -254,7 +273,7 @@ const TEXT = {
 		"delete_save": "删除存档",
 		"quit": "退出",
 		"back": "返回",
-		"controls": "移动：A/D 或左摇杆   跳跃：Space/A   冲刺：Shift/B   攻击/交互：J/X   药水：Q/Y   背包：I   技能：O、K/L   重开：R   暂停：Esc/Start",
+		"controls": "移动：A/D 或左摇杆   跳跃：Space/A   冲刺：Shift/B   攻击/交互：J/X   药水：Q/U/Y   背包：I   技能：O、K/L   重开：R   暂停：Esc/Start",
 		"settings_title": "设置",
 		"master_volume": "主音量",
 		"music_volume": "音乐音量",
@@ -277,7 +296,7 @@ const TEXT = {
 		"coins": "金币",
 		"max_life": "生命上限",
 		"home_status": "远征起点：%s    金币：%s    生命上限：%s",
-		"home_walk_tip": "在家园中移动。靠近设施按 J / 左键交互。Esc 打开系统菜单。",
+		"home_walk_tip": "在家园中移动。靠近设施按 J / 左键交互，Esc 打开系统菜单。",
 		"home_gate": "远征门",
 		"home_backpack": "背包",
 		"home_settings_board": "告示牌",
@@ -313,7 +332,7 @@ const TEXT = {
 		"skill_locked": "未解锁",
 		"equip_k": "装备到 K",
 		"equip_l": "装备到 L",
-		"skill_unlocked": "已学会炎爆术。",
+		"skill_unlocked": "已学会新技能。",
 		"skill_no_slot": "该按键没有装备技能。",
 		"skill_cooldown": "技能冷却中。",
 		"owned": "已拥有",
@@ -355,7 +374,7 @@ const TEXT = {
 		"equip": "装备",
 		"blocked_hit": "护甲抵挡了这次伤害。",
 		"shop_title": "遗迹商店",
-		"shop_tip": "温馨提示：踩死怪物掉落 2 金币哦",
+		"shop_tip": "提示：踩死怪物掉落 2 金币。",
 		"shop_prompt": "按 J / 左键打开商店",
 		"buy_potion": "药水 - 4 金币",
 		"buy_sword": "更长的宝剑 - 7 金币",
@@ -388,7 +407,7 @@ var inventory_return_state := "home"
 var skill_return_state := "home"
 var paused := false
 var master_volume := 0.8
-var language := "en"
+var language := "zh"
 var player_lives := MAX_LIVES
 var max_lives := MAX_LIVES
 var coins := STARTING_COINS
@@ -470,7 +489,7 @@ func ensure_input_actions() -> void:
 	add_key_action("jump", [KEY_SPACE, KEY_W, KEY_UP])
 	add_key_action("dash", [KEY_SHIFT])
 	add_key_action("attack", [KEY_J])
-	add_key_action("use_item", [KEY_Q])
+	add_key_action("use_item", [KEY_Q, KEY_U])
 	add_key_action("inventory", [KEY_I])
 	add_key_action("skills", [KEY_O])
 	add_key_action("skill_k", [KEY_K])
@@ -1060,6 +1079,47 @@ func add_ui_rect(pos: Vector2, size: Vector2, color: Color) -> void:
 	rect.color = color
 	ui_root.add_child(rect)
 
+func add_world_sprite(parent: Node, texture: Texture2D, pos: Vector2, size: Vector2, modulate_color: Color = Color.WHITE) -> Sprite2D:
+	var sprite := Sprite2D.new()
+	sprite.texture = texture
+	sprite.centered = true
+	sprite.position = pos + size / 2.0
+	if texture:
+		sprite.scale = Vector2(size.x / maxf(float(texture.get_width()), 1.0), size.y / maxf(float(texture.get_height()), 1.0))
+	sprite.modulate = modulate_color
+	parent.add_child(sprite)
+	return sprite
+
+func region_background_texture() -> Texture2D:
+	match current_region_id():
+		2:
+			return TEX_BG_WATERWORKS
+		3:
+			return TEX_BG_CLOCKTOWER
+		4:
+			return TEX_BG_CORE
+	return TEX_BG_RUINS
+
+func region_tile_texture() -> Texture2D:
+	match current_region_id():
+		2:
+			return TEX_TILE_GREEN
+		3:
+			return TEX_TILE_GREY
+		4:
+			return TEX_TILE_RED
+	return TEX_TILE_BROWN
+
+func skill_texture(skill_id: String) -> Texture2D:
+	match skill_id:
+		"tidal_wave":
+			return TEX_SKILL_TIDAL_WAVE
+		"clock_snare":
+			return TEX_SKILL_CLOCK_SNARE
+		"dawn_barrier":
+			return TEX_SKILL_DAWN_BARRIER
+	return TEX_SKILL_PYROBLAST
+
 func item_ui_color(item_id: String) -> Color:
 	match item_id:
 		"potion":
@@ -1631,6 +1691,7 @@ func draw_level_background() -> void:
 	sky.color = Color(0.07, 0.1, 0.13)
 	sky.size = Vector2(current_world_width, VIEWPORT_SIZE.y)
 	level_root.add_child(sky)
+	add_world_sprite(level_root, region_background_texture(), Vector2(0, 0), Vector2(current_world_width, VIEWPORT_SIZE.y), Color(1.0, 1.0, 1.0, 0.72))
 	for band in range(6):
 		var strip := ColorRect.new()
 		strip.color = Color(0.08 + band * 0.018, 0.11 + band * 0.015, 0.13 + band * 0.012, 0.5)
@@ -1661,9 +1722,10 @@ func create_platform(rect: Rect2) -> void:
 	body.add_child(shape)
 
 	var visual := ColorRect.new()
-	visual.color = Color(0.38, 0.34, 0.28)
+	visual.color = Color(0.38, 0.34, 0.28, 0.28)
 	visual.size = rect.size
 	body.add_child(visual)
+	add_world_sprite(body, region_tile_texture(), Vector2.ZERO, rect.size)
 
 	var edge := ColorRect.new()
 	edge.color = Color(0.68, 0.58, 0.38)
@@ -1699,9 +1761,10 @@ func create_moving_platform(data: Dictionary) -> void:
 	body.add_child(shape)
 
 	var visual := ColorRect.new()
-	visual.color = Color(0.16, 0.42, 0.56)
+	visual.color = Color(0.16, 0.42, 0.56, 0.22)
 	visual.size = rect.size
 	body.add_child(visual)
+	add_world_sprite(body, TEX_TILE_GREY, Vector2.ZERO, rect.size, Color(0.68, 0.95, 1.0))
 	var glow := ColorRect.new()
 	glow.color = Color(0.42, 0.88, 0.96, 0.85)
 	glow.position = Vector2(4, 3)
@@ -1736,9 +1799,10 @@ func create_brittle_platform(rect: Rect2) -> void:
 	body.add_child(shape)
 
 	var visual := ColorRect.new()
-	visual.color = Color(0.58, 0.42, 0.28)
+	visual.color = Color(0.58, 0.42, 0.28, 0.25)
 	visual.size = rect.size
 	body.add_child(visual)
+	add_world_sprite(body, TEX_TILE_BRITTLE, Vector2.ZERO, rect.size)
 
 	var trigger := Area2D.new()
 	trigger.collision_layer = LAYER_TRIGGER
@@ -1777,9 +1841,10 @@ func create_door(data: Dictionary) -> void:
 	body.add_child(shape)
 
 	var visual := ColorRect.new()
-	visual.color = Color(0.64, 0.48, 0.18)
+	visual.color = Color(0.64, 0.48, 0.18, 0.24)
 	visual.size = rect.size
 	body.add_child(visual)
+	add_world_sprite(body, TEX_DOOR, Vector2.ZERO, rect.size)
 
 	level_root.add_child(body)
 	doors.append(body)
@@ -1808,8 +1873,9 @@ func create_key(data) -> void:
 	var visual := ColorRect.new()
 	visual.position = Vector2(0, -20)
 	visual.size = Vector2(20, 20)
-	visual.color = Color(0.95, 0.78, 0.22)
+	visual.color = Color(0.95, 0.78, 0.22, 0.15)
 	area.add_child(visual)
+	add_world_sprite(area, TEX_KEY, Vector2(-4, -28), Vector2(28, 28))
 	level_root.add_child(area)
 
 func open_doors_for_key(key_id: String) -> void:
@@ -1841,8 +1907,9 @@ func create_checkpoint(pos: Vector2) -> void:
 	var flag := ColorRect.new()
 	flag.position = Vector2(0, -54)
 	flag.size = Vector2(30, 22)
-	flag.color = Color(0.38, 0.72, 0.95)
+	flag.color = Color(0.38, 0.72, 0.95, 0.12)
 	area.add_child(flag)
+	add_world_sprite(area, TEX_FLAG, Vector2(-8, -58), Vector2(38, 38))
 	var pole := ColorRect.new()
 	pole.position = Vector2(0, -54)
 	pole.size = Vector2(4, 54)
@@ -1877,6 +1944,7 @@ func create_hazard(rect: Rect2) -> void:
 	base.position = Vector2(0, rect.size.y - 4)
 	base.size = Vector2(rect.size.x, 4)
 	area.add_child(base)
+	add_world_sprite(area, TEX_SPIKES, Vector2.ZERO, rect.size)
 	var spike_count: int = max(1, int(rect.size.x / 16.0))
 	var spike_width: float = rect.size.x / float(spike_count)
 	for i in range(spike_count):
@@ -1913,8 +1981,9 @@ func create_potion_drop(pos: Vector2) -> void:
 	var vial := ColorRect.new()
 	vial.position = Vector2(3, -20)
 	vial.size = Vector2(14, 18)
-	vial.color = Color(0.32, 0.95, 0.58)
+	vial.color = Color(0.32, 0.95, 0.58, 0.18)
 	area.add_child(vial)
+	add_world_sprite(area, TEX_POTION, Vector2(-2, -28), Vector2(28, 28))
 	var cap := ColorRect.new()
 	cap.position = Vector2(6, -26)
 	cap.size = Vector2(8, 6)
@@ -1939,8 +2008,9 @@ func create_coin_drops(pos: Vector2, amount: int) -> void:
 		var body := ColorRect.new()
 		body.position = Vector2(-5, -5)
 		body.size = Vector2(10, 10)
-		body.color = Color(0.95, 0.72, 0.16)
+		body.color = Color(0.95, 0.72, 0.16, 0.12)
 		coin.add_child(body)
+		add_world_sprite(coin, TEX_COIN, Vector2(-9, -9), Vector2(18, 18))
 		var shine := ColorRect.new()
 		shine.position = Vector2(-2, -4)
 		shine.size = Vector2(3, 8)
@@ -1980,8 +2050,9 @@ func create_skill_drop(pos: Vector2, skill_id: String) -> void:
 	var flame := ColorRect.new()
 	flame.position = Vector2(6, -30)
 	flame.size = Vector2(20, 28)
-	flame.color = Color(0.95, 0.28, 0.08)
+	flame.color = Color(0.95, 0.28, 0.08, 0.18)
 	area.add_child(flame)
+	add_world_sprite(area, skill_texture(skill_id), Vector2(0, -36), Vector2(38, 38))
 	var core := ColorRect.new()
 	core.position = Vector2(11, -23)
 	core.size = Vector2(10, 16)
@@ -2033,6 +2104,7 @@ func make_world_label(text: String, pos: Vector2, size: Vector2, font_size: int)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.add_theme_font_override("font", FONT_UI)
 	label.add_theme_font_size_override("font_size", font_size)
 	label.add_theme_color_override("font_color", Color(0.95, 0.95, 0.86))
 	return label
@@ -2120,7 +2192,7 @@ func show_hud() -> void:
 	hud_equipment_label.add_theme_color_override("font_color", Color(0.78, 0.88, 0.94))
 	ui_root.add_child(hud_equipment_label)
 
-	hud_hint_label = make_label("", 13, Vector2(20, 48), Vector2(920, 24), HORIZONTAL_ALIGNMENT_CENTER)
+	hud_hint_label = make_label("", 13, Vector2(20, 44), Vector2(920, 42), HORIZONTAL_ALIGNMENT_CENTER)
 	hud_hint_label.add_theme_color_override("font_color", Color(0.72, 0.76, 0.7))
 	ui_root.add_child(hud_hint_label)
 	update_hud()
@@ -2145,7 +2217,7 @@ func update_hud() -> void:
 		armor_text,
 		item_display_name(str(equipment.get("charm", "none")))
 	]
-	hud_hint_label.text = "%s    %s" % [level_text(data, "name"), level_text(data, "hint")]
+	hud_hint_label.text = "閸栧搫鐓?%s / %s\n%s" % [current_region_id(), level_text(data, "name"), level_text(data, "hint")]
 
 func set_player_lives(value: int) -> void:
 	player_lives = clampi(value, 0, max_lives)
@@ -2940,6 +3012,7 @@ func make_button(text: String, pos: Vector2, size: Vector2) -> Button:
 	button.position = pos
 	button.size = size
 	button.focus_mode = Control.FOCUS_ALL
+	button.add_theme_font_override("font", FONT_UI)
 	button.add_theme_font_size_override("font_size", 18)
 	if not ui_focus_assigned:
 		ui_focus_assigned = true

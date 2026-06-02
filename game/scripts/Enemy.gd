@@ -2,6 +2,11 @@ extends CharacterBody2D
 
 const LAYER_WORLD = 1
 const LAYER_ENEMY = 4
+const TEX_PATROL = preload("res://assets/kenney/platformer/enemy_patrol.png")
+const TEX_FLYER = preload("res://assets/kenney/platformer/enemy_flyer.png")
+const TEX_SHIELD = preload("res://assets/kenney/platformer/enemy_shield.png")
+const TEX_CRAWLER = preload("res://assets/kenney/platformer/enemy_crawler.png")
+const TEX_BOSS = preload("res://assets/kenney/platformer/enemy_boss.png")
 
 var game
 var active := true
@@ -98,6 +103,22 @@ func _draw() -> void:
 	if hp < max_hp:
 		color = color.lightened(0.25)
 	var bob := sin(anim_time * 7.0) * 1.6
+	var sprite_texture: Texture2D = TEX_PATROL
+	if enemy_type == "flyer":
+		sprite_texture = TEX_FLYER
+	elif enemy_type == "shield":
+		sprite_texture = TEX_SHIELD
+	elif enemy_type == "crawler":
+		sprite_texture = TEX_CRAWLER
+	elif enemy_type == "boss":
+		sprite_texture = TEX_BOSS
+	if sprite_texture:
+		var size := Vector2(40.0, 40.0) if enemy_type != "boss" else Vector2(70.0, 70.0)
+		var pos := Vector2(-size.x / 2.0, -size.y + 4.0 + bob)
+		draw_texture_rect(sprite_texture, Rect2(pos, size), false)
+		if hp < max_hp:
+			draw_rect(Rect2(-18.0, -size.y - 8.0, 36.0 * float(hp) / float(max_hp), 5.0), Color(0.9, 0.16, 0.12))
+		return
 	if enemy_type == "boss":
 		draw_polygon(PackedVector2Array([Vector2(-17.0, -42.0 + bob), Vector2(-27.0, -58.0 + bob), Vector2(-8.0, -47.0 + bob)]), PackedColorArray([Color(0.95, 0.78, 0.42), Color(0.95, 0.78, 0.42), Color(0.95, 0.78, 0.42)]))
 		draw_polygon(PackedVector2Array([Vector2(17.0, -42.0 + bob), Vector2(27.0, -58.0 + bob), Vector2(8.0, -47.0 + bob)]), PackedColorArray([Color(0.95, 0.78, 0.42), Color(0.95, 0.78, 0.42), Color(0.95, 0.78, 0.42)]))

@@ -4,6 +4,10 @@ const WIDTH = 24.0
 const HEIGHT = 44.0
 const LAYER_WORLD = 1
 const LAYER_PLAYER = 2
+const TEX_STAND = preload("res://assets/kenney/platformer/player_stand.png")
+const TEX_WALK = preload("res://assets/kenney/platformer/player_walk1.png")
+const TEX_JUMP = preload("res://assets/kenney/platformer/player_jump.png")
+const TEX_HIT = preload("res://assets/kenney/platformer/player_hit.png")
 
 var game
 var enabled := false
@@ -153,6 +157,49 @@ func _draw() -> void:
 		body_color = Color(0.72, 0.94, 1.0)
 	if invulnerable_time > 0.0 and int(invulnerable_time * 16.0) % 2 == 0:
 		body_color = Color(0.85, 0.95, 1.0, 0.55)
+
+	var sprite_texture: Texture2D = TEX_STAND
+	if invulnerable_time > 0.0:
+		sprite_texture = TEX_HIT
+	elif not is_on_floor():
+		sprite_texture = TEX_JUMP
+	elif absf(velocity.x) > 8.0:
+		sprite_texture = TEX_WALK
+	if sprite_texture:
+		draw_rect(Rect2(-15.0, -4.0, 30.0, 4.0), Color(0.05, 0.09, 0.1, 0.45))
+		var sprite_rect := Rect2(-24.0, -52.0 + bob, 48.0, 48.0)
+		draw_texture_rect(sprite_texture, sprite_rect, false)
+		if armor == "bronze_armor" or armor == "glass_armor":
+			var armor_color := Color(0.72, 0.42, 0.18, 0.82) if armor == "bronze_armor" else Color(0.68, 0.94, 1.0, 0.68)
+			draw_rect(Rect2(-12.0, -32.0 + bob, 24.0, 18.0), armor_color)
+		if charm != "none":
+			var charm_color := Color(0.95, 0.78, 0.24) if charm == "coin_charm" else Color(0.9, 0.28, 0.42)
+			if charm == "dawn_charm":
+				charm_color = Color(1.0, 0.86, 0.32)
+			draw_circle(Vector2(0.0, -18.0 + bob), 4.0, charm_color)
+		var boot_color := Color(0.11, 0.25, 0.3)
+		if boots == "swift_boots":
+			boot_color = Color(0.2, 0.72, 0.92)
+		elif boots == "wing_boots":
+			boot_color = Color(0.72, 0.9, 1.0)
+		elif boots == "anchor_boots":
+			boot_color = Color(0.46, 0.58, 0.72)
+		draw_rect(Rect2(-10.0, -8.0, 20.0, 5.0), boot_color)
+		if attack_time > 0.0:
+			var reach := 34.0
+			if game and game.has_method("get_attack_reach"):
+				reach = game.call("get_attack_reach")
+			var blade_color := Color(1.0, 0.86, 0.28, 0.72)
+			if weapon == "long_sword":
+				blade_color = Color(0.96, 0.9, 0.72, 0.78)
+			elif weapon == "dawn_blade" or weapon == "storm_sword" or reach > 80.0:
+				blade_color = Color(0.8, 0.96, 1.0, 0.82)
+			var start := Vector2(12.0 * facing, -27.0 + bob)
+			var tip := Vector2((18.0 + reach) * facing, -31.0 + bob)
+			var edge := Vector2((12.0 + reach * 0.7) * facing, -13.0 + bob)
+			draw_polygon(PackedVector2Array([start, tip, edge]), PackedColorArray([blade_color, blade_color, Color(blade_color.r, blade_color.g, blade_color.b, 0.2)]))
+			draw_line(start, tip, Color(1.0, 0.98, 0.72, 0.9), 4.0)
+		return
 
 	draw_rect(Rect2(-13.0, -4.0, 26.0, 4.0), Color(0.05, 0.09, 0.1, 0.45))
 	draw_circle(Vector2(0, -31 + bob), 14.0, body_color)

@@ -4,7 +4,7 @@
 
 规则：
 
-- 任何第三方素材在进入游戏前，都必须登记到 `docs/asset_register.csv`。
+- 任何第三方素材进入游戏前，都必须登记到 `docs/asset_register.csv`。
 - 优先使用 CC0、公有领域，或明确允许商业使用的授权。
 - 下载的授权文件应尽量和素材放在一起。
 - 不要使用没有明确授权的版权角色、商标、Logo、界面截图、音乐或音效。
@@ -15,5 +15,7 @@
 - `assets/vendor/kenney_abstract_platformer/`：Kenney Abstract Platformer，CC0，用于平台、背景、角色、敌人、道具和 tiles。
 - `assets/vendor/kenney_game_icons/`：Kenney Game Icons，CC0，用于 UI 图标和控制提示。
 - `assets/vendor/kenney_interface_sounds/`：Kenney Interface Sounds，CC0，用于菜单点击、确认、返回等 UI 音效。
+- `game/assets/kenney/`：复制到 Godot 项目内的运行时素材子集，用于 `res://` 加载。
+- `game/assets/fonts/NotoSansCJKsc-Regular.otf`：Noto Sans CJK SC Regular，SIL Open Font License 1.1，用于中文 UI 显示。
 
 每个素材包都保留了随包许可证文件，授权登记见 `docs/asset_register.csv`。

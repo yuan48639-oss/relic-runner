@@ -1,6 +1,9 @@
 extends Node
 
 const BUS_NAMES = ["Music", "SFX", "UI"]
+const SFX_UI_CLICK = preload("res://assets/kenney/audio/ui_click.ogg")
+const SFX_UI_CONFIRM = preload("res://assets/kenney/audio/ui_confirm.ogg")
+const SFX_UI_BACK = preload("res://assets/kenney/audio/ui_back.ogg")
 
 var volumes := {
 	"Master": 0.8,
@@ -42,6 +45,10 @@ func apply_settings(data: Dictionary) -> void:
 			set_volume(bus_name, float(data[bus_name]))
 
 func play_sfx(name: String) -> void:
+	var imported := imported_sfx(name)
+	if imported:
+		play_imported_sfx(imported, "UI")
+		return
 	var tone_map := {
 		"ui": [660.0, 0.035, "UI"],
 		"coin": [880.0, 0.07, "SFX"],
@@ -59,6 +66,26 @@ func play_sfx(name: String) -> void:
 	}
 	var tone: Array = tone_map.get(name, [440.0, 0.06, "SFX"])
 	play_tone(float(tone[0]), float(tone[1]), str(tone[2]))
+
+func imported_sfx(name: String) -> AudioStream:
+	match name:
+		"ui":
+			return SFX_UI_CLICK
+		"buy", "skill", "complete":
+			return SFX_UI_CONFIRM
+		"back":
+			return SFX_UI_BACK
+	return null
+
+func play_imported_sfx(stream: AudioStream, bus_name: String) -> void:
+	var player := AudioStreamPlayer.new()
+	player.stream = stream
+	player.bus = bus_name
+	add_child(player)
+	player.play()
+	await get_tree().create_timer(maxf(stream.get_length(), 0.12) + 0.04).timeout
+	if is_instance_valid(player):
+		player.queue_free()
 
 func play_tone(frequency: float, duration: float, bus_name: String) -> void:
 	var player := AudioStreamPlayer.new()

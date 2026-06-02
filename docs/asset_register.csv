@@ -9,3 +9,6 @@ generated-audio-tones,Temporary generated UI/SFX tones,audio,local procedural,Pr
 future-1-0-tilesets,TBD 1.0 four-region tilesets,visual,TBD,TBD,TBD,TBD,TBD,TBD,Required before claiming final art for ruins waterworks clocktower and core regions.
 future-1-0-music,TBD 1.0 music pack,audio,TBD,TBD,TBD,TBD,TBD,TBD,Required loops for home ruins waterworks clocktower core and boss encounters.
 future-1-0-ui-icons,TBD 1.0 UI icon pack,visual,TBD,TBD,TBD,TBD,TBD,TBD,Required icons for expanded shop equipment four skills HUD settings and prompts.
+kenney-abstract-platformer,Kenney Abstract Platformer,visual,https://opengameart.org/content/abstract-platformer,CC0,assets/vendor/kenney_abstract_platformer/License.txt,yes,no,no,Downloaded and extracted for platforms backgrounds players enemies items and tiles.
+kenney-game-icons,Kenney Game Icons,visual,https://opengameart.org/content/game-icons,CC0,assets/vendor/kenney_game_icons/license.txt,yes,no,no,Downloaded and extracted for UI icons and controls.
+kenney-interface-sounds,Kenney Interface Sounds,audio,https://opengameart.org/content/kenney-interface-sounds,CC0,assets/vendor/kenney_interface_sounds/License.txt,yes,no,no,Downloaded and extracted for UI click confirmation back and menu sounds.

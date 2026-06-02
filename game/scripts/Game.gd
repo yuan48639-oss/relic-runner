@@ -2291,6 +2291,7 @@ func get_equipped_visual(slot: String) -> String:
 func player_attack(origin: Vector2, facing: float) -> void:
 	play_sfx("sword")
 	var reach := get_attack_reach()
+	create_attack_slash_visual(origin, facing, reach)
 	var attack_x := origin.x + 8.0
 	if facing < 0.0:
 		attack_x = origin.x - 8.0 - reach
@@ -2302,6 +2303,72 @@ func player_attack(origin: Vector2, facing: float) -> void:
 		if attack_rect.intersects(enemy_rect):
 			reward_enemy_defeat(enemy, "attack")
 
+func create_attack_slash_visual(origin: Vector2, facing: float, reach: float) -> void:
+	if not is_instance_valid(world):
+		return
+	var slash := Node2D.new()
+	slash.z_index = 40
+	slash.global_position = origin + Vector2(10.0 * facing, -28.0)
+	world.add_child(slash)
+	var outer := Line2D.new()
+	outer.width = 13.0
+	outer.default_color = Color(0.22, 0.72, 1.0, 0.32)
+	outer.points = slash_arc_points(facing, reach + 26.0, -1.15, 0.82, 0.58)
+	slash.add_child(outer)
+	var core := Line2D.new()
+	core.width = 5.0
+	core.default_color = Color(1.0, 0.96, 0.72, 0.92)
+	core.points = slash_arc_points(facing, reach + 18.0, -1.05, 0.72, 0.54)
+	slash.add_child(core)
+	var tip := Line2D.new()
+	tip.width = 2.0
+	tip.default_color = Color(1.0, 1.0, 1.0, 0.85)
+	tip.points = slash_arc_points(facing, reach + 32.0, 0.2, 0.72, 0.54)
+	slash.add_child(tip)
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(slash, "modulate:a", 0.0, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(slash, "scale", Vector2(1.18, 1.08), 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.chain().tween_callback(slash.queue_free)
+
+func slash_arc_points(facing: float, radius: float, start_angle: float, end_angle: float, vertical_scale: float) -> PackedVector2Array:
+	var points := PackedVector2Array()
+	for i in range(15):
+		var t := float(i) / 14.0
+		var angle := lerpf(start_angle, end_angle, t)
+		points.append(Vector2(cos(angle) * radius * facing, sin(angle) * radius * vertical_scale))
+	return points
+
+func create_hit_spark(pos: Vector2, heavy: bool) -> void:
+	if not is_instance_valid(world):
+		return
+	var spark := Node2D.new()
+	spark.z_index = 45
+	spark.global_position = pos + Vector2(0.0, -22.0)
+	world.add_child(spark)
+	var ray_count := 9 if heavy else 6
+	var radius := 34.0 if heavy else 24.0
+	for i in range(ray_count):
+		var angle := (TAU * float(i) / float(ray_count)) + randf_range(-0.18, 0.18)
+		var ray := Line2D.new()
+		ray.width = 4.0 if heavy else 3.0
+		ray.default_color = Color(1.0, 0.84, 0.28, 0.9)
+		ray.points = PackedVector2Array([
+			Vector2(cos(angle), sin(angle)) * 5.0,
+			Vector2(cos(angle), sin(angle)) * randf_range(radius * 0.55, radius)
+		])
+		spark.add_child(ray)
+	var flash := Line2D.new()
+	flash.width = 10.0 if heavy else 7.0
+	flash.default_color = Color(1.0, 1.0, 1.0, 0.62)
+	flash.points = PackedVector2Array([Vector2(-10.0, 0.0), Vector2(10.0, 0.0)])
+	spark.add_child(flash)
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(spark, "modulate:a", 0.0, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(spark, "scale", Vector2(1.5, 1.5), 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.chain().tween_callback(spark.queue_free)
+
 func reward_enemy_defeat(enemy, method: String) -> void:
 	if not is_instance_valid(enemy):
 		return
@@ -2310,10 +2377,12 @@ func reward_enemy_defeat(enemy, method: String) -> void:
 	var weapon := str(equipment.get("weapon", "short_sword"))
 	var damage := 2 if method == "stomp" or weapon == "dawn_blade" or weapon == "storm_sword" else 1
 	if method != "skill" and enemy.has_method("take_damage") and not enemy.take_damage(damage):
+		create_hit_spark(defeated_at, false)
 		play_sfx("martial_hit")
 		return
 	enemy.defeat()
 	enemies.erase(enemy)
+	create_hit_spark(defeated_at, method != "attack")
 	var coin_reward := 2 if method == "stomp" else 1
 	if equipment.get("charm", "none") == "coin_charm":
 		coin_reward += 1

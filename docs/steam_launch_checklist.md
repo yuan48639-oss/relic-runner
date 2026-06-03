@@ -1,38 +1,38 @@
-# Steam 1.0 上线清单
+# Steam 1.0 Launch Checklist
 
-## Steamworks 设置
+## Steamworks Setup
 
-- [ ] 通过 Steam Direct 创建付费正式游戏 App。
-- [ ] 创建正式游戏 App，确认不使用 Demo App ID 发布 1.0。
-- [ ] 给团队成员配置最小必要权限。
-- [ ] 填写税务、银行、身份、内容调查和 AI 内容披露表。
-- [ ] 确认游戏名、胶囊图品牌、支持系统、手柄支持和语言支持。
-- [ ] 确认 1.0 构建、商店页和 SteamPipe App ID / Depot ID 一致。
+- [ ] Create a paid release game app through Steam Direct.
+- [ ] Confirm the 1.0 release uses the full game app, not a demo app ID.
+- [ ] Give team members only the minimum required permissions.
+- [ ] Complete tax, banking, identity, content survey, and AI content disclosure forms.
+- [ ] Confirm game name, capsule branding, supported systems, controller support, and language support.
+- [ ] Confirm the 1.0 build, store page, and SteamPipe App ID / Depot ID are aligned.
 
-## 商店页
+## Store Page
 
-- [ ] 短描述说明：2D 动作闯关、遗迹主题、约 2 小时主线、核心机制。
-- [ ] 长描述说明：移动、战斗、危险、家园成长、40 关、4 区域、4 Boss、装备和技能。
-- [ ] 截图只使用真实构建画面，不使用概念图冒充玩法。
-- [ ] 制作 20-40 秒真实 gameplay 视频或短 trailer。
-- [ ] 按 Steam 要求尺寸导出胶囊图、头图和库资产。
-- [ ] Coming Soon 页面应在正式发布前公开。
-- [ ] 商店页承诺的功能必须已经在构建中存在，不承诺未完成的局域网联机。
+- [ ] Short description covers 2D action-platforming, ruin theme, roughly two-hour main path, and core mechanics.
+- [ ] Long description covers movement, combat, hazards, home growth, 40 levels, 4 regions, 4 bosses, equipment, and skills.
+- [ ] Screenshots use real build footage only; do not use concept art as gameplay representation.
+- [ ] Produce a 20-40 second real gameplay video or short trailer.
+- [ ] Export capsules, header images, and library assets at Steam-required sizes.
+- [ ] Publish the Coming Soon page before final release.
+- [ ] Store-page promises must already exist in the build; do not promise unfinished LAN co-op.
 
-## 构建
+## Build
 
-- [ ] 安装 Godot 4 export templates。
-- [ ] 导出 `Windows` 构建到 `build/windows/RelicRunner.exe` 或最终产品名路径。
-- [ ] 在 Godot 编辑器外单独启动导出包。
-- [ ] 验证键盘和手柄都能完成完整流程。
-- [ ] 使用 `steam/steamworks_build/` 中的 VDF 模板通过 SteamPipe 上传。
-- [ ] 计划发布日期前至少预留 7 个工作日给 Valve 审核。
+- [ ] Install Godot 4 export templates.
+- [ ] Export the `Windows` build to `build/windows/RelicRunner.exe` or the final product-name path.
+- [ ] Launch the exported package outside the Godot editor.
+- [ ] Verify the full flow can be completed with both keyboard and controller.
+- [ ] Upload through SteamPipe using the VDF templates in `steam/steamworks_build/`.
+- [ ] Leave at least 7 business days for Valve review before the planned release date.
 
-## 质量检查
+## Quality Check
 
-- [ ] 新玩家能在 10 分钟内理解目标、移动、攻击、商店和死亡流程。
-- [ ] 连续游玩 30 分钟无崩溃。
-- [ ] 每个关卡都能暂停、继续、死亡、复活、返回家园。
-- [ ] 没有缺失素材、调试标签、编辑器专用路径或不应发布的测试内容。
-- [ ] 素材授权表完整，字体、音效、音乐、AI 内容均有记录。
-- [ ] 中文界面不出现不该出现的英文词，例如物品栏里不应显示 `weapon` 这类内部字段名。
+- [ ] New players understand the goal, movement, attack, shop, and death flow within 10 minutes.
+- [ ] The game can be played continuously for 30 minutes without crashing.
+- [ ] Every level supports pause, resume, death, revive, and return to home.
+- [ ] There are no missing assets, debug labels, editor-only paths, or test content that should not ship.
+- [ ] The asset register is complete, including fonts, sound effects, music, and AI content records.
+- [ ] Chinese UI does not show unintended English internal field names such as `weapon` in the inventory.

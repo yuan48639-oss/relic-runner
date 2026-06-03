@@ -1,35 +1,35 @@
-# Steam 商店页草稿
+# Steam Store Page Draft
 
-## 短描述
+## Short Description
 
-《遗迹奔跑者》是一款约 2 小时流程的 2D 动作闯关小游戏。你将从家园出发，闯入会重组的沙海遗迹，用二段跳、冲刺、踩怪、剑击和技能突破机关，并把金币带回家园升级装备。
+Relic Runner is a compact 2D action-platformer with roughly two hours of main-path content. Leave the home hub, enter a shifting sand-sea ruin, use double jumps, dashes, stomps, sword strikes, and skills to break through hazards, then bring coins home to upgrade your gear.
 
-## 长描述
+## Long Description
 
-你是晨门信使。日出之前，古代遗迹会再次改写自己的道路；如果找不到晨辉核心，沙海就会继续逼近城镇。
+You are the Dawn Gate Courier. Before sunrise, the ancient ruins rewrite their paths again; if the Dawnlight Core is not found, the sand sea will keep closing in on the town.
 
-《遗迹奔跑者》的核心是轻快移动、清晰危险和短流程反复挑战。你可以二段跳越过尖刺，冲刺穿过机关，用剑击安全击败敌人，或冒险从头顶踩死怪物来获得更多金币。每次远征都会从家园重新出发，通关或死亡后回到家园，把带回来的金币用于购买装备、补充药水或提升生命上限。
+Relic Runner focuses on brisk movement, clear danger, and short-run challenge. Double jump over spikes, dash through mechanisms, defeat enemies safely with sword strikes, or take the risk of stomping them from above for more coins. Every expedition starts again from the home hub. After clearing levels or dying, return home and spend your coins on equipment, potions, or max-health upgrades.
 
-1.0 版本计划包含：
+The 1.0 version is planned to include:
 
-- 可自由走动的家园地图。
-- 40 个关卡、4 个区域和 4 个 Boss。
-- 键盘、鼠标和手柄支持。
-- 二段跳、冲刺、近战攻击、踩头击杀。
-- 金币掉落与吸附、背包药水、装备栏和家园商店。
-- 晨辉核心生命上限升级。
-- Boss 掉落技能，包括炎爆术、潮汐波、钟摆束缚和晨辉屏障。
-- 中文和英文界面、暂停、设置、死亡、复活和通关流程。
+- A freely explorable home hub.
+- 40 levels, 4 regions, and 4 bosses.
+- Keyboard, mouse, and controller support.
+- Double jump, dash, melee attack, and head-stomp kills.
+- Coin drops and magnet pickup, backpack potions, equipment menu, and home shop.
+- Dawnlight Core max-health upgrades.
+- Boss-drop skills: Pyroblast, Tidal Wave, Clock Snare, and Dawn Barrier.
+- Chinese and English UI, pause, settings, death, revive, and clear flows.
 
-这个 1.0 版本聚焦单人主线、清晰平台动作和家园成长循环。局域网联机仍作为内部原型，不作为商店承诺。
+This 1.0 release focuses on a single-player main path, readable platform action, and home-hub growth. LAN co-op remains an internal prototype and is not a store-page promise.
 
-## 标签建议
+## Suggested Tags
 
-2D 平台跳跃、动作、精准平台跳跃、单人、手柄支持、独立游戏、短流程、横版闯关、像素风、轻度成长
+2D Platformer, Action, Precision Platformer, Singleplayer, Controller Support, Indie, Short, Side-Scroller, Pixel Art, Light Progression
 
-## 商店页注意事项
+## Store Page Notes
 
-- 截图必须来自真实游戏构建。
-- 不展示尚未完成的局域网联机。
-- 不使用未登记授权的字体、音效、音乐或图片。
-- 如果最终使用 AI 生成内容，需要在 Steam 内容调查中如实披露。
+- Screenshots must come from a real game build.
+- Do not show unfinished LAN co-op.
+- Do not use unregistered fonts, sound effects, music, or images.
+- If AI-generated content is used in the final build, disclose it truthfully in the Steam content survey.

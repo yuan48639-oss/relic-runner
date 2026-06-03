@@ -1,48 +1,48 @@
-# 美术、音频与字体规范
+# Art, Audio, And Font Specification
 
-## 美术方向
+## Art Direction
 
-- 整体风格：清晰、可爱、有质感的 2D 横版动作闯关画面，优先使用像素风或低分辨率手绘风。
-- 基础网格：以 32px 和 48px 模块为主，保证角色、怪物、地形和 UI 尺寸统一。
-- 色彩基调：沙岩、青铜、晨光金、冷色遗迹阴影、醒目的危险红。不要让画面只被一种颜色主导。
-- 可读性优先：平台边缘、尖刺、敌人攻击范围、出口和可交互物必须一眼能看懂。
-- 参考方向：可以学习优秀 2D 探索游戏的层次感、背景深度和清晰轮廓，但不能复制商业游戏的角色、怪物、图标、地图或构图。
+- Overall style: clear, charming, tactile 2D side-scrolling action-platformer visuals. Pixel art or low-resolution hand-painted art is preferred.
+- Base grid: use 32 px and 48 px modules so characters, enemies, terrain, and UI stay visually consistent.
+- Palette: sandstone, bronze, dawn gold, cool ruin shadows, and readable danger red. Avoid letting the whole game collapse into one dominant color family.
+- Readability first: platform edges, spikes, enemy attack ranges, exits, and interactables must be understandable at a glance.
+- Reference direction: it is acceptable to study layering, background depth, and clean silhouettes from strong 2D exploration games, but do not copy commercial characters, monsters, icons, maps, or compositions.
 
-## 必备美术
+## Required Art
 
-- 玩家：待机、奔跑、跳跃、下落、冲刺、攻击、受伤、死亡、胜利、交互。
-- 装备外观：短剑、长剑、晨辉刃、靴子、护甲、护符。购买并装备后应能在角色身上看到变化。
-- 敌人：巡逻小恶魔、飞行眼、盾兵、爬行虫、多段生命 Boss。每类敌人都要有明确轮廓、前摇和受击反馈。
-- 环境：家园地图、遗迹关卡地形、尖刺、移动平台、易碎平台、钥匙、门、机关开关、商店、晨辉核心、远征入口。
-- 掉落与 UI：金币、生命血瓶、药水、技能卷轴、背包图标、装备栏图标、生命进度条、金币计数、提示按钮、语言和设置图标。
-- 背景：家园和关卡都需要更大的横向场景，包括天空层、云、日光、远山、遗迹剪影、道路、草地和前景装饰。
+- Player: idle, run, jump, fall, dash, attack, hurt, death, victory, and interact animations.
+- Equipment appearance: short sword, long sword, dawn blade, boots, armor, and charms. Purchased and equipped gear should be visible on the character.
+- Enemies: patrolling imp, flying eye, shield soldier, crawler, and multi-health bosses. Each enemy needs a clear silhouette, anticipation, and hit feedback.
+- Environment: home hub, ruin level terrain, spikes, moving platforms, brittle platforms, keys, doors, switches, shop, Dawnlight Core, and expedition entrance.
+- Drops and UI: coins, health hearts, potions, skill scrolls, backpack icons, equipment icons, health bar, coin counter, prompt buttons, language icon, and settings icon.
+- Backgrounds: the home hub and levels need wider horizontal scenes, including sky layers, clouds, sunlight, distant mountains, ruin silhouettes, roads, grass, and foreground decoration.
 
-## 当前占位图含义
+## Current Placeholder Meaning
 
-- 蓝色移动平台主体：移动踏板。额外的蓝色引导矩形不应再显示。
-- 蓝色检查点旗子：已从运行时移除，等检查点美术和规则明确后再恢复。
-- 金色门或旗帜：关卡出口。
-- 红色三角形：尖刺或危险机关。
-- 绿色小瓶：生命药水拾取物。
-- 玩家、怪物、武器挥击和火焰技能目前仍是项目自制的程序化可爱占位图，带有简单动态变化。
+- Blue moving platform body: moving foothold. Extra blue guide rectangles should no longer appear.
+- Blue checkpoint flag: removed from runtime for now; restore it after checkpoint art and rules are finalized.
+- Gold door or flag: level exit.
+- Red triangle: spike or danger mechanism.
+- Green small bottle: health potion pickup.
+- Player, monsters, weapon sweeps, and fire skills are still project-owned procedural placeholders with simple motion.
 
-这些占位图可以继续用于内部测试，但正式 Steam 截图和宣传视频前应替换成有授权记录的最终素材，或替换成项目自制的正式美术。
+These placeholders are acceptable for internal testing, but final Steam screenshots and promotional videos should use either registered final assets or finished project-owned art.
 
-## 音效
+## Sound Effects
 
-- 必备音效：跳跃、落地、冲刺、挥剑、剑击命中、踩怪、受伤、金币掉落、金币吸附、拾取药水、购买物品、按钮确认、死亡、通关、Boss 受击、炎爆术释放。
-- 打击音效方向：挥剑要有清晰剑器声，命中要有更有力量的武打反馈，金币要有金属碰撞和吸附拾取声。
-- 音频总线：使用 `Master`、`Music`、`SFX`、`UI` 分组，避免音量设置互相干扰。
-- 当前构建：已接入临时生成音色，用于 UI、金币、命中、药水、购买、死亡和通关事件。正式版需要替换成授权音效。
+- Required sounds: jump, land, dash, sword swing, sword hit, stomp kill, damage, coin drop, coin magnet, potion pickup, purchase, button confirm, death, clear, boss hit, and Pyroblast cast.
+- Combat direction: sword swings need a clear blade sound; hits need stronger martial impact; coins need metallic collision and pickup movement.
+- Audio buses: use `Master`, `Music`, `SFX`, and `UI` groups so volume settings do not interfere with each other.
+- Current build: temporary generated tones are integrated for UI, coins, hits, potions, purchases, death, and clear events. Replace them with licensed sounds before final polish if needed.
 
-## 音乐
+## Music
 
-- 主菜单或家园循环音乐：温暖、明亮，突出远征前的安全感。
-- 遗迹关卡循环音乐：节奏更强，适合反复闯关。
-- 危险或 Boss 音乐：更紧张，但不要压过打击音效和 UI 提示。
+- Main menu or home loop: warm and bright, emphasizing safety before an expedition.
+- Ruin level loop: stronger rhythm suitable for repeated attempts.
+- Danger or boss music: more tense, but never louder than impact sounds and UI prompts.
 
-## 字体
+## Fonts
 
-- UI 正文字体必须同时支持中文和英文，默认候选为 `Noto Sans SC`。
-- 标题字体可以使用像素字体或手写风字体，但必须确认可商用授权。
-- 所有字体来源、授权、用途和下载地址都要登记到素材授权表。
+- Body UI fonts must support both Chinese and English. `Noto Sans SC` is the default candidate.
+- Title fonts may use pixel or hand-drawn styles, but commercial-use permission must be verified.
+- Register every font source, license, purpose, and download URL in the asset register.

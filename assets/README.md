@@ -1,21 +1,21 @@
-# 素材导入说明
+# Asset Import Notes
 
-此目录用于存放可以合法发布的源素材。
+This directory stores source assets that can be legally shipped.
 
-规则：
+Rules:
 
-- 任何第三方素材进入游戏前，都必须登记到 `docs/asset_register.csv`。
-- 优先使用 CC0、公有领域，或明确允许商业使用的授权。
-- 下载的授权文件应尽量和素材放在一起。
-- 不要使用没有明确授权的版权角色、商标、Logo、界面截图、音乐或音效。
-- 如果使用 AI 生成素材，需要在 `docs/ai_content_disclosure.md` 记录工具、提示词、日期和用途。
+- Register every third-party asset in `docs/asset_register.csv` before it enters the game.
+- Prefer CC0, public-domain assets, or licenses that clearly allow commercial use.
+- Keep downloaded license files next to the relevant asset pack whenever possible.
+- Do not use copyrighted characters, trademarks, logos, UI screenshots, music, or sound effects without clear permission.
+- If AI-generated assets are used, record the tool, prompt summary, date, and purpose in `docs/ai_content_disclosure.md`.
 
-## 当前已导入素材包
+## Imported Asset Packs
 
-- `assets/vendor/kenney_abstract_platformer/`：Kenney Abstract Platformer，CC0，用于平台、背景、角色、敌人、道具和 tiles。
-- `assets/vendor/kenney_game_icons/`：Kenney Game Icons，CC0，用于 UI 图标和控制提示。
-- `assets/vendor/kenney_interface_sounds/`：Kenney Interface Sounds，CC0，用于菜单点击、确认、返回等 UI 音效。
-- `game/assets/kenney/`：复制到 Godot 项目内的运行时素材子集，用于 `res://` 加载。
-- `game/assets/fonts/NotoSansCJKsc-Regular.otf`：Noto Sans CJK SC Regular，SIL Open Font License 1.1，用于中文 UI 显示。
+- `assets/vendor/kenney_abstract_platformer/`: Kenney Abstract Platformer, CC0, used for platforms, backgrounds, characters, enemies, props, and tiles.
+- `assets/vendor/kenney_game_icons/`: Kenney Game Icons, CC0, used for UI icons and control prompts.
+- `assets/vendor/kenney_interface_sounds/`: Kenney Interface Sounds, CC0, used for menu clicks, confirmation, back, and other UI sounds.
+- `game/assets/kenney/`: runtime subset copied into the Godot project for `res://` loading.
+- `game/assets/fonts/NotoSansCJKsc-Regular.otf`: Noto Sans CJK SC Regular, SIL Open Font License 1.1, used for bilingual UI rendering.
 
-每个素材包都保留了随包许可证文件，授权登记见 `docs/asset_register.csv`。
+Each imported pack keeps its bundled license file. Authorization details are tracked in `docs/asset_register.csv`.

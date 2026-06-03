@@ -1,42 +1,42 @@
-# 《遗迹奔跑者》制作路线
+# Relic Runner Production Roadmap
 
-## 当前方向
+## Current Direction
 
-《遗迹奔跑者》是一款小型 2D 动作闯关游戏。玩家作为“晨门信使”进入会在日出前重组的古代遗迹，寻找晨辉核心，并用远征中获得的金币强化下一次出发。
+Relic Runner is a small 2D action-platformer. The player is the Dawn Gate Courier, entering ancient ruins that rearrange themselves before sunrise, searching for the Dawnlight Core, and using expedition coins to strengthen the next run.
 
-## 1.0 目标
+## 1.0 Goals
 
-- 形成约 2 小时的单人 1.0 流程。
-- 当前路线扩展为 40 个关卡、4 个区域、4 个 Boss。
-- 已有巡逻、飞行、盾兵、爬行虫和 Boss 等原型敌人。
-- 已有家园地图、持久金币、永久装备、背包药水、晨辉核心生命上限升级。
-- 已有存档/读档、中文/英文界面、音量设置和 `Windows` 导出基础。
-- 后续重点不再是堆功能，而是稳定流程、提升手感、替换正式美术与音效。
+- Deliver roughly two hours of single-player 1.0 content.
+- Expand the current route to 40 levels, 4 regions, and 4 bosses.
+- Keep and polish prototype enemy types: patrol, flyer, shield soldier, crawler, and boss enemies.
+- Keep and polish the home hub, persistent coins, permanent equipment, backpack potions, and Dawnlight Core max-health upgrades.
+- Keep save/load, Chinese/English UI, volume settings, and the foundation for `Windows` export.
+- Future work should focus less on adding raw features and more on stabilizing flow, improving feel, and replacing temporary art and sound.
 
-## 里程碑
+## Milestones
 
-1. 稳定架构：保持关卡数据驱动，继续拆分主脚本，强化家园、死亡、复活、通关和存档边界。
-2. 内容调优：检查点、钥匙、移动平台、易碎地板、冲刺、飞行敌人、盾兵、爬行虫和 Boss 已存在，接下来重点是关卡节奏和难度曲线。
-3. 表现升级：用授权 tileset、角色动画、敌人动画、UI 图标、字体、音效和音乐替换矩形与临时音色。
-4. Steam Demo：完成 5-10 人试玩，修复反馈，制作真实截图和短视频，提交 Steam 审核。
-5. 局域网原型：继续作为内部模式，等主机权威同步稳定后再考虑公开。
+1. Stable architecture: keep levels data-driven, continue splitting the main script, and strengthen boundaries around home, death, revive, clear, and save logic.
+2. Content tuning: checkpoints, keys, moving platforms, brittle floors, dash, flyers, shield soldiers, crawlers, and bosses already exist; the next focus is pacing and difficulty curve.
+3. Presentation upgrade: replace rectangles and temporary tones with licensed tilesets, character animation, enemy animation, UI icons, fonts, sound effects, and music.
+4. Steam demo: run 5-10 playtests, fix feedback, capture real screenshots and short videos, and submit for Steam review.
+5. LAN prototype: keep it internal until host-authoritative synchronization is stable enough to consider public exposure.
 
-## 剧情节拍
+## Story Beats
 
-- 家园：城镇边缘的晨门营地，玩家购买装备、升级生命、整理背包并进入遗迹。
-- 遗迹入口：学习移动、跳跃、攻击和金币收集。
-- 尖刺长廊：学习踩怪奖励、尖刺惩罚和药水使用。
-- 晨门前厅：遇到遗迹商店、钥匙门和更复杂的敌人组合。
-- Boss 房：击败晨辉守卫，获得炎爆术，展示技能系统潜力。
-- 地下水道：引入移动平台、水道节奏和潮汐波。
-- 断裂钟塔：引入易碎平台、垂直节奏和钟摆束缚。
-- 晨辉核心深处：混合全部机制，最终 Boss 掉落晨辉屏障并完成结局。
+- Home hub: Dawn Gate camp at the edge of town. The player buys equipment, upgrades health, manages the backpack, and enters the ruins.
+- Ruin entrance: teaches movement, jumping, attacking, and coin collection.
+- Spike corridor: teaches stomp rewards, spike punishment, and potion use.
+- Dawn Gate hall: introduces ruin shops, key doors, and more complex enemy combinations.
+- Boss room: defeat the Dawnlight Guard, earn Pyroblast, and reveal the skill system's potential.
+- Underground Waterways: introduce moving platforms, waterway timing, and Tidal Wave.
+- Broken Clocktower: introduce brittle platforms, vertical rhythm, and Clock Snare.
+- Dawnlight Core Depths: combine all mechanics, defeat the final boss, earn Dawn Barrier, and complete the ending.
 
-## 近期优先级
+## Near-Term Priorities
 
-- 把金币掉落、吸附、拾取音效和数值结算打磨到稳定。
-- 让购买装备后的角色外观更明显、更有质感。
-- 强化怪物小恶魔风格，补足攻击前摇、受击和死亡表现。
-- 补齐背包、装备栏、技能列表、商店和晨辉核心 UI 的精美图标。
-- 准备正式美术替换管线，确保每个图标和精灵都能替换而不重写玩法逻辑。
-- 将 Godot CLI 或编辑器路径接入验证流程，确保 `tools/validate_project.py` 与 Godot 脚本检查都能运行。
+- Polish coin drop, magnet, pickup sounds, and value settlement until stable.
+- Make purchased equipment changes more visible and tactile on the character.
+- Strengthen the imp-like monster style with anticipation, hit reaction, and death feedback.
+- Add polished icons for backpack, equipment, skill list, shop, and Dawnlight Core UI.
+- Prepare a final art replacement pipeline so every icon and sprite can be swapped without rewriting gameplay logic.
+- Connect the Godot CLI or editor path to the validation flow so `tools/validate_project.py` and Godot script checks can both run.

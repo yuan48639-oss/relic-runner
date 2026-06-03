@@ -1,16 +1,16 @@
-# AI 内容披露记录
+# AI Content Disclosure Log
 
-当前版本没有包含准备发布的 AI 生成素材。
+The current version does not include AI-generated assets intended for release.
 
-如果后续加入 AI 素材，发布前必须记录：
+If AI-generated assets are added later, record the following before release:
 
-| 日期 | 工具 / 模型 | 提示词摘要 | 素材路径 | 人工修改 | 游戏内用途 | 是否需要 Steam 披露 |
+| Date | Tool / model | Prompt summary | Asset path | Human edits | In-game use | Steam disclosure required |
 | --- | --- | --- | --- | --- | --- | --- |
-| 待定 | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| TBD | TBD | TBD | TBD | TBD | TBD | TBD |
 
-项目规则：
+Project rules:
 
-- 不生成模仿在世艺术家、版权游戏角色、品牌、名人或受保护 IP 的素材。
-- 保留提示词和输出文件。
-- AI 素材在人工复核前一律视为商业风险素材。
-- 如果 AI 生成内容进入发布版本，需要在 Steamworks 内容调查中如实披露。
+- Do not generate assets that imitate living artists, copyrighted game characters, brands, celebrities, or protected IP.
+- Keep prompts and output files.
+- Treat AI assets as commercial-risk material until they have been manually reviewed.
+- If AI-generated content enters the release build, disclose it truthfully in the Steamworks content survey.

@@ -1,70 +1,70 @@
-# 遗迹奔跑者 Demo
+# Relic Runner Demo
 
-这是一个 Godot 4 小型 2D 动作闯关项目，目标是从原型升级为约 2 小时、Windows 首发的 1.0 小游戏。
+Relic Runner is a small Godot 4 2D action-platformer project. The target is to grow the current prototype into a Windows-first 1.0 game with roughly two hours of single-player content.
 
-## 当前范围
+## Current Scope
 
-- 引擎：Godot 4.x
-- 首发目标：Windows
-- 输入：键盘、鼠标、Xbox 兼容手柄
-- 内容：可行走家园、40 个关卡、4 个区域、4 个 Boss、关卡商店、钥匙门、检查点、移动平台、易碎平台、尖刺、金币掉落、药水、装备和技能解锁
-- 装备：药水、武器、靴子、护甲、护符；购买后会影响玩家外观或能力
-- 技能：炎爆术、潮汐波、钟摆束缚、晨辉屏障；`O` 打开技能列表，`K` / `L` 释放已装备技能
-- 存档：`user://savegame.json` 保存金币、生命上限、背包、已购买物、装备、技能和进度
-- 局域网：只保留内部原型入口，不作为 1.0 发布承诺
+- Engine: Godot 4.x
+- Launch target: Windows
+- Input: keyboard, mouse, and Xbox-compatible controllers
+- Content: explorable home hub, 40 levels, 4 regions, 4 bosses, level shops, key doors, checkpoints, moving platforms, brittle platforms, spikes, coin drops, potions, equipment, and skill unlocks
+- Equipment: potions, weapons, boots, armor, and charms; purchased gear changes the player's look or abilities
+- Skills: Pyroblast, Tidal Wave, Clock Snare, and Dawn Barrier; press `O` to open the skill list, then use equipped skills with `K` / `L`
+- Save data: `user://savegame.json` stores coins, max health, backpack contents, purchases, equipment, skills, and progress
+- LAN: an internal prototype entry remains, but LAN play is not a 1.0 store commitment
 
-## 本地运行
+## Local Run
 
-1. 安装 Godot 4.x。
-2. 用 Godot 打开 `game/` 目录。
-3. 点击运行。主场景是 `res://scenes/Main.tscn`。
+1. Install Godot 4.x.
+2. Open the `game/` directory in Godot.
+3. Press Play. The main scene is `res://scenes/Main.tscn`.
 
-当前仓库包含项目文件和脚本，尚未制作正式导出包。
+The repository currently contains the project files and scripts. A final exported build has not been produced yet.
 
-## 操作
+## Controls
 
-- 移动：`A/D`、方向键、左摇杆、十字键
-- 跳跃/二段跳：`Space`、`W`、上方向键、手柄 A
-- 冲刺：`Shift`、手柄 B
-- 攻击/交互：`J`、鼠标左键、手柄 X
-- 使用背包药水：`Q` 或 `U`、手柄 Y
-- 打开背包/装备栏：`I`
-- 打开技能列表：`O`
-- 释放已装备技能：`K`、`L`
-- 暂停：`Esc`、手柄 Start
-- 重开当前关：`R`
-- 语言：通过 `Language / 语言` 按钮切换
+- Move: `A/D`, arrow keys, left stick, or D-pad
+- Jump / double jump: `Space`, `W`, up arrow, or controller A
+- Dash: `Shift` or controller B
+- Attack / interact: `J`, left mouse button, or controller X
+- Use backpack potion: `Q` or `U`, or controller Y
+- Open backpack / equipment: `I`
+- Open skill list: `O`
+- Cast equipped skills: `K`, `L`
+- Pause: `Esc` or controller Start
+- Restart current level: `R`
+- Language: switch through the `Language` button
 
-## 当前玩法规则
+## Current Gameplay Rules
 
-- 默认进入家园。玩家需要走到设施旁按 `J` 或鼠标左键交互。
-- 家园设施包括商店、晨辉核心、背包/装备栏、远征门、告示牌/系统菜单。
-- 每次远征从当前进度起点开始，中途通关会进入下一关，最终通关后返回家园。
-- 生命归零会显示死亡通告，可选择返回家园，或花 100 金币在检查点复活。
-- 正式经济从 0 金币开始，玩家需要通过远征击败敌人和探索逐步购买装备。
-- 踩怪奖励 2 金币；剑杀奖励 1 金币，并有 10% 概率掉落生命药水。
-- 每个区域 Boss 会掉落一个技能。拾取后可装备到 `K` 或 `L`。
-- 生命药水默认回复 1 点生命；医者护符会让药水回复 2 点，并提高剑杀掉药概率到 25%。
-- 家园商店价格：药水 6、长剑 18、迅捷靴 28、青铜护甲 34、金币护符 40、医者护符 52、羽翼靴 68、晨辉刃 82、锚定靴 110、风暴剑 130、琉璃甲 145、晨辉护符 165。
+- The game starts in the home hub. Walk to a facility and press `J` or left click to interact.
+- Home facilities include the shop, Dawnlight Core, backpack / equipment menu, expedition gate, and notice board / system menu.
+- Each expedition starts from the current progress point. Clearing a level advances to the next level; clearing the final level returns to the home hub.
+- When health reaches zero, the death notice lets the player return home or revive at a checkpoint for 100 coins.
+- The release economy starts at 0 coins. Players buy equipment gradually by defeating enemies and exploring during expeditions.
+- Stomping enemies awards 2 coins. Sword kills award 1 coin and have a 10% chance to drop a health potion.
+- Each region boss drops one skill. After pickup, the skill can be equipped to `K` or `L`.
+- Health potions normally restore 1 health. The Medic Charm makes potions restore 2 health and raises the sword-kill potion drop chance to 25%.
+- Home shop prices: potion 6, long sword 18, swift boots 28, bronze armor 34, coin charm 40, medic charm 52, wing boots 68, dawn blade 82, anchor boots 110, storm sword 130, glass armor 145, dawn charm 165.
 
-## 美术与字体
+## Art And Fonts
 
-- 运行时已接入 Kenney CC0 素材子集，位置在 `game/assets/kenney/`。
-- 玩家、敌人、Boss、金币、药水、钥匙、门、旗帜、尖刺、平台和区域背景会使用导入的 PNG 贴图。
-- UI 字体使用 Noto Sans CJK SC Regular，位置在 `game/assets/fonts/`，用于避免中文乱码。
-- 仍保留部分程序化绘制作为碰撞形状和开发 fallback，正式发布前还需要继续补足动画、音乐和截图。
+- A runtime subset of Kenney CC0 assets is integrated under `game/assets/kenney/`.
+- Player, enemies, bosses, coins, potions, keys, doors, flags, spikes, platforms, and region backgrounds use imported PNG assets where available.
+- The UI font is Noto Sans CJK SC Regular under `game/assets/fonts/`, mainly to avoid broken Chinese glyphs in bilingual UI.
+- Some procedural drawing remains for collision shapes and development fallbacks. Final release still needs stronger animation, music, and real build screenshots.
 
-## 验证
+## Validation
 
 ```text
 python tools/validate_project.py
 ```
 
-该脚本检查 40 关数据、4 个区域、4 个 Boss 技能奖励和存档版本。
+The script validates 40 levels, 4 regions, 4 boss skill rewards, and the save version.
 
-## Steam 准备
+## Steam Preparation
 
-相关清单见：
+Related checklists:
 
 - `docs/steam_launch_checklist.md`
 - `docs/asset_register.csv`

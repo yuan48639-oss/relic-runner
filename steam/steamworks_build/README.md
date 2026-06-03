@@ -1,19 +1,19 @@
-# SteamPipe 构建模板
+# SteamPipe Build Template
 
-此目录中的文件是 Steamworks 上传模板。上传前需要替换所有尖括号占位值。
+The files in this directory are Steamworks upload templates. Replace all angle-bracket placeholders before uploading.
 
-预期本地导出路径：
+Expected local export path:
 
 ```text
 build/windows/RelicRunner.exe
 ```
 
-典型流程：
+Typical flow:
 
-1. 用 Godot 导出 Windows 构建。
-2. 在发布机器上安装 Steamworks SDK。
-3. 将 SteamPipe 内容目录指向导出的 `build/windows` 文件夹。
-4. 替换 VDF 文件中的 `<DEMO_APP_ID>` 和 `<WINDOWS_DEPOT_ID>`。
-5. 从 Steamworks SDK 工具目录运行 SteamPipe 上传。
+1. Export the Windows build from Godot.
+2. Install the Steamworks SDK on the release machine.
+3. Point the SteamPipe content directory at the exported `build/windows` folder.
+4. Replace `<DEMO_APP_ID>` and `<WINDOWS_DEPOT_ID>` in the VDF files.
+5. Run SteamPipe upload from the Steamworks SDK tools directory.
 
-不要提交 Steam 凭据或 SteamPipe 生成日志。
+Do not commit Steam credentials or SteamPipe-generated logs.

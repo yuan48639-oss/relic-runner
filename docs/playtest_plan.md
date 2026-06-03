@@ -1,47 +1,47 @@
-# 试玩测试计划
+# Playtest Plan
 
-## 测试人群
+## Test Audience
 
-邀请 5-10 名玩家试玩。优先选择玩过 Steam 上 2D 平台跳跃、动作闯关或轻度类银河恶魔城游戏的玩家，同时保留 1-2 名不熟悉此类游戏的新手玩家，用来验证引导是否足够清楚。
+Invite 5-10 players. Prioritize players familiar with Steam 2D platformers, action-platformers, or light Metroidvania games, while keeping 1-2 newcomers to validate whether guidance is clear enough.
 
-## 测试准备
+## Test Preparation
 
-1. 使用导出的 `Windows` 构建，不用 Godot 编辑器运行。
-2. 从干净存档开始测试。
-3. 记录当前构建版本、测试日期、玩家是否使用键盘或手柄。
-4. 测试前只告诉玩家“请从家园出发，尽量完成一次远征”，不要额外解释隐藏规则。
+1. Use an exported `Windows` build, not the Godot editor.
+2. Start from a clean save.
+3. Record the build version, test date, and whether the player uses keyboard or controller.
+4. Before testing, tell the player only: "Start from the home hub and try to complete one expedition." Do not explain hidden rules.
 
-## 观察指标
+## Observation Metrics
 
-- 首次理解目标所需时间。
-- 第一次死亡发生在哪里，是否觉得公平。
-- 第一次成功攻击、踩怪和拾取金币分别发生在何时。
-- 是否能发现家园商店、晨辉核心、背包和技能列表。
-- 是否理解踩怪 2 金币、剑杀 1 金币和药水掉落的取舍。
-- 是否会主动购买装备、装备物品、使用药水。
-- 是否能理解死亡后的“返回家园”和“100 金币复活”选项。
-- 完整 Demo 通关时间和中途退出点。
+- Time required to understand the goal for the first time.
+- Where the first death happens and whether it feels fair.
+- When the first successful attack, stomp, and coin pickup happen.
+- Whether the player discovers the home shop, Dawnlight Core, backpack, and skill list.
+- Whether the player understands the tradeoff between 2-coin stomps, 1-coin sword kills, and potion drops.
+- Whether the player voluntarily buys equipment, equips items, and uses potions.
+- Whether the player understands the death options: return home or revive for 100 coins.
+- Full demo clear time and any midpoint quit location.
 
-## 测试流程
+## Test Flow
 
-1. 启动导出包，让玩家自行选择语言。
-2. 让玩家在家园中自由探索，并从远征门进入第 1 关。
-3. 玩家游玩期间只记录问题，不主动指导。
-4. 玩家卡住超过 3 分钟时再给最低限度提示，并记录卡点。
-5. 玩家完成 Demo、死亡返回家园或主动退出后，进行简短访谈。
+1. Launch the exported build and let the player choose a language.
+2. Let the player explore the home hub freely and enter level 1 through the expedition gate.
+3. During play, record issues without actively guiding the player.
+4. If the player is stuck for more than 3 minutes, give the smallest useful hint and record the stuck point.
+5. After the player clears the demo, dies and returns home, or quits voluntarily, run a short interview.
 
-## 访谈问题
+## Interview Questions
 
-- 你认为当前目标是什么？
-- 哪个死亡或受伤瞬间让你觉得不公平？
-- 哪个操作最顺手，哪个操作最别扭？
-- 你是否理解金币、装备、药水和生命上限的用途？
-- 你是否愿意继续玩更完整版本？原因是什么？
+- What do you think the current goal is?
+- Which death or damage moment felt unfair?
+- Which action felt best, and which felt most awkward?
+- Do you understand what coins, equipment, potions, and max health are for?
+- Would you keep playing a fuller version? Why?
 
-## 通过标准
+## Pass Criteria
 
-- 10 名玩家中至少 7 名能在第 1 分钟理解家园和远征目标。
-- 10 名玩家中至少 6 名能在没有开发者帮助的情况下完成 Demo。
-- 没有人反馈按键提示看不懂、菜单无法返回、死亡重试流程混乱。
-- 大多数玩家能说出“踩怪奖励更多但风险更高”。
-- 至少一半玩家能主动打开商店或背包装备界面。
+- At least 7 of 10 players understand the home hub and expedition goal within the first minute.
+- At least 6 of 10 players complete the demo without developer help.
+- No player reports unreadable button prompts, menus that cannot return, or a confusing death retry flow.
+- Most players can explain that stomps reward more coins but are riskier.
+- At least half of players voluntarily open the shop or backpack / equipment screen.

@@ -1,62 +1,62 @@
-# 《遗迹奔跑者》Demo 设计
+# Relic Runner Demo Design
 
-## 一句话卖点
+## One-Line Pitch
 
-玩家扮演“晨门信使”，在日出前闯入不断重组的沙海遗迹，寻找“晨辉核心”，阻止沙海吞没城镇。
+Play as the Dawn Gate Courier, entering a sand-sea ruin that rearranges itself before sunrise. Find the Dawnlight Core before the desert swallows the town.
 
-## 设计支柱
+## Design Pillars
 
-- 手感优先：跳跃、二段跳、冲刺、踩怪、剑击必须立刻响应，内容数量不应压过操作质量。
-- 危险清晰：敌人、尖刺、Boss 攻击、出口和可交互物必须有明确视觉语言。
-- 奖励取舍：踩怪给 2 金币，剑杀给 1 金币但有概率掉药，鼓励玩家在风险和稳定之间选择。
-- 家园成长：每次远征从家园出发，通关或死亡后回到家园，用金币购买装备、药水和生命上限。
-- 1.0 小游戏适配：目标首通约 90-140 分钟，流程完整，Windows 首发，暂不承诺复杂联网和长期内容。
+- Feel first: jump, double jump, dash, stomp, and sword strike must respond immediately. Content quantity should never outweigh control quality.
+- Clear danger: enemies, spikes, boss attacks, exits, and interactables need explicit visual language.
+- Reward tradeoffs: stomps award 2 coins, while sword kills award 1 coin with a potion-drop chance. Players choose between risk and stability.
+- Home growth: every expedition starts from the home hub. After clearing levels or dying, players return home to buy equipment, potions, and max-health upgrades.
+- 1.0 scope fit: target first-clear time is roughly 90-140 minutes, with a complete flow, Windows-first release, and no promise of complex networking or long-tail content.
 
-## 当前 Demo 内容
+## Current Demo Content
 
-- 40 个关卡，分为教学遗迹、地下水道、断裂钟塔、晨辉核心深处 4 个区域。
-- 核心移动：奔跑、跳跃、二段跳、冲刺。
-- 核心战斗：短剑或长剑近战、踩头击杀、受伤无敌、击退反馈。
-- 敌人类型：巡逻敌人、飞行眼、盾兵、爬行虫、多段生命 Boss。
-- 家园地图：玩家可在家园中自由走动，到远征门、商店、晨辉核心、背包装备栏和告示牌前按 `J` 或左键交互。
-- 成长系统：金币永久保留，药水进入背包，装备永久购买，晨辉核心可提升生命上限。
-- 关卡机制：检查点、移动平台、易碎平台、钥匙门、尖刺和关卡出口。
-- 死亡流程：生命为 0 时显示死亡通告，玩家可返回家园，也可花 100 金币在检查点复活。
-- 技能系统：4 个区域 Boss 分别掉落炎爆术、潮汐波、钟摆束缚、晨辉屏障，按 `O` 打开技能列表，`K` 和 `L` 可装备并释放技能。
+- 40 levels split across 4 regions: Tutorial Ruins, Underground Waterways, Broken Clocktower, and Dawnlight Core Depths.
+- Core movement: run, jump, double jump, and dash.
+- Core combat: short or long sword melee, head-stomp kills, hurt invulnerability, and knockback feedback.
+- Enemy types: patrol enemy, flying eye, shield soldier, crawler, and multi-health bosses.
+- Home hub: players can move freely and interact with the expedition gate, shop, Dawnlight Core, backpack / equipment menu, and notice board by pressing `J` or left clicking.
+- Progression: coins persist, potions enter the backpack, equipment is permanently purchased, and the Dawnlight Core upgrades max health.
+- Level mechanics: checkpoints, moving platforms, brittle platforms, key doors, spikes, and exits.
+- Death flow: when health reaches 0, a death notice appears. Players can return home or spend 100 coins to revive at a checkpoint.
+- Skills: the 4 region bosses drop Pyroblast, Tidal Wave, Clock Snare, and Dawn Barrier. Press `O` to open the skill list; `K` and `L` equip and cast skills.
 
-## 操作
+## Controls
 
-- 移动：`A/D` 或方向键。
-- 跳跃：`Space`、`W` 或上方向键。
-- 冲刺：`Shift`。
-- 攻击/交互：`J` 或鼠标左键。
-- 使用药水：`Q`。
-- 打开背包：`I`，家园和关卡中都可使用。
-- 打开技能列表：`O`。
-- 释放技能：`K`、`L`。
-- 暂停或返回：`Esc`。家园 UI 中按 `Esc` 应返回原地，不重置角色位置。
+- Move: `A/D` or arrow keys.
+- Jump: `Space`, `W`, or up arrow.
+- Dash: `Shift`.
+- Attack / interact: `J` or left mouse button.
+- Use potion: `Q`.
+- Open backpack: `I`, usable in both the home hub and levels.
+- Open skill list: `O`.
+- Cast skills: `K`, `L`.
+- Pause or back: `Esc`. In home UI, `Esc` should return to the original spot without resetting player position.
 
-## 远征流程
+## Expedition Flow
 
-- 家园是出发点，每次远征都从第 1 关开始。
-- 中途通关进入下一关，不回家园。
-- 最后一关通关后回到家园。
-- 死亡后不直接说“撤回家园”，而是显示死亡通告，让玩家选择返回家园或花 100 金币复活。
+- The home hub is the starting point. Each expedition begins from the current progress point.
+- Clearing an intermediate level advances to the next level without returning home.
+- Clearing the final level returns to the home hub.
+- Death does not immediately retreat to the home hub. The death notice asks whether to return home or spend 100 coins to revive.
 
-## 当前经济与装备
+## Current Economy And Equipment
 
-- 踩怪击杀：2 金币。
-- 剑击击杀：1 金币，基础 10% 概率掉落药水。
-- 金币护符：每次击败敌人额外 +1 金币。
-- 医者护符：剑杀掉药概率提高到 25%，药水恢复量提高到 2 点生命。
-- 晨辉核心：生命上限从 3 提升到 6，价格为 50、85、120 金币。
-- 家园商店：药水 6、长剑 18、迅捷靴 28、青铜护甲 34、金币护符 40、医者护符 52、羽翼靴 68、晨辉刃 82。
-- 装备栏：武器、鞋子、护甲、护符。购买后永久解锁，可在背包装备界面重新装备。
-- 正式规则：新游戏从 0 金币开始，通过远征奖励逐步购买装备和药水。
+- Stomp kill: 2 coins.
+- Sword kill: 1 coin, with a base 10% potion-drop chance.
+- Coin Charm: +1 coin for each defeated enemy.
+- Medic Charm: raises sword-kill potion-drop chance to 25% and potion healing to 2 health.
+- Dawnlight Core: upgrades max health from 3 to 6, priced at 50, 85, and 120 coins.
+- Home shop: potion 6, long sword 18, swift boots 28, bronze armor 34, coin charm 40, medic charm 52, wing boots 68, dawn blade 82.
+- Equipment menu: weapon, boots, armor, and charm. Purchased gear is permanently unlocked and can be re-equipped from the backpack / equipment screen.
+- Release rule: a new game starts with 0 coins, and players gradually buy equipment and potions through expedition rewards.
 
-## 首发约束
+## Launch Constraints
 
-- 首发平台优先 `Windows`。
-- 首个公开 Demo 不做在线服务、成就、云存档、DLC、内购、创意工坊、Linux/macOS 首发。
-- 局域网联机作为内部原型，不在 Steam 商店页承诺，直到同步、断线和防火墙问题稳定。
-- 最终美术要在 `960x540` 视口和 Steam Deck 类屏幕上保持清晰。
+- First launch platform is `Windows`.
+- The first public demo should not include online services, achievements, cloud saves, DLC, in-app purchases, Workshop support, or Linux/macOS launch builds.
+- LAN co-op remains an internal prototype and should not be promised on the Steam page until synchronization, disconnect handling, and firewall issues are stable.
+- Final art must remain readable at a `960x540` viewport and on Steam Deck-like screens.

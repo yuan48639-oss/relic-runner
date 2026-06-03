@@ -1,39 +1,39 @@
-# 局域网联机设计
+# LAN Co-op Design
 
-## 当前状态
+## Current State
 
-项目中已有可见的局域网原型菜单，并且有 `NetworkManager` 可创建 `ENet` 主机、加入 `127.0.0.1`、停止联网。当前只验证菜单和连接入口，正式玩法同步尚未启用。
+The project already has a visible LAN prototype menu and a `NetworkManager` that can create an `ENet` host, join `127.0.0.1`, and stop networking. At this stage, only the menu and connection entry points are validated; full gameplay synchronization is not enabled.
 
-## 目标
+## Goals
 
-- 支持 2 人同一局域网合作。
-- 主机权威：主机负责最终游戏状态，客户端主要发送输入。
-- 共享生命、金币、商店购买、关卡进度和关键掉落。
-- 主机负责敌人、掉落、商店结果、Boss 掉落和存档写入。
-- 客户端断线不能破坏主机存档，也不能让金币、生命或装备状态变成异常值。
+- Support 2-player cooperation on the same local network.
+- Host authority: the host owns the final game state, while clients mainly send input.
+- Share health, coins, shop purchases, level progress, and key drops.
+- The host owns enemies, drops, shop results, boss rewards, and save writes.
+- Client disconnects must not corrupt the host save or push coins, health, or equipment into invalid states.
 
-## 联机玩法规则
+## Co-op Gameplay Rules
 
-- 两名玩家共享 3 条团队生命，后续可被晨辉核心升级。
-- 一人死亡后在检查点或队友附近复活，团队生命扣除。
-- 金币归团队共享钱包，商店购买也对团队生效。
-- 镜头优先同屏约束，玩家距离过远时阻止继续拉开。
-- Boss 掉落技能只结算一次，解锁后两名玩家都能装备。
+- Both players share 3 team lives, later upgradeable through the Dawnlight Core.
+- When one player dies, they respawn at a checkpoint or near the teammate, and team lives are reduced.
+- Coins go into a shared team wallet, and shop purchases apply to the team.
+- The camera prioritizes keeping both players on screen; if they move too far apart, the game prevents further separation.
+- Boss skill drops are resolved once. After unlock, both players can equip the skill.
 
-## 实现顺序
+## Implementation Order
 
-1. 继续从 `Game.gd` 中抽离远征状态，让金币、生命、关卡、装备、技能、敌人状态都能序列化。
-2. 将单个 `player` 假设改成玩家注册表，支持生成多个玩家实例。
-3. 客户端只上传输入，主机广播位置、动画、敌人生死、掉落、金币、生命和当前关卡。
-4. 先支持直接输入主机内网 IP 加入，再考虑 UDP 局域网发现。
-5. 做断线恢复、主机退出、客户端重连和防火墙提示。
-6. 在同步稳定前，局域网入口只用于内测，不放进 Steam 商店承诺。
+1. Continue extracting expedition state from `Game.gd` so coins, health, levels, equipment, skills, and enemy state can be serialized.
+2. Replace the single-`player` assumption with a player registry that can spawn multiple player instances.
+3. Clients upload only input. The host broadcasts positions, animations, enemy life/death, drops, coins, health, and current level.
+4. Support direct host LAN IP entry first, then consider UDP LAN discovery.
+5. Add disconnect recovery, host quit handling, client reconnect, and firewall prompts.
+6. Keep the LAN entry internal until synchronization is stable; do not include it in Steam store promises.
 
-## 测试矩阵
+## Test Matrix
 
-- 同一台电脑用 `127.0.0.1` 同时运行主机和客户端。
-- 同一 Wi-Fi 下两台电脑通过主机内网 IP 连接。
-- 客户端在关卡中断线。
-- 主机在商店 UI 中退出。
-- 客户端在主机已经进入关卡后加入。
-- Boss 死亡、金币吸附、药水掉落、商店购买和技能解锁在两端一致。
+- Run host and client on the same machine through `127.0.0.1`.
+- Connect two computers on the same Wi-Fi through the host's LAN IP.
+- Disconnect the client during a level.
+- Quit the host while the shop UI is open.
+- Join as a client after the host has already entered a level.
+- Verify boss death, coin magneting, potion drops, shop purchases, and skill unlocks stay consistent on both ends.

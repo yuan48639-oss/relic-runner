@@ -569,7 +569,13 @@ func t(key: String) -> String:
 
 func level_text(data: Dictionary, key: String) -> String:
 	var localized_key := "%s_%s" % [key, language]
-	return data.get(localized_key, data.get("%s_en" % key, key))
+	var localized := str(data.get(localized_key, ""))
+	if is_bad_localized_text(localized):
+		return str(data.get("%s_en" % key, key))
+	return localized
+
+func is_bad_localized_text(value: String) -> bool:
+	return value == "" or value.contains("?") or value.contains("�") or value.contains("閬") or value.contains("鑳") or value.contains("鐠") or value.contains("娑")
 
 func current_region_id() -> int:
 	if levels.is_empty():
@@ -1172,6 +1178,7 @@ func add_home_shop_button(item_id: String, pos: Vector2) -> void:
 	add_item_icon_ui(item_id, pos + Vector2(0, 0))
 	var button := make_button(button_text, pos + Vector2(58, 0), Vector2(212, 32))
 	button.disabled = item_id != "potion" and purchased_items.has(item_id)
+	button.add_theme_font_size_override("font_size", 15)
 	button.pressed.connect(func() -> void: buy_home_item(item_id))
 	ui_root.add_child(button)
 
@@ -1252,23 +1259,9 @@ func weapon_attack_damage() -> int:
 	return int(weapon_stats_for(str(equipment.get("weapon", "short_sword"))).get("damage", 1))
 
 func equipment_effect_summary(item_id: String) -> String:
-	match item_id:
-		"long_sword":
-			return "Reach +28. Damage 1."
-		"dawn_blade":
-			return "Reach +48. Damage 2."
-		"storm_sword":
-			return "Reach +40. Damage 2. Skill damage +1."
-		"swift_boots":
-			return "Move +22. Dash cooldown 0.32s."
-		"wing_boots":
-			return "Move +12. Triple jump. Dash cooldown 0.28s."
-		"anchor_boots":
-			return "Move -12. Dash speed +120. Dash lasts 0.16s."
-		_:
-			if t("effect_%s" % item_id) != "effect_%s" % item_id:
-				return t("effect_%s" % item_id)
-	return ""
+	var effect_key := "effect_%s" % item_id
+	var effect_text := t(effect_key)
+	return "" if effect_text == effect_key else effect_text
 
 func equip_item(item_id: String) -> void:
 	if not EQUIPMENT_ITEMS.has(item_id):
@@ -2263,7 +2256,8 @@ func update_hud() -> void:
 		armor_text,
 		item_display_name(str(equipment.get("charm", "none")))
 	]
-	hud_hint_label.text = "閸栧搫鐓?%s / %s\n%s" % [current_region_id(), level_text(data, "name"), level_text(data, "hint")]
+	var region_label := "Region" if language == "en" else "区域"
+	hud_hint_label.text = "%s %s / %s\n%s" % [region_label, current_region_id(), level_text(data, "name"), level_text(data, "hint")]
 
 func set_player_lives(value: int) -> void:
 	player_lives = clampi(value, 0, max_lives)
@@ -2332,16 +2326,37 @@ func player_attack(origin: Vector2, facing: float) -> void:
 	play_sfx("sword")
 	var reach := get_attack_reach()
 	create_attack_slash_visual(origin, facing, reach)
-	var attack_x := origin.x + 8.0
-	if facing < 0.0:
-		attack_x = origin.x - 8.0 - reach
-	var attack_rect := Rect2(Vector2(attack_x, origin.y - 38.0), Vector2(reach, 34.0))
 	for enemy in enemies.duplicate():
 		if not is_instance_valid(enemy):
 			continue
 		var enemy_rect := get_enemy_rect(enemy)
-		if attack_rect.intersects(enemy_rect):
+		if attack_cone_hits_rect(origin, facing, reach, enemy_rect):
 			reward_enemy_defeat(enemy, "attack")
+
+func attack_cone_hits_rect(origin: Vector2, facing: float, reach: float, rect: Rect2) -> bool:
+	var cone_origin := origin + Vector2(12.0 * facing, -28.0)
+	var center := rect.position + rect.size * 0.5
+	var samples := [
+		center,
+		rect.position,
+		rect.position + Vector2(rect.size.x, 0.0),
+		rect.position + Vector2(0.0, rect.size.y),
+		rect.position + rect.size,
+		rect.position + Vector2(rect.size.x * 0.5, 0.0),
+		rect.position + Vector2(rect.size.x * 0.5, rect.size.y)
+	]
+	for point in samples:
+		if attack_cone_contains_point(point, cone_origin, facing, reach):
+			return true
+	return false
+
+func attack_cone_contains_point(point: Vector2, cone_origin: Vector2, facing: float, reach: float) -> bool:
+	var local := point - cone_origin
+	var forward := local.x * facing
+	if forward < 0.0 or forward > reach + 24.0:
+		return false
+	var vertical_limit := 18.0 + forward * 0.56
+	return absf(local.y) <= vertical_limit
 
 func create_attack_slash_visual(origin: Vector2, facing: float, reach: float) -> void:
 	if not is_instance_valid(world):

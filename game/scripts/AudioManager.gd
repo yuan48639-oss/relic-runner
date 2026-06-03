@@ -52,14 +52,23 @@ func play_sfx(name: String) -> void:
 	if name == "sword":
 		play_sword_whoosh()
 		return
-	if name == "hit" or name == "martial_hit":
-		play_impact(name == "martial_hit")
+	if name == "hit":
+		play_impact(false)
+		return
+	if name == "martial_hit":
+		play_martial_hit()
+		return
+	if name == "spike_hit":
+		play_spike_hit()
+		return
+	if name == "coin" or name == "coin_pickup":
+		play_coin_jingle(true)
+		return
+	if name == "coin_drop":
+		play_coin_jingle(false)
 		return
 	var tone_map := {
 		"ui": [660.0, 0.035, "UI"],
-		"coin": [880.0, 0.07, "SFX"],
-		"coin_drop": [720.0, 0.045, "SFX"],
-		"coin_pickup": [1240.0, 0.075, "SFX"],
 		"potion": [520.0, 0.12, "SFX"],
 		"buy": [740.0, 0.11, "UI"],
 		"skill": [620.0, 0.13, "SFX"],
@@ -143,6 +152,101 @@ func play_impact(heavy: bool) -> void:
 		var low := sin(TAU * (120.0 if heavy else 190.0) * float(i) / stream.mix_rate) * (0.28 if heavy else 0.18)
 		var crack := rng.randf_range(-1.0, 1.0) * (0.12 if heavy else 0.08) * pow(1.0 - t, 5.0)
 		var value := (low + crack) * envelope
+		playback.push_frame(Vector2(value, value))
+	await get_tree().create_timer(duration + 0.06).timeout
+	if is_instance_valid(player):
+		player.queue_free()
+
+func play_martial_hit() -> void:
+	var player := AudioStreamPlayer.new()
+	var stream := AudioStreamGenerator.new()
+	var duration := 0.18
+	stream.mix_rate = 44100.0
+	stream.buffer_length = duration + 0.06
+	player.stream = stream
+	player.bus = "SFX"
+	add_child(player)
+	player.play()
+	var playback: AudioStreamGeneratorPlayback = player.get_stream_playback()
+	var frames := int(stream.mix_rate * duration)
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+	var last_noise := 0.0
+	for i in range(frames):
+		var t := float(i) / maxf(float(frames - 1), 1.0)
+		var thud_env := exp(-t * 20.0)
+		var slap_t := maxf(t - 0.035, 0.0)
+		var slap_env := exp(-slap_t * 42.0) if t >= 0.035 else 0.0
+		var crack_env := exp(-t * 86.0)
+		var low_thud := sin(TAU * lerpf(92.0, 54.0, t) * float(i) / stream.mix_rate) * 0.72 * thud_env
+		var body_knock := sin(TAU * 205.0 * float(i) / stream.mix_rate) * 0.34 * thud_env
+		var raw_noise := rng.randf_range(-1.0, 1.0)
+		var filtered_noise := raw_noise - last_noise * 0.58
+		last_noise = raw_noise
+		var palm_slap := filtered_noise * 0.42 * slap_env
+		var snap := rng.randf_range(-1.0, 1.0) * 0.34 * crack_env
+		var air := sin(TAU * 1320.0 * float(i) / stream.mix_rate) * 0.12 * slap_env
+		var value := clampf(low_thud + body_knock + palm_slap + snap + air, -0.95, 0.95)
+		var pan := sin(t * PI) * 0.1
+		playback.push_frame(Vector2(value * (1.0 - pan), value * (1.0 + pan)))
+	await get_tree().create_timer(duration + 0.06).timeout
+	if is_instance_valid(player):
+		player.queue_free()
+
+func play_coin_jingle(pickup: bool) -> void:
+	var player := AudioStreamPlayer.new()
+	var stream := AudioStreamGenerator.new()
+	var duration := 0.34 if pickup else 0.22
+	stream.mix_rate = 44100.0
+	stream.buffer_length = duration + 0.06
+	player.stream = stream
+	player.bus = "SFX"
+	add_child(player)
+	player.play()
+	var playback: AudioStreamGeneratorPlayback = player.get_stream_playback()
+	var frames := int(stream.mix_rate * duration)
+	var pitches := [1760.0, 2217.46, 2637.02] if pickup else [1318.51, 1760.0]
+	var delays := [0.0, 0.055, 0.12] if pickup else [0.0, 0.05]
+	var gains := [0.34, 0.25, 0.2] if pickup else [0.2, 0.15]
+	for i in range(frames):
+		var t := float(i) / stream.mix_rate
+		var value := 0.0
+		for j in range(pitches.size()):
+			var local_t := t - float(delays[j])
+			if local_t < 0.0:
+				continue
+			var env := exp(-local_t * (13.0 if pickup else 18.0))
+			var ring := sin(TAU * float(pitches[j]) * t) + sin(TAU * float(pitches[j]) * 2.01 * t) * 0.18
+			value += ring * float(gains[j]) * env
+		var sparkle := sin(TAU * 3951.0 * t) * 0.025 * exp(-t * 10.0)
+		value = clampf(value + sparkle, -0.9, 0.9)
+		var pan := -0.08 if pickup else 0.06
+		playback.push_frame(Vector2(value * (1.0 - pan), value * (1.0 + pan)))
+	await get_tree().create_timer(duration + 0.06).timeout
+	if is_instance_valid(player):
+		player.queue_free()
+
+func play_spike_hit() -> void:
+	var player := AudioStreamPlayer.new()
+	var stream := AudioStreamGenerator.new()
+	var duration := 0.12
+	stream.mix_rate = 44100.0
+	stream.buffer_length = duration + 0.06
+	player.stream = stream
+	player.bus = "SFX"
+	add_child(player)
+	player.play()
+	var playback: AudioStreamGeneratorPlayback = player.get_stream_playback()
+	var frames := int(stream.mix_rate * duration)
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+	for i in range(frames):
+		var t := float(i) / maxf(float(frames - 1), 1.0)
+		var envelope := pow(1.0 - t, 2.8)
+		var stab := sin(TAU * lerpf(1380.0, 520.0, t) * float(i) / stream.mix_rate) * 0.16
+		var scrape := rng.randf_range(-1.0, 1.0) * 0.09 * pow(1.0 - t, 5.0)
+		var low_punch := sin(TAU * 150.0 * float(i) / stream.mix_rate) * 0.12
+		var value := (stab + scrape + low_punch) * envelope
 		playback.push_frame(Vector2(value, value))
 	await get_tree().create_timer(duration + 0.06).timeout
 	if is_instance_valid(player):

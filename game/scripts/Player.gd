@@ -24,6 +24,10 @@ var attack_cooldown := 0.0
 var dash_time := 0.0
 var dash_cooldown := 0.0
 var walk_time := 0.0
+var death_animation_active := false
+var death_animation_time := 0.0
+var death_animation_duration := 0.72
+var death_knock_dir := 1.0
 
 @export var speed: float = 230.0
 @export var jump_velocity: float = -430.0
@@ -57,7 +61,15 @@ func reset_to(new_spawn: Vector2, new_lives: int = 3) -> void:
 	attack_cooldown = 0.0
 	dash_time = 0.0
 	dash_cooldown = 0.0
+	death_animation_active = false
+	death_animation_time = 0.0
 	enabled = true
+	queue_redraw()
+
+func _process(delta: float) -> void:
+	if not death_animation_active:
+		return
+	death_animation_time = minf(death_animation_time + delta, death_animation_duration)
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
@@ -128,6 +140,7 @@ func take_hit(from_x: float) -> void:
 		game.call("update_hud")
 	if lives <= 0:
 		enabled = false
+		begin_death_animation(from_x)
 		if game and game.has_method("player_died"):
 			game.call("player_died")
 		return
@@ -142,7 +155,20 @@ func take_hit(from_x: float) -> void:
 func bounce_after_stomp() -> void:
 	velocity.y = jump_velocity * 0.65
 
+func begin_death_animation(from_x: float) -> void:
+	enabled = false
+	velocity = Vector2.ZERO
+	death_animation_active = true
+	death_animation_time = 0.0
+	death_knock_dir = signf(global_position.x - from_x)
+	if death_knock_dir == 0.0:
+		death_knock_dir = -facing
+	queue_redraw()
+
 func _draw() -> void:
+	if death_animation_active:
+		draw_death_pose()
+		return
 	var bob := sin(walk_time) * 2.0 if is_on_floor() else 0.0
 	var weapon := "short_sword"
 	var boots := "worn_boots"
@@ -279,14 +305,28 @@ func draw_attack_sweep(bob: float, weapon: String, reach: float) -> void:
 	var progress := clampf(1.0 - attack_time / ATTACK_DURATION, 0.0, 1.0)
 	var eased := 1.0 - pow(1.0 - progress, 2.4)
 	var base_color := Color(1.0, 0.82, 0.28, 0.86)
+	var trail_width := 10.0
+	var blade_width := 3.4
 	if weapon == "long_sword":
 		base_color = Color(0.98, 0.92, 0.72, 0.9)
+		trail_width = 13.0
+		blade_width = 4.2
 	elif weapon == "dawn_blade":
 		base_color = Color(0.82, 0.98, 1.0, 0.92)
+		trail_width = 15.0
+		blade_width = 4.6
 	elif weapon == "storm_sword":
 		base_color = Color(0.58, 0.78, 1.0, 0.9)
+		trail_width = 14.0
+		blade_width = 4.4
 	var center := Vector2(6.0 * facing, -27.0 + bob)
 	var blade_length := reach + 18.0
+	if weapon == "long_sword":
+		blade_length += 6.0
+	elif weapon == "dawn_blade":
+		blade_length += 12.0
+	elif weapon == "storm_sword":
+		blade_length += 18.0
 	var start_angle := lerpf(-1.35, -0.9, eased)
 	var end_angle := lerpf(0.35, 0.88, eased)
 	var points := PackedVector2Array()
@@ -297,12 +337,47 @@ func draw_attack_sweep(bob: float, weapon: String, reach: float) -> void:
 	for i in range(points.size() - 1):
 		var t := float(i) / maxf(float(points.size() - 2), 1.0)
 		var alpha := (0.18 + t * 0.62) * (1.0 - progress * 0.25)
-		draw_line(points[i], points[i + 1], Color(base_color.r, base_color.g, base_color.b, alpha), 10.0 - t * 4.0)
+		draw_line(points[i], points[i + 1], Color(base_color.r, base_color.g, base_color.b, alpha), trail_width - t * 4.0)
 	for i in range(points.size() - 1):
-		draw_line(points[i], points[i + 1], Color(1.0, 1.0, 0.92, 0.75), 2.8)
+		draw_line(points[i], points[i + 1], Color(1.0, 1.0, 0.92, 0.75), maxf(2.8, blade_width - 1.4))
+	if weapon == "dawn_blade":
+		for i in range(points.size() - 2):
+			draw_line(points[i] + Vector2(0, -5), points[i + 1] + Vector2(0, -5), Color(1.0, 0.72, 0.18, 0.36), 5.0)
+	elif weapon == "storm_sword":
+		for i in range(0, points.size() - 2, 2):
+			draw_line(points[i], points[i + 2], Color(0.38, 0.9, 1.0, 0.56), 2.2)
 	var sword_angle := lerpf(start_angle, end_angle, eased)
 	var hand := center + Vector2(8.0 * facing, 2.0)
 	var tip := center + Vector2(cos(sword_angle) * blade_length * facing, sin(sword_angle) * blade_length * 0.56)
 	draw_line(hand, tip, Color(0.08, 0.09, 0.1, 0.8), 6.2)
-	draw_line(hand, tip, Color(0.95, 0.98, 1.0, 0.96), 3.4)
+	draw_line(hand, tip, Color(0.95, 0.98, 1.0, 0.96), blade_width)
 	draw_circle(tip, 3.5, Color(base_color.r, base_color.g, base_color.b, 0.86))
+
+func draw_death_pose() -> void:
+	var t := clampf(death_animation_time / death_animation_duration, 0.0, 1.0)
+	var eased := sin(t * PI * 0.5)
+	var fall_angle := lerpf(0.0, 1.35 * -death_knock_dir, eased)
+	var drop := lerpf(0.0, 30.0, eased)
+	var dust_alpha := 1.0 - t
+	draw_rect(Rect2(-24.0, -4.0, 48.0, 6.0), Color(0.02, 0.025, 0.025, 0.35 + 0.18 * eased))
+	for i in range(4):
+		var offset := Vector2((float(i) - 1.5) * 12.0, -2.0 - float(i % 2) * 2.0)
+		draw_circle(offset, 4.0 + float(i), Color(0.62, 0.56, 0.46, 0.18 * dust_alpha))
+	draw_set_transform(Vector2(0.0, -24.0 + drop), fall_angle, Vector2.ONE)
+	draw_polygon(PackedVector2Array([
+		Vector2(-9.0, -19.0),
+		Vector2(-28.0 * death_knock_dir, -10.0),
+		Vector2(-18.0 * death_knock_dir, 10.0),
+		Vector2(-4.0, 4.0)
+	]), PackedColorArray([Color(0.48, 0.03, 0.08, 0.82), Color(0.34, 0.02, 0.05, 0.7), Color(0.34, 0.02, 0.05, 0.7), Color(0.48, 0.03, 0.08, 0.82)]))
+	draw_rect(Rect2(-13.0, -16.0, 26.0, 28.0), Color(0.22, 0.54, 0.64, 0.92))
+	draw_circle(Vector2(0.0, -28.0), 13.0, Color(0.24, 0.64, 0.76, 0.92))
+	draw_circle(Vector2(6.0 * death_knock_dir, -32.0), 2.0, Color(0.03, 0.05, 0.06, 0.9))
+	draw_line(Vector2(-9.0, -11.0), Vector2(-26.0 * death_knock_dir, 0.0), Color(0.18, 0.43, 0.5, 0.9), 5.0)
+	draw_line(Vector2(9.0, -10.0), Vector2(24.0 * death_knock_dir, 4.0), Color(0.18, 0.43, 0.5, 0.9), 5.0)
+	draw_line(Vector2(-6.0, 11.0), Vector2(-23.0 * death_knock_dir, 22.0), Color(0.08, 0.16, 0.18, 0.95), 5.0)
+	draw_line(Vector2(6.0, 11.0), Vector2(20.0 * death_knock_dir, 21.0), Color(0.08, 0.16, 0.18, 0.95), 5.0)
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	var sword_x := 28.0 * death_knock_dir + eased * 18.0 * death_knock_dir
+	draw_line(Vector2(sword_x - 10.0 * death_knock_dir, -12.0 + drop), Vector2(sword_x + 24.0 * death_knock_dir, -3.0 + drop), Color(0.96, 0.94, 0.78, 0.85), 3.0)
+	draw_line(Vector2(sword_x - 15.0 * death_knock_dir, -14.0 + drop), Vector2(sword_x - 5.0 * death_knock_dir, -11.0 + drop), Color(0.42, 0.26, 0.1, 0.9), 4.0)

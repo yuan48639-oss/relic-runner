@@ -63,7 +63,8 @@ const STARTING_COINS = 0
 const PYROBLAST_RANGE = 150.0
 const PYROBLAST_DAMAGE = 3
 const PYROBLAST_COOLDOWN = 3.5
-const TIDAL_WAVE_RANGE = 185.0
+const TIDAL_WAVE_RANGE = 320.0
+const TIDAL_WAVE_HEIGHT = 104.0
 const TIDAL_WAVE_DAMAGE = 2
 const TIDAL_WAVE_COOLDOWN = 4.0
 const CLOCK_SNARE_RANGE = 170.0
@@ -103,6 +104,18 @@ const BOOT_STATS = {
 	"wing_boots": {"speed": 242.0, "dash_speed": 555.0, "dash_duration": 0.11, "dash_cooldown": 0.28, "max_jumps": 3},
 	"anchor_boots": {"speed": 218.0, "dash_speed": 640.0, "dash_duration": 0.16, "dash_cooldown": 0.36, "max_jumps": 2}
 }
+const KEYBIND_SETTINGS = [
+	{"action": "move_left", "label_en": "Move Left", "label_zh": "左移"},
+	{"action": "move_right", "label_en": "Move Right", "label_zh": "右移"},
+	{"action": "jump", "label_en": "Jump", "label_zh": "跳跃"},
+	{"action": "dash", "label_en": "Dash", "label_zh": "冲刺"},
+	{"action": "attack", "label_en": "Attack", "label_zh": "攻击"},
+	{"action": "use_item", "label_en": "Drink Potion", "label_zh": "喝药"},
+	{"action": "inventory", "label_en": "Backpack", "label_zh": "背包"},
+	{"action": "skills", "label_en": "Skill Bar", "label_zh": "技能栏"},
+	{"action": "skill_k", "label_en": "Skill K", "label_zh": "技能 K"},
+	{"action": "skill_l", "label_en": "Skill L", "label_zh": "技能 L"}
+]
 
 const LEVELS = [
 	{
@@ -204,6 +217,7 @@ const TEXT = {
 		"core_upgraded": "Dawn Core strengthened. Max life increased.",
 		"inventory_title": "BACKPACK / EQUIPMENT",
 		"inventory_summary": "Potions: %s    Weapon: %s    Boots: %s    Armor: %s    Charm: %s",
+		"potions": "Potions",
 		"skills_title": "SKILLS",
 		"skill_summary": "K: %s    L: %s",
 		"skill_pyroblast": "Pyroblast",
@@ -335,6 +349,7 @@ const TEXT = {
 		"core_upgraded": "晨辉核心已强化，生命上限提升。",
 		"inventory_title": "背包 / 装备栏",
 		"inventory_summary": "药水：%s    武器：%s    靴子：%s    护甲：%s    护符：%s",
+		"potions": "药水",
 		"skills_title": "技能列表",
 		"skill_summary": "K：%s    L：%s",
 		"skill_pyroblast": "炎爆术",
@@ -467,6 +482,9 @@ var hud_coin_label: Label
 var hud_potion_label: Label
 var hud_equipment_label: Label
 var hud_hint_label: Label
+var hud_skill_root: Control
+var pending_rebind_action := ""
+var pending_rebind_message := ""
 var ui_focus_assigned := false
 
 func _ready() -> void:
@@ -487,9 +505,9 @@ func _ready() -> void:
 			show_network_menu()
 	)
 	levels = load_levels()
+	ensure_input_actions()
 	apply_saved_settings()
 	load_home_state()
-	ensure_input_actions()
 	audio_manager.set_volume("Master", master_volume)
 	build_world_root()
 	build_ui_root()
@@ -531,9 +549,12 @@ func add_key_action(action: StringName, keys: Array) -> void:
 	if not InputMap.has_action(action):
 		InputMap.add_action(action)
 	for key in keys:
-		var event := InputEventKey.new()
-		event.keycode = key
-		add_event_if_missing(action, event)
+		add_key_event(action, key)
+
+func add_key_event(action: StringName, keycode: int) -> void:
+	var event := InputEventKey.new()
+	event.keycode = keycode
+	add_event_if_missing(action, event)
 
 func add_joy_button_action(action: StringName, button_index: int) -> void:
 	if not InputMap.has_action(action):
@@ -562,6 +583,81 @@ func add_event_if_missing(action: StringName, event: InputEvent) -> void:
 		if existing.is_match(event):
 			return
 	InputMap.action_add_event(action, event)
+
+func clear_action_key_events(action: StringName) -> void:
+	if not InputMap.has_action(action):
+		return
+	for existing in InputMap.action_get_events(action):
+		if existing is InputEventKey:
+			InputMap.action_erase_event(action, existing)
+
+func export_key_bindings() -> Dictionary:
+	var bindings := {}
+	for data in KEYBIND_SETTINGS:
+		var action := str(data.get("action", ""))
+		if action == "":
+			continue
+		var keys: Array = []
+		for event in InputMap.action_get_events(action):
+			if event is InputEventKey:
+				keys.append(event.keycode)
+		bindings[action] = keys
+	return bindings
+
+func apply_key_bindings(bindings: Dictionary) -> void:
+	for data in KEYBIND_SETTINGS:
+		var action := str(data.get("action", ""))
+		if action == "":
+			continue
+		if not InputMap.has_action(action):
+			InputMap.add_action(action)
+		clear_action_key_events(action)
+		var keys: Array = bindings.get(action, [])
+		if keys.is_empty():
+			add_default_key_binding(action)
+			continue
+		for keycode in keys:
+			add_key_event(action, int(keycode))
+
+func add_default_key_binding(action: StringName) -> void:
+	match String(action):
+		"move_left":
+			add_key_action(action, [KEY_A, KEY_LEFT])
+		"move_right":
+			add_key_action(action, [KEY_D, KEY_RIGHT])
+		"jump":
+			add_key_action(action, [KEY_SPACE, KEY_W, KEY_UP])
+		"dash":
+			add_key_action(action, [KEY_SHIFT])
+		"attack":
+			add_key_action(action, [KEY_J])
+		"use_item":
+			add_key_action(action, [KEY_Q, KEY_U])
+		"inventory":
+			add_key_action(action, [KEY_I])
+		"skills":
+			add_key_action(action, [KEY_O])
+		"skill_k":
+			add_key_action(action, [KEY_K])
+		"skill_l":
+			add_key_action(action, [KEY_L])
+
+func action_label(action: String) -> String:
+	for data in KEYBIND_SETTINGS:
+		if str(data.get("action", "")) == action:
+			return str(data.get("label_en" if language == "en" else "label_zh", action))
+	return action
+
+func action_bindings_text(action: String) -> String:
+	var names: Array[String] = []
+	for event in InputMap.action_get_events(action):
+		if event is InputEventKey:
+			var name := OS.get_keycode_string(event.keycode)
+			if name != "" and not names.has(name):
+				names.append(name)
+	if names.is_empty():
+		return "-"
+	return " / ".join(names)
 
 func t(key: String) -> String:
 	var pack: Dictionary = TEXT.get(language, TEXT["en"])
@@ -603,6 +699,8 @@ func refresh_ui_for_language() -> void:
 			show_home_pause_menu()
 		"settings":
 			show_settings()
+		"keybinds":
+			show_keybind_settings(pending_rebind_message)
 		"playing":
 			clear_ui()
 			show_hud()
@@ -642,6 +740,8 @@ func apply_saved_settings() -> void:
 		master_volume = clampf(float(settings["master_volume"]), 0.0, 1.0)
 	if settings.has("audio") and audio_manager:
 		audio_manager.apply_settings(settings["audio"])
+	if settings.has("key_bindings"):
+		apply_key_bindings(settings["key_bindings"])
 
 func save_settings() -> void:
 	if not save_manager:
@@ -652,7 +752,8 @@ func save_settings() -> void:
 	save_manager.save_settings({
 		"language": language,
 		"master_volume": master_volume,
-		"audio": audio_settings
+		"audio": audio_settings,
+		"key_bindings": export_key_bindings()
 	})
 
 func load_home_state() -> void:
@@ -715,6 +816,7 @@ func clear_ui() -> void:
 	hud_potion_label = null
 	hud_equipment_label = null
 	hud_hint_label = null
+	hud_skill_root = null
 
 func show_main_menu() -> void:
 	show_home_world()
@@ -900,12 +1002,15 @@ func add_ruin_silhouette(pos: Vector2, scale: float) -> void:
 		level_root.add_child(slit)
 
 func add_grass_tuft(pos: Vector2, color: Color) -> void:
+	add_grass_tuft_to(level_root, pos, color)
+
+func add_grass_tuft_to(parent: Node, pos: Vector2, color: Color) -> void:
 	for i in range(3):
 		var blade := ColorRect.new()
 		blade.color = color.lightened(float(i) * 0.08)
 		blade.position = pos + Vector2(float(i) * 5.0, -8.0 - float(i % 2) * 4.0)
 		blade.size = Vector2(3.0, 10.0 + float(i % 2) * 4.0)
-		level_root.add_child(blade)
+		parent.add_child(blade)
 
 func create_home_station(station_id: String, pos: Vector2, label_text: String, accent: Color) -> void:
 	var station := Node2D.new()
@@ -1263,6 +1368,46 @@ func equipment_effect_summary(item_id: String) -> String:
 	var effect_text := t(effect_key)
 	return "" if effect_text == effect_key else effect_text
 
+func equipment_effect_compact(item_id: String) -> String:
+	if language == "en":
+		match item_id:
+			"long_sword":
+				return "Reach +28  Dmg 1"
+			"dawn_blade":
+				return "Reach +48  Dmg 2"
+			"storm_sword":
+				return "Reach +40  Dmg 2  Skill +1"
+			"swift_boots":
+				return "Move +22  CD 0.32s"
+			"wing_boots":
+				return "Move +12  Triple jump  CD 0.28s"
+			"anchor_boots":
+				return "Move -12  Dash +120  0.16s"
+			"bronze_armor":
+				return "Block 1 hit / expedition"
+			"glass_armor":
+				return "Block 2 hits / expedition"
+			"coin_charm":
+				return "+1 coin per enemy"
+			"medic_charm":
+				return "Potion +1 heal / drops"
+			"dawn_charm":
+				return "Skill cooldown -22%"
+	var compact_zh := {
+		"long_sword": "距离+28  伤害1",
+		"dawn_blade": "距离+48  伤害2",
+		"storm_sword": "距离+40  伤害2  技能+1",
+		"swift_boots": "移速+22  冷却0.32秒",
+		"wing_boots": "移速+12  三段跳  冷却0.28秒",
+		"anchor_boots": "移速-12  冲速+120",
+		"bronze_armor": "每次出征挡1次",
+		"glass_armor": "每次出征挡2次",
+		"coin_charm": "每怪额外+1金币",
+		"medic_charm": "药水+1治疗/掉落",
+		"dawn_charm": "技能冷却-22%"
+	}
+	return compact_zh.get(item_id, equipment_effect_summary(item_id))
+
 func equip_item(item_id: String) -> void:
 	if not EQUIPMENT_ITEMS.has(item_id):
 		return
@@ -1319,15 +1464,19 @@ func buy_core_life() -> void:
 
 func show_inventory(message: String = "") -> void:
 	var previous_state := state
-	inventory_return_state = previous_state
+	var context_state := previous_state
+	if previous_state != "inventory":
+		inventory_return_state = previous_state
+	else:
+		context_state = inventory_return_state
 	state = "inventory"
 	clear_ui()
-	if previous_state == "playing" or previous_state == "paused" or previous_state == "shop":
+	if context_state == "playing" or context_state == "paused" or context_state == "shop":
 		paused = true
 		if player:
 			player.enabled = false
 		add_translucent_overlay()
-	elif previous_state == "home" or previous_state == "home_pause":
+	elif context_state == "home" or context_state == "home_pause":
 		remember_home_position()
 		paused = true
 		if player:
@@ -1337,27 +1486,32 @@ func show_inventory(message: String = "") -> void:
 		clear_level()
 		add_panel_background(Color(0.045, 0.045, 0.05, 1.0))
 	ui_root.add_child(make_label(t("inventory_title"), 34, Vector2(0, 42), Vector2(VIEWPORT_SIZE.x, 54), HORIZONTAL_ALIGNMENT_CENTER))
-	var summary := t("inventory_summary") % [
+	var summary := "%s: %s    %s: %s    %s: %s\n%s: %s    %s: %s" % [
+		t("potions"),
 		backpack.get("potion", 0),
+		t("slot_weapon"),
 		item_display_name(str(equipment.get("weapon", "short_sword"))),
+		t("slot_boots"),
 		item_display_name(str(equipment.get("boots", "worn_boots"))),
+		t("slot_armor"),
 		item_display_name(str(equipment.get("armor", "cloth"))),
+		t("slot_charm"),
 		item_display_name(str(equipment.get("charm", "none")))
 	]
-	ui_root.add_child(make_label(summary, 16, Vector2(60, 104), Vector2(840, 52), HORIZONTAL_ALIGNMENT_CENTER))
-	ui_root.add_child(make_label("%s: %s    %s: %s" % [t("coins"), coins, t("max_life"), max_lives], 18, Vector2(0, 154), Vector2(VIEWPORT_SIZE.x, 34), HORIZONTAL_ALIGNMENT_CENTER))
+	ui_root.add_child(make_label(summary, 15, Vector2(60, 100), Vector2(840, 58), HORIZONTAL_ALIGNMENT_CENTER))
+	ui_root.add_child(make_label("%s: %s    %s: %s" % [t("coins"), coins, t("max_life"), max_lives], 17, Vector2(0, 158), Vector2(VIEWPORT_SIZE.x, 26), HORIZONTAL_ALIGNMENT_CENTER))
 
-	add_inventory_slot("weapon", Vector2(88, 214), ["long_sword", "dawn_blade"])
-	add_inventory_slot("boots", Vector2(516, 214), ["swift_boots", "wing_boots"])
-	add_inventory_slot("armor", Vector2(88, 326), ["bronze_armor"])
-	add_inventory_slot("charm", Vector2(516, 326), ["coin_charm", "medic_charm"])
+	add_inventory_slot("weapon", Vector2(88, 196), ["long_sword", "dawn_blade", "storm_sword"])
+	add_inventory_slot("boots", Vector2(516, 196), ["swift_boots", "wing_boots", "anchor_boots"])
+	add_inventory_slot("armor", Vector2(88, 350), ["bronze_armor", "glass_armor"])
+	add_inventory_slot("charm", Vector2(516, 350), ["coin_charm", "medic_charm", "dawn_charm"])
 
 	if message != "":
-		var label := make_label(message, 16, Vector2(0, 422), Vector2(VIEWPORT_SIZE.x, 30), HORIZONTAL_ALIGNMENT_CENTER)
+		var label := make_label(message, 15, Vector2(0, 184), Vector2(VIEWPORT_SIZE.x, 20), HORIZONTAL_ALIGNMENT_CENTER)
 		label.add_theme_color_override("font_color", Color(0.94, 0.84, 0.58))
 		ui_root.add_child(label)
 
-	var back := make_button(t("back"), Vector2(360, 470), Vector2(240, 42))
+	var back := make_button(t("back"), Vector2(360, 504), Vector2(240, 30))
 	back.pressed.connect(func() -> void: close_inventory())
 	ui_root.add_child(back)
 
@@ -1371,15 +1525,19 @@ func close_inventory() -> void:
 
 func show_skills(message: String = "") -> void:
 	var previous_state := state
-	skill_return_state = previous_state
+	var context_state := previous_state
+	if previous_state != "skills":
+		skill_return_state = previous_state
+	else:
+		context_state = skill_return_state
 	state = "skills"
 	clear_ui()
-	if previous_state == "playing" or previous_state == "paused" or previous_state == "shop":
+	if context_state == "playing" or context_state == "paused" or context_state == "shop":
 		paused = true
 		if player:
 			player.enabled = false
 		add_translucent_overlay()
-	elif previous_state == "home" or previous_state == "home_pause":
+	elif context_state == "home" or context_state == "home_pause":
 		remember_home_position()
 		paused = true
 		if player:
@@ -1470,30 +1628,32 @@ func add_inventory_slot(slot: String, pos: Vector2, item_ids: Array) -> void:
 	ui_root.add_child(title)
 	for i in range(item_ids.size()):
 		var item_id: String = item_ids[i]
-		var row_pos := pos + Vector2(0, 36 + i * 50)
-		add_ui_rect(row_pos + Vector2(-6, -3), Vector2(348, 44), Color(0.07, 0.08, 0.085, 0.78))
+		var row_pos := pos + Vector2(0, 30 + i * 34)
+		add_ui_rect(row_pos + Vector2(-6, -3), Vector2(348, 32), Color(0.07, 0.08, 0.085, 0.78))
 		add_item_icon_ui_small(item_id, row_pos + Vector2(0, 0))
 		if not purchased_items.has(item_id):
-			var locked := make_label("%s - %s %s" % [item_display_name(item_id), item_cost(item_id), t("coins")], 14, row_pos + Vector2(40, 0), Vector2(300, 30), HORIZONTAL_ALIGNMENT_LEFT)
+			var locked := make_label("%s - %s %s" % [item_display_name(item_id), item_cost(item_id), t("coins")], 12, row_pos + Vector2(38, -1), Vector2(300, 16), HORIZONTAL_ALIGNMENT_LEFT)
 			locked.add_theme_color_override("font_color", Color(0.48, 0.52, 0.5))
 			ui_root.add_child(locked)
 		else:
 			var button_text := "%s (%s)" % [item_display_name(item_id), t("equipped")] if is_item_equipped(item_id) else "%s: %s" % [t("equip"), item_display_name(item_id)]
-			var button := make_button(button_text, row_pos + Vector2(40, 0), Vector2(294, 26))
+			var button := make_button(button_text, row_pos + Vector2(38, -1), Vector2(294, 18))
 			button.disabled = is_item_equipped(item_id)
-			button.add_theme_font_size_override("font_size", 15)
+			button.add_theme_font_size_override("font_size", 12)
 			button.pressed.connect(func() -> void:
 				equip_item(item_id)
 				save_run()
 				show_inventory(t("equipped"))
 			)
 			ui_root.add_child(button)
-		var effect := make_label(equipment_effect_summary(item_id), 12, row_pos + Vector2(40, 24), Vector2(292, 18), HORIZONTAL_ALIGNMENT_LEFT)
+		var effect := make_label(equipment_effect_compact(item_id), 10, row_pos + Vector2(38, 17), Vector2(292, 13), HORIZONTAL_ALIGNMENT_LEFT)
 		effect.add_theme_color_override("font_color", Color(0.74, 0.79, 0.71))
 		ui_root.add_child(effect)
 
 func show_settings() -> void:
 	state = "settings"
+	pending_rebind_action = ""
+	pending_rebind_message = ""
 	clear_ui()
 	add_panel_background(Color(0.04, 0.05, 0.06, 1.0))
 	ui_root.add_child(make_label(t("settings_title"), 34, Vector2(0, 56), Vector2(VIEWPORT_SIZE.x, 50), HORIZONTAL_ALIGNMENT_CENTER))
@@ -1502,12 +1662,44 @@ func show_settings() -> void:
 	add_volume_control("SFX", "sfx_volume", 226)
 	add_volume_control("UI", "ui_volume", 276)
 
-	var language_button := make_button(language_button_text(), Vector2(310, 344), Vector2(340, 42))
+	var language_button := make_button(language_button_text(), Vector2(310, 334), Vector2(340, 38))
 	language_button.pressed.connect(func() -> void: toggle_language())
 	ui_root.add_child(language_button)
 
-	var back := make_button(t("back"), Vector2(360, 402), Vector2(240, 42))
+	var keybind_label := "快捷键设置" if language == "zh" else "Key Bindings"
+	var keybind_button := make_button(keybind_label, Vector2(310, 380), Vector2(340, 38))
+	keybind_button.pressed.connect(func() -> void: show_keybind_settings())
+	ui_root.add_child(keybind_button)
+
+	var back := make_button(t("back"), Vector2(360, 430), Vector2(240, 38))
 	back.pressed.connect(func() -> void: show_main_menu())
+	ui_root.add_child(back)
+
+func show_keybind_settings(message: String = "") -> void:
+	state = "keybinds"
+	clear_ui()
+	add_panel_background(Color(0.035, 0.045, 0.055, 1.0))
+	ui_root.add_child(make_label("快捷键设置" if language == "zh" else "KEY BINDINGS", 34, Vector2(0, 50), Vector2(VIEWPORT_SIZE.x, 46), HORIZONTAL_ALIGNMENT_CENTER))
+	var hint := "点击按钮后按下新按键，Esc 取消。" if language == "zh" else "Click a button, then press a new key. Esc cancels."
+	if message != "":
+		hint = "%s\n%s" % [hint, message]
+	ui_root.add_child(make_label(hint, 14, Vector2(80, 102), Vector2(800, 52), HORIZONTAL_ALIGNMENT_CENTER))
+	for i in range(KEYBIND_SETTINGS.size()):
+		var data: Dictionary = KEYBIND_SETTINGS[i]
+		var action := str(data.get("action", ""))
+		var action_id := action
+		var label := action_label(action)
+		var bindings := action_bindings_text(action)
+		var button := make_button("%s: %s" % [label, bindings], Vector2(80, 146 + i * 34), Vector2(800, 30))
+		button.add_theme_font_size_override("font_size", 14)
+		button.pressed.connect(func() -> void: begin_key_rebind(action_id))
+		ui_root.add_child(button)
+	var back := make_button(t("back"), Vector2(360, 492), Vector2(240, 34))
+	back.pressed.connect(func() -> void:
+		pending_rebind_action = ""
+		pending_rebind_message = ""
+		show_settings()
+	)
 	ui_root.add_child(back)
 
 func add_volume_control(bus_name: String, label_key: String, y: float) -> void:
@@ -1686,6 +1878,7 @@ func load_level(index: int) -> void:
 	player.reset_to(scaled_level_point(data["start"]), player_lives)
 
 	show_hud()
+	show_level_intro_title(data)
 	save_run()
 
 func apply_player_equipment() -> void:
@@ -1744,9 +1937,6 @@ func draw_level_background() -> void:
 	add_background_mountains(current_world_width, 318, Color(0.1, 0.13, 0.15), Color(0.18, 0.2, 0.18))
 	for i in range(11):
 		add_ruin_silhouette(Vector2(44 + i * 142, 308 + sin(i + current_level) * 34.0), 0.68 + float((i + current_level) % 4) * 0.1)
-	for i in range(34):
-		add_grass_tuft(Vector2(22 + i * 46, 500), Color(0.22, 0.44, 0.28))
-
 func create_platform(rect: Rect2) -> void:
 	var body := StaticBody2D.new()
 	body.position = rect.position
@@ -1770,6 +1960,7 @@ func create_platform(rect: Rect2) -> void:
 	edge.color = Color(0.68, 0.58, 0.38)
 	edge.size = Vector2(rect.size.x, minf(5.0, rect.size.y))
 	body.add_child(edge)
+	add_platform_grass(body, rect.size)
 	for x in range(0, int(rect.size.x), 32):
 		var seam := ColorRect.new()
 		seam.color = Color(0.26, 0.23, 0.19, 0.55)
@@ -1778,6 +1969,23 @@ func create_platform(rect: Rect2) -> void:
 		body.add_child(seam)
 
 	level_root.add_child(body)
+
+func add_platform_grass(parent: Node, platform_size: Vector2) -> void:
+	if platform_size.x < 72.0 or platform_size.y < 12.0:
+		return
+	var grass_color := Color(0.22, 0.44, 0.28)
+	if current_region_id() == 2:
+		grass_color = Color(0.16, 0.48, 0.36)
+	elif current_region_id() == 3:
+		grass_color = Color(0.33, 0.4, 0.38)
+	elif current_region_id() == 4:
+		grass_color = Color(0.38, 0.22, 0.2)
+	var tuft_count: int = clampi(int(platform_size.x / 58.0), 1, 12)
+	for i in range(tuft_count):
+		var x := 14.0 + float(i) * platform_size.x / float(tuft_count)
+		if x > platform_size.x - 18.0:
+			continue
+		add_grass_tuft_to(parent, Vector2(x, 0.0), grass_color)
 
 func create_moving_platform(data: Dictionary) -> void:
 	var rect_data: Array = data.get("rect", [0, 0, 96, 18])
@@ -1968,7 +2176,7 @@ func create_hazard(rect: Rect2) -> void:
 	area.collision_mask = LAYER_PLAYER
 	area.body_entered.connect(func(body: Node) -> void:
 		if body == player:
-			damage_player_from(rect.position.x + rect.size.x / 2.0)
+			damage_player_from(rect.position.x + rect.size.x / 2.0, "spike_hit")
 	)
 
 	var shape := CollisionShape2D.new()
@@ -2197,22 +2405,26 @@ func show_hud() -> void:
 	panel.size = Vector2(940, 72)
 	ui_root.add_child(panel)
 
-	var bottle := ColorRect.new()
-	bottle.position = Vector2(24, 22)
-	bottle.size = Vector2(18, 28)
-	bottle.color = Color(0.86, 0.12, 0.16)
-	ui_root.add_child(bottle)
-	var bottle_cap := ColorRect.new()
-	bottle_cap.position = Vector2(28, 16)
-	bottle_cap.size = Vector2(10, 7)
-	bottle_cap.color = Color(0.95, 0.76, 0.5)
-	ui_root.add_child(bottle_cap)
+	var heart := make_label("♥", 28, Vector2(22, 14), Vector2(28, 34), HORIZONTAL_ALIGNMENT_CENTER)
+	heart.add_theme_color_override("font_color", Color(0.94, 0.08, 0.12))
+	ui_root.add_child(heart)
 
 	hud_health_bar = ProgressBar.new()
 	hud_health_bar.position = Vector2(54, 20)
 	hud_health_bar.size = Vector2(170, 22)
 	hud_health_bar.min_value = 0
 	hud_health_bar.show_percentage = false
+	var health_bg := StyleBoxFlat.new()
+	health_bg.bg_color = Color(0.18, 0.025, 0.035, 0.96)
+	health_bg.border_color = Color(0.56, 0.08, 0.1)
+	health_bg.border_width_left = 2
+	health_bg.border_width_top = 2
+	health_bg.border_width_right = 2
+	health_bg.border_width_bottom = 2
+	var health_fill := StyleBoxFlat.new()
+	health_fill.bg_color = Color(0.9, 0.03, 0.08)
+	hud_health_bar.add_theme_stylebox_override("background", health_bg)
+	hud_health_bar.add_theme_stylebox_override("fill", health_fill)
 	ui_root.add_child(hud_health_bar)
 
 	hud_life_label = make_label("", 14, Vector2(60, 19), Vector2(158, 24), HORIZONTAL_ALIGNMENT_CENTER)
@@ -2224,16 +2436,21 @@ func show_hud() -> void:
 	ui_root.add_child(hud_coin_label)
 
 	hud_potion_label = make_label("", 16, Vector2(400, 18), Vector2(150, 28), HORIZONTAL_ALIGNMENT_LEFT)
-	hud_potion_label.add_theme_color_override("font_color", Color(0.56, 0.96, 0.66))
+	hud_potion_label.add_theme_color_override("font_color", Color(0.98, 0.34, 0.38))
 	ui_root.add_child(hud_potion_label)
 
 	hud_equipment_label = make_label("", 13, Vector2(552, 14), Vector2(380, 34), HORIZONTAL_ALIGNMENT_RIGHT)
 	hud_equipment_label.add_theme_color_override("font_color", Color(0.78, 0.88, 0.94))
 	ui_root.add_child(hud_equipment_label)
 
-	hud_hint_label = make_label("", 13, Vector2(20, 44), Vector2(920, 42), HORIZONTAL_ALIGNMENT_CENTER)
-	hud_hint_label.add_theme_color_override("font_color", Color(0.72, 0.76, 0.7))
+	hud_hint_label = make_label("", 16, Vector2(20, 42), Vector2(920, 44), HORIZONTAL_ALIGNMENT_CENTER)
+	hud_hint_label.add_theme_color_override("font_color", Color(0.95, 0.82, 0.48))
 	ui_root.add_child(hud_hint_label)
+	hud_skill_root = Control.new()
+	hud_skill_root.position = Vector2(12, VIEWPORT_SIZE.y - 58)
+	hud_skill_root.size = Vector2(132, 50)
+	hud_skill_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	ui_root.add_child(hud_skill_root)
 	update_hud()
 
 func update_hud() -> void:
@@ -2247,7 +2464,7 @@ func update_hud() -> void:
 	hud_health_bar.value = player_lives
 	hud_life_label.text = "%s %s/%s" % [t("lives"), lives_text, max_lives]
 	hud_coin_label.text = "%s: %s" % [t("coins"), coins]
-	hud_potion_label.text = "%s: %s" % [t("use_potion"), int(backpack.get("potion", 0))]
+	hud_potion_label.text = "♥ x%s  Q/U" % [int(backpack.get("potion", 0))]
 	var armor_text := " +1" if armor_charges > 0 else ""
 	hud_equipment_label.text = "%s / %s / %s%s / %s" % [
 		item_display_name(str(equipment.get("weapon", "short_sword"))),
@@ -2258,6 +2475,130 @@ func update_hud() -> void:
 	]
 	var region_label := "Region" if language == "en" else "区域"
 	hud_hint_label.text = "%s %s / %s\n%s" % [region_label, current_region_id(), level_text(data, "name"), level_text(data, "hint")]
+	update_skill_hud()
+
+func show_level_intro_title(data: Dictionary) -> void:
+	var title_text := level_text(data, "name")
+	var hint_text := level_text(data, "hint")
+	var shadow := make_label(title_text, 44, Vector2(0, 104), Vector2(VIEWPORT_SIZE.x, 64), HORIZONTAL_ALIGNMENT_CENTER)
+	shadow.add_theme_color_override("font_color", Color(0.02, 0.015, 0.01, 0.88))
+	shadow.modulate.a = 0.0
+	ui_root.add_child(shadow)
+	var title := make_label(title_text, 42, Vector2(0, 98), Vector2(VIEWPORT_SIZE.x, 64), HORIZONTAL_ALIGNMENT_CENTER)
+	title.add_theme_color_override("font_color", Color(1.0, 0.78, 0.26))
+	title.modulate.a = 0.0
+	ui_root.add_child(title)
+	var hint := make_label(hint_text, 18, Vector2(120, 158), Vector2(720, 34), HORIZONTAL_ALIGNMENT_CENTER)
+	hint.add_theme_color_override("font_color", Color(0.92, 0.94, 0.86))
+	hint.modulate.a = 0.0
+	ui_root.add_child(hint)
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(shadow, "modulate:a", 1.0, 0.28)
+	tween.tween_property(title, "modulate:a", 1.0, 0.28)
+	tween.tween_property(hint, "modulate:a", 1.0, 0.36)
+	tween.chain().tween_interval(1.05)
+	tween.chain().set_parallel(true)
+	tween.tween_property(shadow, "position:y", shadow.position.y - 18.0, 0.42)
+	tween.tween_property(title, "position:y", title.position.y - 18.0, 0.42)
+	tween.tween_property(hint, "position:y", hint.position.y - 12.0, 0.42)
+	tween.tween_property(shadow, "modulate:a", 0.0, 0.42)
+	tween.tween_property(title, "modulate:a", 0.0, 0.42)
+	tween.tween_property(hint, "modulate:a", 0.0, 0.42)
+	tween.chain().tween_callback(func() -> void:
+		if is_instance_valid(shadow):
+			shadow.queue_free()
+		if is_instance_valid(title):
+			title.queue_free()
+		if is_instance_valid(hint):
+			hint.queue_free()
+	)
+
+func update_skill_hud() -> void:
+	if not hud_skill_root:
+		return
+	for child in hud_skill_root.get_children():
+		hud_skill_root.remove_child(child)
+		child.free()
+	add_skill_hud_slot("K", Vector2(0, 0))
+	add_skill_hud_slot("L", Vector2(64, 0))
+
+func add_skill_hud_slot(slot: String, pos: Vector2) -> void:
+	var skill_id := str(equipped_skills.get(slot, ""))
+	var slot_bg := ColorRect.new()
+	slot_bg.position = pos
+	slot_bg.size = Vector2(58, 48)
+	slot_bg.color = Color(0.02, 0.028, 0.032, 0.42)
+	slot_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud_skill_root.add_child(slot_bg)
+	var border := ColorRect.new()
+	border.position = pos
+	border.size = Vector2(58, 3)
+	border.color = Color(0.92, 0.72, 0.24, 0.62)
+	border.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud_skill_root.add_child(border)
+	var icon := TextureRect.new()
+	icon.position = pos + Vector2(5, 7)
+	icon.size = Vector2(28, 28)
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if skill_id != "":
+		icon.texture = skill_texture(skill_id)
+	var cooldown := skill_cooldown_fraction(skill_id)
+	icon.modulate = Color(1, 1, 1, 1) if cooldown <= 0.0 and skill_id != "" else Color(0.34, 0.34, 0.34, 0.86)
+	hud_skill_root.add_child(icon)
+	var slot_label := make_label(slot, 11, pos + Vector2(35, 7), Vector2(18, 16), HORIZONTAL_ALIGNMENT_CENTER)
+	slot_label.add_theme_color_override("font_color", Color(1.0, 0.92, 0.62))
+	hud_skill_root.add_child(slot_label)
+	var name_label := make_label(skill_display_name(skill_id), 8, pos + Vector2(2, 34), Vector2(54, 12), HORIZONTAL_ALIGNMENT_CENTER)
+	name_label.add_theme_color_override("font_color", Color(0.8, 0.88, 0.9) if cooldown <= 0.0 else Color(0.46, 0.48, 0.5))
+	hud_skill_root.add_child(name_label)
+	if cooldown > 0.0:
+		var veil := ColorRect.new()
+		veil.position = pos + Vector2(5, 7)
+		veil.size = Vector2(28, 28)
+		veil.color = Color(0.0, 0.0, 0.0, 0.42)
+		veil.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		hud_skill_root.add_child(veil)
+		add_cooldown_arc(hud_skill_root, pos + Vector2(19, 21), 18.0, cooldown)
+		var seconds := int(ceil(float(skill_cooldowns.get(skill_id, 0.0))))
+		var cooldown_label := make_label(str(seconds), 11, pos + Vector2(5, 10), Vector2(28, 22), HORIZONTAL_ALIGNMENT_CENTER)
+		cooldown_label.add_theme_color_override("font_color", Color(0.9, 0.94, 0.96))
+		hud_skill_root.add_child(cooldown_label)
+
+func add_cooldown_arc(parent: Node, center: Vector2, radius: float, fraction: float) -> void:
+	var arc := Line2D.new()
+	arc.width = 3.0
+	arc.default_color = Color(0.62, 0.66, 0.7, 0.78)
+	var points := PackedVector2Array()
+	var steps := 28
+	var end_angle := -PI * 0.5 + TAU * clampf(fraction, 0.0, 1.0)
+	for i in range(steps + 1):
+		var t := float(i) / float(steps)
+		var angle := lerpf(-PI * 0.5, end_angle, t)
+		points.append(center + Vector2(cos(angle), sin(angle)) * radius)
+	arc.points = points
+	parent.add_child(arc)
+
+func skill_cooldown_fraction(skill_id: String) -> float:
+	if skill_id == "":
+		return 0.0
+	var duration := skill_cooldown_duration(skill_id)
+	if duration <= 0.0:
+		return 0.0
+	return clampf(float(skill_cooldowns.get(skill_id, 0.0)) / duration, 0.0, 1.0)
+
+func skill_cooldown_duration(skill_id: String) -> float:
+	match skill_id:
+		"pyroblast":
+			return PYROBLAST_COOLDOWN * skill_cooldown_multiplier()
+		"tidal_wave":
+			return TIDAL_WAVE_COOLDOWN * skill_cooldown_multiplier()
+		"clock_snare":
+			return CLOCK_SNARE_COOLDOWN * skill_cooldown_multiplier()
+		"dawn_barrier":
+			return DAWN_BARRIER_COOLDOWN * skill_cooldown_multiplier()
+	return 1.0
 
 func set_player_lives(value: int) -> void:
 	player_lives = clampi(value, 0, max_lives)
@@ -2289,13 +2630,13 @@ func use_backpack_potion() -> bool:
 	save_run()
 	return true
 
-func damage_player_from(from_x: float) -> void:
+func damage_player_from(from_x: float, sfx_name: String = "hit") -> void:
 	if not player or not is_instance_valid(player):
 		return
 	var before: int = player.lives
 	player.take_hit(from_x)
 	if player and is_instance_valid(player) and player.lives < before:
-		play_sfx("hit")
+		play_sfx(sfx_name)
 
 func should_block_hit(_from_x: float) -> bool:
 	if armor_charges <= 0:
@@ -2331,6 +2672,7 @@ func player_attack(origin: Vector2, facing: float) -> void:
 			continue
 		var enemy_rect := get_enemy_rect(enemy)
 		if attack_cone_hits_rect(origin, facing, reach, enemy_rect):
+			play_sfx("martial_hit")
 			reward_enemy_defeat(enemy, "attack")
 
 func attack_cone_hits_rect(origin: Vector2, facing: float, reach: float, rect: Rect2) -> bool:
@@ -2432,7 +2774,8 @@ func reward_enemy_defeat(enemy, method: String) -> void:
 	var damage := 2 if method == "stomp" else weapon_attack_damage()
 	if method != "skill" and enemy.has_method("take_damage") and not enemy.take_damage(damage):
 		create_hit_spark(defeated_at, false)
-		play_sfx("martial_hit")
+		if method != "attack":
+			play_sfx("martial_hit")
 		return
 	enemy.defeat()
 	enemies.erase(enemy)
@@ -2504,6 +2847,7 @@ func _physics_process(_delta: float) -> void:
 		return
 	if state != "playing" or paused or not player:
 		return
+	clamp_player_to_world_bounds()
 	if player.global_position.y > WORLD_LIMIT_Y:
 		lose_life_and_respawn()
 		return
@@ -2527,6 +2871,17 @@ func update_skill_cooldowns(delta: float) -> void:
 		return
 	for skill_id in skill_cooldowns.keys():
 		skill_cooldowns[skill_id] = maxf(float(skill_cooldowns[skill_id]) - delta, 0.0)
+	update_skill_hud()
+
+func clamp_player_to_world_bounds() -> void:
+	if not player or not is_instance_valid(player):
+		return
+	var min_x := PLAYER_HALF_WIDTH + 4.0
+	var max_x := maxf(min_x, current_world_width - PLAYER_HALF_WIDTH - 4.0)
+	var clamped_x := clampf(player.global_position.x, min_x, max_x)
+	if not is_equal_approx(clamped_x, player.global_position.x):
+		player.global_position.x = clamped_x
+		player.velocity.x = 0.0
 
 func cast_skill_slot(slot: String) -> void:
 	if state != "playing" or paused:
@@ -2554,7 +2909,9 @@ func cast_pyroblast() -> void:
 		return
 	var center: Vector2 = player.global_position + Vector2(player.facing * 24.0, -22.0)
 	skill_cooldowns["pyroblast"] = PYROBLAST_COOLDOWN * skill_cooldown_multiplier()
-	cast_area_damage(center, PYROBLAST_RANGE, PYROBLAST_DAMAGE + skill_damage_bonus(), Color(0.95, 0.22, 0.06), Color(1.0, 0.92, 0.36))
+	create_pyroblast_visual(center)
+	play_sfx("fire")
+	damage_enemies_in_circle(center, PYROBLAST_RANGE, PYROBLAST_DAMAGE + skill_damage_bonus())
 
 func cast_tidal_wave() -> void:
 	if not unlocked_skills.has("tidal_wave"):
@@ -2564,9 +2921,12 @@ func cast_tidal_wave() -> void:
 		return
 	if not player or not is_instance_valid(player):
 		return
-	var center: Vector2 = player.global_position + Vector2(player.facing * 36.0, -18.0)
+	var origin: Vector2 = player.global_position + Vector2(player.facing * 34.0, -34.0)
 	skill_cooldowns["tidal_wave"] = TIDAL_WAVE_COOLDOWN * skill_cooldown_multiplier()
-	cast_area_damage(center, TIDAL_WAVE_RANGE, TIDAL_WAVE_DAMAGE + skill_damage_bonus(), Color(0.12, 0.58, 0.95), Color(0.72, 0.96, 1.0))
+	var rect := tidal_wave_rect(origin, player.facing)
+	create_tidal_wave_visual(origin, player.facing)
+	play_sfx("fire")
+	damage_enemies_in_rect(rect, TIDAL_WAVE_DAMAGE + skill_damage_bonus(), player.facing)
 
 func cast_clock_snare() -> void:
 	if not unlocked_skills.has("clock_snare"):
@@ -2578,7 +2938,9 @@ func cast_clock_snare() -> void:
 		return
 	var center: Vector2 = player.global_position + Vector2(0.0, -24.0)
 	skill_cooldowns["clock_snare"] = CLOCK_SNARE_COOLDOWN * skill_cooldown_multiplier()
-	cast_area_damage(center, CLOCK_SNARE_RANGE, CLOCK_SNARE_DAMAGE + skill_damage_bonus(), Color(0.74, 0.58, 0.22), Color(1.0, 0.86, 0.42), true)
+	create_clock_snare_visual(center)
+	play_sfx("fire")
+	damage_enemies_in_circle(center, CLOCK_SNARE_RANGE, CLOCK_SNARE_DAMAGE + skill_damage_bonus(), true, 0.38)
 
 func cast_dawn_barrier() -> void:
 	if not unlocked_skills.has("dawn_barrier"):
@@ -2592,24 +2954,168 @@ func cast_dawn_barrier() -> void:
 	update_hud()
 	var center: Vector2 = player.global_position + Vector2(0.0, -24.0)
 	skill_cooldowns["dawn_barrier"] = DAWN_BARRIER_COOLDOWN * skill_cooldown_multiplier()
-	cast_area_damage(center, DAWN_BARRIER_RANGE, DAWN_BARRIER_DAMAGE + skill_damage_bonus(), Color(1.0, 0.76, 0.18), Color(1.0, 0.96, 0.66))
+	create_dawn_barrier_visual(center)
+	play_sfx("fire")
+	damage_enemies_in_circle(center, DAWN_BARRIER_RANGE, DAWN_BARRIER_DAMAGE + skill_damage_bonus())
 
 func cast_area_damage(center: Vector2, radius: float, damage: int, outer_color: Color, core_color: Color, reverse_enemy: bool = false) -> void:
 	create_skill_burst_visual(center, radius, outer_color, core_color)
 	play_sfx("fire")
+	damage_enemies_in_circle(center, radius, damage, reverse_enemy)
+
+func damage_enemies_in_circle(center: Vector2, radius: float, damage: int, reverse_enemy: bool = false, slow_multiplier: float = 1.0) -> void:
 	for enemy in enemies.duplicate():
 		if not is_instance_valid(enemy) or not enemy.active:
 			continue
 		if enemy.global_position.distance_to(center) <= radius:
-			if reverse_enemy:
-				enemy.set("direction", -float(enemy.get("direction")))
-			if enemy.has_method("take_damage") and enemy.take_damage(damage):
-				reward_enemy_defeat(enemy, "skill")
-			else:
-				play_sfx("martial_hit")
+			apply_skill_hit_to_enemy(enemy, damage, reverse_enemy, slow_multiplier)
+
+func damage_enemies_in_rect(rect: Rect2, damage: int, knock_direction: float = 0.0) -> void:
+	for enemy in enemies.duplicate():
+		if not is_instance_valid(enemy) or not enemy.active:
+			continue
+		if rect.has_point(enemy.global_position + Vector2(0.0, -18.0)):
+			if knock_direction != 0.0:
+				enemy.set("direction", signf(knock_direction))
+			apply_skill_hit_to_enemy(enemy, damage, false, 1.0)
+
+func apply_skill_hit_to_enemy(enemy, damage: int, reverse_enemy: bool, slow_multiplier: float) -> void:
+	if reverse_enemy:
+		enemy.set("direction", -float(enemy.get("direction")))
+	if slow_multiplier < 1.0:
+		var original_speed := float(enemy.get("speed"))
+		enemy.set("speed", maxf(12.0, original_speed * slow_multiplier))
+		restore_enemy_speed_after(enemy, original_speed, 1.35)
+	if enemy.has_method("take_damage") and enemy.take_damage(damage):
+		reward_enemy_defeat(enemy, "skill")
+	else:
+		play_sfx("martial_hit")
+
+func restore_enemy_speed_after(enemy, speed_value: float, delay: float) -> void:
+	await get_tree().create_timer(delay).timeout
+	if is_instance_valid(enemy) and enemy.active:
+		enemy.set("speed", speed_value)
+
+func tidal_wave_rect(origin: Vector2, facing: float) -> Rect2:
+	var x := origin.x if facing > 0.0 else origin.x - TIDAL_WAVE_RANGE
+	return Rect2(Vector2(x, origin.y - TIDAL_WAVE_HEIGHT * 0.5), Vector2(TIDAL_WAVE_RANGE, TIDAL_WAVE_HEIGHT))
 
 func create_pyroblast_visual(center: Vector2) -> void:
-	create_skill_burst_visual(center, PYROBLAST_RANGE, Color(0.95, 0.22, 0.06), Color(1.0, 0.92, 0.36))
+	create_skill_burst_visual(center, PYROBLAST_RANGE, Color(0.95, 0.18, 0.04), Color(1.0, 0.88, 0.24))
+	for i in range(12):
+		var angle := TAU * float(i) / 12.0
+		create_skill_ray(center, angle, PYROBLAST_RANGE * randf_range(0.45, 0.82), Color(1.0, 0.44, 0.08, 0.42), 0.18)
+
+func create_tidal_wave_visual(origin: Vector2, facing: float) -> void:
+	if not level_root:
+		return
+	var wave := Node2D.new()
+	wave.name = "TidalWave"
+	wave.global_position = origin
+	wave.scale.x = facing
+	wave.z_index = 42
+	level_root.add_child(wave)
+	var column_count: int = max(7, int(TIDAL_WAVE_RANGE / 34.0))
+	for i in range(column_count):
+		var column := ColorRect.new()
+		column.position = Vector2(float(i) * 34.0, -TIDAL_WAVE_HEIGHT * 0.5 + float(i % 2) * 8.0)
+		column.size = Vector2(42.0, TIDAL_WAVE_HEIGHT - float(i % 2) * 14.0)
+		column.color = Color(0.12, 0.62, 1.0, 0.16)
+		wave.add_child(column)
+		var foam := ColorRect.new()
+		foam.position = column.position + Vector2(0.0, -8.0)
+		foam.size = Vector2(48.0, 10.0)
+		foam.color = Color(0.78, 0.96, 1.0, 0.38)
+		wave.add_child(foam)
+	for i in range(14):
+		var droplet := ColorRect.new()
+		droplet.position = Vector2(randf_range(8.0, TIDAL_WAVE_RANGE), randf_range(-TIDAL_WAVE_HEIGHT * 0.52, TIDAL_WAVE_HEIGHT * 0.36))
+		droplet.size = Vector2(randf_range(5.0, 10.0), randf_range(5.0, 10.0))
+		droplet.color = Color(0.72, 0.94, 1.0, 0.34)
+		wave.add_child(droplet)
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(wave, "position:x", wave.position.x + facing * 46.0, 0.26).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(wave, "modulate:a", 0.0, 0.32).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.chain().tween_callback(wave.queue_free)
+
+func create_clock_snare_visual(center: Vector2) -> void:
+	if not level_root:
+		return
+	var clock := Node2D.new()
+	clock.name = "ClockSnare"
+	clock.global_position = center
+	clock.z_index = 43
+	level_root.add_child(clock)
+	for ring_index in range(3):
+		var ring := Line2D.new()
+		ring.width = 4.0 - float(ring_index)
+		ring.default_color = Color(1.0, 0.78, 0.28, 0.34 - float(ring_index) * 0.06)
+		ring.points = circle_points(CLOCK_SNARE_RANGE * (0.42 + float(ring_index) * 0.22), 48)
+		clock.add_child(ring)
+	for i in range(12):
+		var angle := TAU * float(i) / 12.0
+		var mark := Line2D.new()
+		mark.width = 3.0
+		mark.default_color = Color(1.0, 0.86, 0.42, 0.48)
+		var a := Vector2(cos(angle), sin(angle))
+		mark.points = PackedVector2Array([a * 64.0, a * 82.0])
+		clock.add_child(mark)
+	var hand := Line2D.new()
+	hand.width = 5.0
+	hand.default_color = Color(1.0, 0.95, 0.68, 0.58)
+	hand.points = PackedVector2Array([Vector2.ZERO, Vector2(0, -86)])
+	clock.add_child(hand)
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(clock, "rotation", -TAU * 0.65, 0.48).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(clock, "scale", Vector2(1.22, 1.22), 0.48).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(clock, "modulate:a", 0.0, 0.52).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.chain().tween_callback(clock.queue_free)
+
+func create_dawn_barrier_visual(center: Vector2) -> void:
+	if not level_root:
+		return
+	var barrier := Node2D.new()
+	barrier.name = "DawnBarrier"
+	barrier.global_position = center
+	barrier.z_index = 44
+	level_root.add_child(barrier)
+	for i in range(4):
+		var ring := Line2D.new()
+		ring.width = 5.0 - float(i) * 0.7
+		ring.default_color = Color(1.0, 0.86, 0.28, 0.34 - float(i) * 0.05)
+		ring.points = circle_points(DAWN_BARRIER_RANGE * (0.4 + float(i) * 0.16), 56)
+		barrier.add_child(ring)
+	for i in range(8):
+		var angle := TAU * float(i) / 8.0
+		create_skill_ray(center, angle, DAWN_BARRIER_RANGE * 0.58, Color(1.0, 0.96, 0.62, 0.36), 0.26)
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(barrier, "scale", Vector2(1.36, 1.36), 0.38).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(barrier, "modulate:a", 0.0, 0.42).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.chain().tween_callback(barrier.queue_free)
+
+func create_skill_ray(center: Vector2, angle: float, length: float, color: Color, lifetime: float) -> void:
+	if not level_root:
+		return
+	var ray := Line2D.new()
+	ray.z_index = 45
+	ray.global_position = center
+	ray.width = 3.0
+	ray.default_color = color
+	ray.points = PackedVector2Array([Vector2.ZERO, Vector2(cos(angle), sin(angle)) * length])
+	level_root.add_child(ray)
+	var tween := create_tween()
+	tween.tween_property(ray, "modulate:a", 0.0, lifetime).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_callback(ray.queue_free)
+
+func circle_points(radius: float, steps: int) -> PackedVector2Array:
+	var points := PackedVector2Array()
+	for i in range(steps + 1):
+		var angle := TAU * float(i) / float(steps)
+		points.append(Vector2(cos(angle), sin(angle)) * radius)
+	return points
 
 func create_skill_burst_visual(center: Vector2, radius: float, outer_color: Color, core_color: Color) -> void:
 	if not level_root:
@@ -2621,17 +3127,17 @@ func create_skill_burst_visual(center: Vector2, radius: float, outer_color: Colo
 	var outer := ColorRect.new()
 	outer.position = Vector2(-radius, -radius)
 	outer.size = Vector2(radius * 2.0, radius * 2.0)
-	outer.color = Color(outer_color.r, outer_color.g, outer_color.b, 0.20)
+	outer.color = Color(outer_color.r, outer_color.g, outer_color.b, 0.10)
 	burst.add_child(outer)
 	var mid := ColorRect.new()
 	mid.position = Vector2(-radius * 0.48, -radius * 0.48)
 	mid.size = Vector2(radius * 0.96, radius * 0.96)
-	mid.color = Color(outer_color.lightened(0.2).r, outer_color.lightened(0.2).g, outer_color.lightened(0.2).b, 0.36)
+	mid.color = Color(outer_color.lightened(0.2).r, outer_color.lightened(0.2).g, outer_color.lightened(0.2).b, 0.18)
 	burst.add_child(mid)
 	var core := ColorRect.new()
 	core.position = Vector2(-32, -32)
 	core.size = Vector2(64, 64)
-	core.color = Color(core_color.r, core_color.g, core_color.b, 0.58)
+	core.color = Color(core_color.r, core_color.g, core_color.b, 0.30)
 	burst.add_child(core)
 	await get_tree().create_timer(0.18).timeout
 	if is_instance_valid(burst):
@@ -2701,6 +3207,15 @@ func lose_life_and_respawn() -> void:
 	player.reset_to(checkpoint_position, player_lives)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if state == "settings" or state == "keybinds":
+		if pending_rebind_action != "" and event is InputEventKey and event.pressed and not event.echo:
+			if event.keycode == KEY_ESCAPE:
+				cancel_key_rebind()
+				call_deferred("show_keybind_settings", "已取消" if language == "zh" else "Canceled")
+				return
+			commit_key_rebind(pending_rebind_action, event.keycode)
+			return
+		return
 	if event.is_action_pressed("inventory"):
 		if state == "inventory":
 			close_inventory()
@@ -2746,6 +3261,25 @@ func _unhandled_input(event: InputEvent) -> void:
 		use_backpack_potion()
 	elif event.is_action_pressed("restart") and (state == "playing" or state == "paused"):
 		load_level(current_level)
+
+func begin_key_rebind(action: String) -> void:
+	pending_rebind_action = action
+	pending_rebind_message = "%s - %s" % [action_label(action), "按下新按键" if language == "zh" else "Press a new key"]
+	show_keybind_settings(pending_rebind_message)
+
+func cancel_key_rebind() -> void:
+	pending_rebind_action = ""
+	pending_rebind_message = ""
+
+func commit_key_rebind(action: String, keycode: int) -> void:
+	if keycode == 0:
+		return
+	clear_action_key_events(action)
+	add_key_event(action, keycode)
+	save_settings()
+	pending_rebind_action = ""
+	pending_rebind_message = ""
+	call_deferred("show_keybind_settings", "%s - %s" % [action_label(action), "已更新" if language == "zh" else "Updated"])
 
 func show_home_pause_menu() -> void:
 	remember_home_position()
@@ -2932,8 +3466,11 @@ func player_died() -> void:
 	paused = true
 	if player:
 		player.enabled = false
+		if player.has_method("begin_death_animation") and not player.death_animation_active:
+			player.begin_death_animation(player.global_position.x - player.facing)
 	play_sfx("death")
 	save_run()
+	await get_tree().create_timer(0.72).timeout
 	show_death_screen()
 
 func show_death_screen() -> void:

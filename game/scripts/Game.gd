@@ -91,6 +91,18 @@ const EQUIPMENT_ITEMS = {
 	"medic_charm": {"slot": "charm", "value": "medic_charm", "cost": HOME_MEDIC_CHARM_COST},
 	"dawn_charm": {"slot": "charm", "value": "dawn_charm", "cost": HOME_DAWN_CHARM_COST}
 }
+const WEAPON_STATS = {
+	"short_sword": {"reach": SHORT_SWORD_REACH, "damage": 1, "skill_bonus": 0},
+	"long_sword": {"reach": LONG_SWORD_REACH, "damage": 1, "skill_bonus": 0},
+	"dawn_blade": {"reach": DAWN_BLADE_REACH, "damage": 2, "skill_bonus": 0},
+	"storm_sword": {"reach": STORM_SWORD_REACH, "damage": 2, "skill_bonus": 1}
+}
+const BOOT_STATS = {
+	"worn_boots": {"speed": 230.0, "dash_speed": 520.0, "dash_duration": 0.12, "dash_cooldown": 0.45, "max_jumps": 2},
+	"swift_boots": {"speed": 252.0, "dash_speed": 575.0, "dash_duration": 0.11, "dash_cooldown": 0.32, "max_jumps": 2},
+	"wing_boots": {"speed": 242.0, "dash_speed": 555.0, "dash_duration": 0.11, "dash_cooldown": 0.28, "max_jumps": 3},
+	"anchor_boots": {"speed": 218.0, "dash_speed": 640.0, "dash_duration": 0.16, "dash_cooldown": 0.36, "max_jumps": 2}
+}
 
 const LEVELS = [
 	{
@@ -229,12 +241,12 @@ const TEXT = {
 		"slot_armor": "Armor",
 		"slot_charm": "Charm",
 		"effect_potion": "Stored in backpack. Use during a run.",
-		"effect_long_sword": "Longer attack reach.",
-		"effect_dawn_blade": "Longest reach and higher attack damage.",
-		"effect_storm_sword": "Long reach and stronger skill damage.",
-		"effect_swift_boots": "Shorter dash cooldown.",
-		"effect_wing_boots": "Triple jump and shorter dash cooldown.",
-		"effect_anchor_boots": "Stable dash timing for late ruins.",
+		"effect_long_sword": "Reach +28. Damage 1.",
+		"effect_dawn_blade": "Reach +48. Damage 2.",
+		"effect_storm_sword": "Reach +40. Damage 2. Skill damage +1.",
+		"effect_swift_boots": "Move +22. Dash cooldown 0.32s.",
+		"effect_wing_boots": "Move +12. Triple jump. Dash cooldown 0.28s.",
+		"effect_anchor_boots": "Move -12. Dash speed +120. Dash lasts 0.16s.",
 		"effect_bronze_armor": "Blocks the first hit of each expedition.",
 		"effect_glass_armor": "Blocks two hits of each expedition.",
 		"effect_coin_charm": "+1 coin from each defeated enemy.",
@@ -360,12 +372,12 @@ const TEXT = {
 		"slot_armor": "护甲",
 		"slot_charm": "护符",
 		"effect_potion": "放入背包，出征时使用。",
-		"effect_long_sword": "提升攻击距离。",
-		"effect_dawn_blade": "最长攻击距离，并提高剑击伤害。",
-		"effect_storm_sword": "较长攻击距离，并提高技能伤害。",
-		"effect_swift_boots": "缩短冲刺冷却。",
-		"effect_wing_boots": "三段跳，并缩短冲刺冷却。",
-		"effect_anchor_boots": "让后期遗迹中的冲刺节奏更稳定。",
+		"effect_long_sword": "攻击距离 +28，伤害 1。",
+		"effect_dawn_blade": "攻击距离 +48，伤害 2。",
+		"effect_storm_sword": "攻击距离 +40，伤害 2，技能伤害 +1。",
+		"effect_swift_boots": "移动速度 +22，冲刺冷却 0.32 秒。",
+		"effect_wing_boots": "移动速度 +12，三段跳，冲刺冷却 0.28 秒。",
+		"effect_anchor_boots": "移动速度 -12，冲刺速度 +120，冲刺时长 0.16 秒。",
 		"effect_bronze_armor": "每次出征抵挡第一次受伤。",
 		"effect_glass_armor": "每次出征抵挡两次受伤。",
 		"effect_coin_charm": "每个被击败的怪物额外 +1 金币。",
@@ -414,7 +426,7 @@ var coins := STARTING_COINS
 var has_long_sword := false
 var unlocked_level := 0
 var home_message := ""
-var home_spawn_position := Vector2(96, 500)
+var home_spawn_position := Vector2(900, 500)
 var home_resume_position := Vector2.ZERO
 var has_home_resume_position := false
 var home_interactables: Array = []
@@ -783,11 +795,11 @@ func show_home_world() -> void:
 	level_root.name = "Home"
 	world.add_child(level_root)
 	draw_home_world_background()
-	create_home_station("settings", Vector2(130, 500), t("home_settings_board"), Color(0.38, 0.42, 0.38))
-	create_home_station("shop", Vector2(410, 500), t("home_shop"), Color(0.82, 0.46, 0.18))
+	create_home_station("settings", Vector2(180, 500), t("home_settings_board"), Color(0.38, 0.42, 0.38))
+	create_home_station("shop", Vector2(510, 500), t("home_shop"), Color(0.82, 0.46, 0.18))
 	create_home_station("core", Vector2(820, 500), t("core"), Color(0.86, 0.68, 0.25))
-	create_home_station("inventory", Vector2(1230, 500), t("home_backpack"), Color(0.42, 0.62, 0.68))
-	create_home_station("expedition", Vector2(1740, 500), t("home_gate"), Color(0.92, 0.64, 0.22))
+	create_home_station("expedition", Vector2(960, 500), t("home_gate"), Color(0.92, 0.64, 0.22))
+	create_home_station("inventory", Vector2(1280, 500), t("home_backpack"), Color(0.42, 0.62, 0.68))
 
 	player = PlayerScript.new()
 	player.name = "Player"
@@ -1163,8 +1175,7 @@ func add_home_shop_button(item_id: String, pos: Vector2) -> void:
 	button.pressed.connect(func() -> void: buy_home_item(item_id))
 	ui_root.add_child(button)
 
-	var effect_key := "effect_%s" % item_id
-	var effect := make_label(t(effect_key), 11, pos + Vector2(58, 32), Vector2(214, 24), HORIZONTAL_ALIGNMENT_CENTER)
+	var effect := make_label(equipment_effect_summary(item_id), 11, pos + Vector2(58, 30), Vector2(214, 30), HORIZONTAL_ALIGNMENT_CENTER)
 	effect.add_theme_color_override("font_color", Color(0.76, 0.8, 0.7))
 	ui_root.add_child(effect)
 
@@ -1226,6 +1237,38 @@ func item_display_name(item_id: String) -> String:
 
 func slot_display_name(slot: String) -> String:
 	return t("slot_%s" % slot)
+
+func weapon_stats_for(weapon_id: String) -> Dictionary:
+	if WEAPON_STATS.has(weapon_id):
+		return WEAPON_STATS[weapon_id]
+	return WEAPON_STATS["short_sword"]
+
+func boot_stats_for(boots_id: String) -> Dictionary:
+	if BOOT_STATS.has(boots_id):
+		return BOOT_STATS[boots_id]
+	return BOOT_STATS["worn_boots"]
+
+func weapon_attack_damage() -> int:
+	return int(weapon_stats_for(str(equipment.get("weapon", "short_sword"))).get("damage", 1))
+
+func equipment_effect_summary(item_id: String) -> String:
+	match item_id:
+		"long_sword":
+			return "Reach +28. Damage 1."
+		"dawn_blade":
+			return "Reach +48. Damage 2."
+		"storm_sword":
+			return "Reach +40. Damage 2. Skill damage +1."
+		"swift_boots":
+			return "Move +22. Dash cooldown 0.32s."
+		"wing_boots":
+			return "Move +12. Triple jump. Dash cooldown 0.28s."
+		"anchor_boots":
+			return "Move -12. Dash speed +120. Dash lasts 0.16s."
+		_:
+			if t("effect_%s" % item_id) != "effect_%s" % item_id:
+				return t("effect_%s" % item_id)
+	return ""
 
 func equip_item(item_id: String) -> void:
 	if not EQUIPMENT_ITEMS.has(item_id):
@@ -1434,24 +1477,27 @@ func add_inventory_slot(slot: String, pos: Vector2, item_ids: Array) -> void:
 	ui_root.add_child(title)
 	for i in range(item_ids.size()):
 		var item_id: String = item_ids[i]
-		var row_pos := pos + Vector2(0, 34 + i * 38)
-		add_ui_rect(row_pos + Vector2(-6, -3), Vector2(348, 34), Color(0.07, 0.08, 0.085, 0.78))
+		var row_pos := pos + Vector2(0, 36 + i * 50)
+		add_ui_rect(row_pos + Vector2(-6, -3), Vector2(348, 44), Color(0.07, 0.08, 0.085, 0.78))
 		add_item_icon_ui_small(item_id, row_pos + Vector2(0, 0))
 		if not purchased_items.has(item_id):
 			var locked := make_label("%s - %s %s" % [item_display_name(item_id), item_cost(item_id), t("coins")], 14, row_pos + Vector2(40, 0), Vector2(300, 30), HORIZONTAL_ALIGNMENT_LEFT)
 			locked.add_theme_color_override("font_color", Color(0.48, 0.52, 0.5))
 			ui_root.add_child(locked)
-			continue
-		var button_text := "%s (%s)" % [item_display_name(item_id), t("equipped")] if is_item_equipped(item_id) else "%s: %s" % [t("equip"), item_display_name(item_id)]
-		var button := make_button(button_text, row_pos + Vector2(40, 0), Vector2(294, 30))
-		button.disabled = is_item_equipped(item_id)
-		button.add_theme_font_size_override("font_size", 15)
-		button.pressed.connect(func() -> void:
-			equip_item(item_id)
-			save_run()
-			show_inventory(t("equipped"))
-		)
-		ui_root.add_child(button)
+		else:
+			var button_text := "%s (%s)" % [item_display_name(item_id), t("equipped")] if is_item_equipped(item_id) else "%s: %s" % [t("equip"), item_display_name(item_id)]
+			var button := make_button(button_text, row_pos + Vector2(40, 0), Vector2(294, 26))
+			button.disabled = is_item_equipped(item_id)
+			button.add_theme_font_size_override("font_size", 15)
+			button.pressed.connect(func() -> void:
+				equip_item(item_id)
+				save_run()
+				show_inventory(t("equipped"))
+			)
+			ui_root.add_child(button)
+		var effect := make_label(equipment_effect_summary(item_id), 12, row_pos + Vector2(40, 24), Vector2(292, 18), HORIZONTAL_ALIGNMENT_LEFT)
+		effect.add_theme_color_override("font_color", Color(0.74, 0.79, 0.71))
+		ui_root.add_child(effect)
 
 func show_settings() -> void:
 	state = "settings"
@@ -1652,16 +1698,16 @@ func load_level(index: int) -> void:
 func apply_player_equipment() -> void:
 	if not player:
 		return
+	var weapon := str(equipment.get("weapon", "short_sword"))
 	var boots := str(equipment.get("boots", "worn_boots"))
-	player.max_jumps = 3 if boots == "wing_boots" else 2
-	if boots == "wing_boots":
-		player.dash_cooldown_time = 0.28
-	elif boots == "swift_boots":
-		player.dash_cooldown_time = 0.32
-	elif boots == "anchor_boots":
-		player.dash_cooldown_time = 0.36
-	else:
-		player.dash_cooldown_time = 0.45
+	var boot_stats := boot_stats_for(boots)
+	player.speed = float(boot_stats.get("speed", 230.0))
+	player.dash_speed = float(boot_stats.get("dash_speed", 520.0))
+	player.dash_duration = float(boot_stats.get("dash_duration", 0.12))
+	player.dash_cooldown_time = float(boot_stats.get("dash_cooldown", 0.45))
+	player.max_jumps = int(boot_stats.get("max_jumps", 2))
+	player.facing = 1.0 if player.facing >= 0.0 else -1.0
+	has_long_sword = weapon == "long_sword" or weapon == "storm_sword" or weapon == "dawn_blade"
 
 func starting_armor_charges() -> int:
 	var armor := str(equipment.get("armor", "cloth"))
@@ -2271,16 +2317,10 @@ func should_block_hit(_from_x: float) -> bool:
 
 func get_attack_reach() -> float:
 	var weapon := str(equipment.get("weapon", "short_sword"))
-	if weapon == "dawn_blade":
-		return DAWN_BLADE_REACH
-	if weapon == "storm_sword":
-		return STORM_SWORD_REACH
-	if weapon == "long_sword" or has_long_sword:
-		return LONG_SWORD_REACH
-	return SHORT_SWORD_REACH
+	return float(weapon_stats_for(weapon).get("reach", SHORT_SWORD_REACH))
 
 func skill_damage_bonus() -> int:
-	return 1 if equipment.get("weapon", "short_sword") == "storm_sword" else 0
+	return int(weapon_stats_for(str(equipment.get("weapon", "short_sword"))).get("skill_bonus", 0))
 
 func skill_cooldown_multiplier() -> float:
 	return 0.78 if equipment.get("charm", "none") == "dawn_charm" else 1.0
@@ -2374,8 +2414,7 @@ func reward_enemy_defeat(enemy, method: String) -> void:
 		return
 	var defeated_at: Vector2 = enemy.global_position
 	var defeated_type := str(enemy.get("enemy_type"))
-	var weapon := str(equipment.get("weapon", "short_sword"))
-	var damage := 2 if method == "stomp" or weapon == "dawn_blade" or weapon == "storm_sword" else 1
+	var damage := 2 if method == "stomp" else weapon_attack_damage()
 	if method != "skill" and enemy.has_method("take_damage") and not enemy.take_damage(damage):
 		create_hit_spark(defeated_at, false)
 		play_sfx("martial_hit")
